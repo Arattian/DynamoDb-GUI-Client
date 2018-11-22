@@ -1,25 +1,29 @@
 <template lang="pug">
-  el-col(:span="18" v-loading="tableModule.loading")
+  el-col(:span="18" v-loading="table.loading")
     el-row
-      el-col(:span="14")
+      el-col(:span="16")
         el-tabs(v-model="activeTab" @tab-click="handleClick")
           el-tab-pane(label="Records" name="records")
-          el-tab-pane(label="JSON" name="json")
-      el-col(:span="1")
+          el-tab-pane(label="Meta" name="json")
+      el-col(:span="2")
         el-row
-          i(class="el-icon-date add" @click="creatingTableToggle" title="Create Table")
-      el-col(:span="9")
-        el-select(v-model="tableModule.currentTable" @change="switchTable()" placeholder="Select Table")
+          i(class="el-icon-delete remove" @click="deleteTableForm" title="Delete Table")
+          i(class="el-icon-circle-plus-outline add" @click="createTableForm" title="Create Table")
+      el-col(:span="6")
+        el-select(v-model="table.currentTable" filterable @change="switchTable()" placeholder="Select Table" spellcheck="false" :title="table.currentTable")
           el-option(
-          v-for="table in dbModule.currentDb.tables" 
-          :key="table"
-          :label="table"
-          :value="table"
+            v-for="table in database.currentDb.tables" 
+            :key="table.name"
+            :value="table.name"
           )
+            .wrapper
+              span {{table.name}}
+              el-badge(type="warning" :value="table.ItemCount")
     Records(v-if="recordsTab")
-    JsonSchema(v-if="jsonTab")
-    CreateTable(v-if="tableModule.creatingTable")
-    span(v-if="dbModule.error")
+    JsonSchema(v-if="jsonTab" ref="jsonSchema")
+    CreateTable(v-if="table.creatingTable")
+    DeleteTable(v-if="table.deletingTable")
+    span(v-if="database.error")
 </template>
 
 <script lang="ts">
@@ -28,46 +32,59 @@ import { State, Action, Mutation } from 'vuex-class';
 import JsonSchema from './JsonSchema.vue';
 import Records from './Records.vue';
 import CreateTable from './CreateTable.vue';
-const namespace: string = 'tableModule';
+import DeleteTable from './DeleteTable.vue';
+const namespace: string = 'table';
 
 @Component({
   components: {
     Records,
     JsonSchema,
     CreateTable,
+    DeleteTable,
   },
 })
 export default class TableInfo extends Vue {
-  public activeTab: string = 'records';
-  public jsonTab: boolean = false;
-  public recordsTab: boolean = true;
   public $notify: any = this.$notify;
-  @State('dbModule') private dbModule: any;
-  @State('tableModule') private tableModule: any;
-  @Action('scanTable', { namespace: 'tableModule/table' }) private scanTable: any;
-  @Mutation('setErrorToNull', { namespace: 'dbModule' }) private setErrorToNull: any;
-  @Mutation('creatingTableToggle', { namespace }) private creatingTableToggle: any;
+  private activeTab: string = 'records';
+  private jsonTab: boolean = false;
+  private recordsTab: boolean = true;
+  @State('database') private database: any;
+  @State('table') private table: any;
+  @Action('scanTable', { namespace }) private scanTable: any;
+  @Action('getCurrentDb', { namespace: 'database' }) private getCurrentDb: any;
+  @Mutation('setErrorToNull', { namespace: 'database' }) private setErrorToNull: any;
+  @Mutation('createTableForm', { namespace }) private createTableForm: any;
+  @Mutation('deleteTableForm', { namespace }) private deleteTableForm: any;
   private updated() {
-    if (this.dbModule.error) {
+    if (this.database.error) {
       this.$notify.error({
         title: 'Error',
-        message: this.dbModule.error,
+        message: this.database.error,
         duration: 3500,
       });
     }
   }
   private switchTable() {
-      this.scanTable();
+    this.expandJsonSchema();
+    this.scanTable();
+  }
+  private expandJsonSchema() {
+    setTimeout(() => {
+      const { jsonSchema }: any = this.$refs;
+      if (jsonSchema) {
+        jsonSchema.expandAll();
+      }
+    }, 1000);
   }
   private handleClick(ev: any) {
     if ((ev.name === 'records' && this.recordsTab) || (ev.name === 'json' && this.jsonTab)) {
       return;
     }
     this.jsonTab = !this.jsonTab;
-    if (this.tableModule.currentTable !== '') {
-      this.switchTable();
-    }
     this.recordsTab = !this.recordsTab;
+    if (this.jsonTab) {
+      this.expandJsonSchema();
+    }
   }
 }
 </script>
@@ -81,7 +98,21 @@ export default class TableInfo extends Vue {
   justify-content center
   align-items center
   font-size 1.1em
+i 
+  margin 0 5px
 .el-col .add:hover
   color #00d986
   cursor pointer
+.el-col .remove:hover
+  color #ff6d6d
+  cursor pointer
+.el-col .refresh:hover
+  color #409EFF
+  cursor pointer
+.wrapper
+  display flex
+  justify-content space-between
+  align-items center
+.el-badge
+  display flex
 </style>

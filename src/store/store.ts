@@ -1,14 +1,16 @@
+import { table } from './modules/table';
 import Vue from 'vue';
 import Vuex, { StoreOptions } from 'vuex';
-import { dbModule } from './modules/dbModule';
+import { database } from './modules/database';
 import { RootState } from './types';
-import { tableModule } from './modules/tableModule';
+import { records } from './modules/records';
 Vue.use(Vuex);
 
 const store: StoreOptions<RootState> = {
   modules: {
-    dbModule,
-    tableModule,
+    database,
+    table,
+    records,
   },
 };
 

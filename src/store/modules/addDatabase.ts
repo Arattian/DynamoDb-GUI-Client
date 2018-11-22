@@ -1,9 +1,9 @@
-import { AddNewDatabaseState, RootState } from '../types';
+import { AddDatabaseState, RootState } from '../types';
 import { Module, MutationTree, ActionTree, GetterTree } from 'vuex';
 import AWS from 'aws-sdk';
 const namespaced: boolean = true;
 
-export const state: AddNewDatabaseState = {
+export const state: AddDatabaseState = {
   visible: false,
   regionList: [
     'localhost',
@@ -37,8 +37,8 @@ export const state: AddNewDatabaseState = {
   isRemote: true,
 };
 
-export const mutations: MutationTree<AddNewDatabaseState> = {
-  visibleState(state) {
+export const mutations: MutationTree<AddDatabaseState> = {
+  addingDatabase(state) {
     state.visible = !state.visible;
   },
   setToDefault(state) {
@@ -71,7 +71,7 @@ export const mutations: MutationTree<AddNewDatabaseState> = {
   },
 };
 
-export const getters: GetterTree<AddNewDatabaseState, RootState> = {
+export const getters: GetterTree<AddDatabaseState, RootState> = {
   validate(state) {
     const obj: any = state.configs;
     for (const key in obj) {
@@ -83,7 +83,7 @@ export const getters: GetterTree<AddNewDatabaseState, RootState> = {
   },
 };
 
-export const actions: ActionTree<AddNewDatabaseState, RootState> = {
+export const actions: ActionTree<AddDatabaseState, RootState> = {
   submitForm({ dispatch, getters, state }) {
     if (!getters.validate) {
       return;
@@ -113,7 +113,7 @@ export const actions: ActionTree<AddNewDatabaseState, RootState> = {
   },
 };
 
-export const addDatabaseModule: Module<AddNewDatabaseState, RootState> = {
+export const addDatabase: Module<AddDatabaseState, RootState> = {
   namespaced,
   state,
   getters,

@@ -1,22 +1,27 @@
 <template lang="pug">
   el-col(:span="24")
     el-row(class="actions")
-      i(class="el-icon-upload upload" @click="updateTable" title="Upload")
+      i(class="el-icon-circle-check-outline upload" @click="updateTable" title="Save")
       i(class="el-icon-refresh refresh" @click="describeTable" title="Refresh")
     el-row(class="editor")
-      vue-json-editor(v-model="tableModule.jsonContent" :showBtns="false")
+      vue-json-editor(v-model="table.jsonContent" :showBtns="false" ref="editorInstance")
 </template>
 
 <script lang="ts">
-import { Vue, Component} from 'vue-property-decorator';
+import { Vue, Component, Prop } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
-const namespace = 'tableModule/table';
+const namespace = 'table';
 
 @Component
 export default class JsonSchema extends Vue {
-  @State((state) => state.tableModule.table) private tableModule: any;
+  @Prop() private expand: any;
+  @State('table') private table: any;
   @Action('describeTable', { namespace }) private describeTable: any;
   @Action('updateTable', { namespace }) private updateTable: any;
+  private expandAll() {
+    const { editor }: any = this.$refs.editorInstance;
+    editor.expandAll();
+  }
 }
 </script>
 
@@ -37,7 +42,7 @@ i
 .refresh:hover
   color #52ceff
 .editor
-  height 85vh
+  height 80vh
   overflow-y auto
 </style>
 

@@ -1,19 +1,19 @@
 <template lang="pug">
   #app
-    DbInfo
+    DbHeader
     el-row
       DbList
       TableInfo
 </template>
 
 <script>
-import DbInfo from './components/DbInfo.vue';
+import DbHeader from './components/DbHeader.vue';
 import TableInfo from './components/TableInfo.vue';
 import DbList from './components/DbList.vue';
 export default {
   name: 'app',
   components: {
-    DbInfo,
+    DbHeader,
     TableInfo,
     DbList,
   },
@@ -29,6 +29,7 @@ export default {
   margin 0 
   font-family 'Roboto', sans-serif
   box-sizing border-box
+  user-select none !important
 html,body
   height 100%
   width 100%
@@ -41,10 +42,10 @@ html,body
   text-overflow ellipsis
   white-space nowrap !important
 td
-  user-select none
   cursor pointer
 .jsoneditor
   border none !important
+  height 100% !important
 .jsoneditor td
   color #fff !important
 .jsoneditor-field

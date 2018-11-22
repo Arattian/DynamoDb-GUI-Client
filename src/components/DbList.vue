@@ -1,7 +1,7 @@
 <template lang="pug">
   el-col(:span="6")
-    el-button(@click='visibleState' type="primary") Add Database
-    el-row(v-for="(db, index) in dbModule.list" :key="index")
+    el-button(@click='addingDatabase' type="primary") Add Database
+    el-row(v-for="(db, index) in database.list" :key="index")
       .info(@click='getCurrentDb(db)')
         img(src="../assets/logo.svg")
         span {{db.name}}
@@ -12,10 +12,9 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import { State, Action, Mutation } from 'vuex-class';
-import { DbModuleState } from '../store/types';
 import AddDatabase from './AddDatabase.vue';
 import CreateTable from './CreateTable.vue';
-const namespace: string = 'dbModule';
+const namespace: string = 'database';
 @Component({
   components: {
     AddDatabase,
@@ -23,18 +22,13 @@ const namespace: string = 'dbModule';
   },
 })
 export default class DbList extends Vue {
-  @State('dbModule') private dbModule!: DbModuleState;
-  @Mutation('visibleState', {namespace: 'dbModule/addDatabaseModule'}) private visibleState: any;
+  @State('database') private database: any;
+  @Mutation('addingDatabase', {namespace: 'database/addDatabase'}) private addingDatabase: any;
   @Mutation('getDbList', { namespace }) private getDbList: any;
   @Action('removeDbFromStorage', { namespace }) private removeDbFromStorage: any;
   @Action('getCurrentDb', { namespace }) private getCurrentDb: any;
-  @Mutation('creatingTableToggle', { namespace }) private creatingTableToggle: any;
   private created() {
     this.getDbList();
-  }
-  private getDbAndCreateTable(db: any) {
-    this.getCurrentDb(db);
-    this.creatingTableToggle();
   }
 }
 </script>
@@ -67,6 +61,7 @@ export default class DbList extends Vue {
   text-decoration underline
 .el-row .delete
   position absolute
+  font-size 1.1em
   right 10px
 .el-row .delete:hover
   color #ff6d6d

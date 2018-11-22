@@ -75,8 +75,8 @@ export const actions: ActionTree<RecordState, RootState> = {
     commit('toggleActionForm');
   },
   async putItem({ dispatch, commit, rootState, state }: ActionContext<RecordState, RootState>) {
-    const { dbClient } = rootState.dbModule;
-    const { currentTable } = rootState.tableModule;
+    const { dbClient } = rootState.database;
+    const { currentTable } = rootState.table;
     const Item = state.jsonContent;
     const params: any = {
       TableName: currentTable,
@@ -85,16 +85,17 @@ export const actions: ActionTree<RecordState, RootState> = {
     try {
       await dbClient.put(params).promise();
     } catch (err) {
-      commit('dbModule/responseError', err.message, {root: true});
+      commit('database/responseError', err.message, {root: true});
       return;
     }
-    dispatch('tableModule/table/scanTable', null, {root: true});
+    dispatch('table/scanTable', null, {root: true});
+    dispatch('database/getTableItemCounts', null, {root: true});
     commit('toggleActionForm');
   },
 
   async getItem({state, commit, rootState}: ActionContext<RecordState, RootState>, row) {
-    const { dbClient } = rootState.dbModule;
-    const { currentTable } = rootState.tableModule;
+    const { dbClient } = rootState.database;
+    const { currentTable } = rootState.table;
     const params: any = {
       TableName: currentTable,
       Key: {
@@ -106,15 +107,15 @@ export const actions: ActionTree<RecordState, RootState> = {
     try {
       data = await dbClient.get(params).promise();
     } catch (err) {
-      commit('dbModule/responseError', err.message, {root: true});
+      commit('database/responseError', err.message, {root: true});
       return;
     }
     commit('setJsonContent', data.Item);
     commit('toggleActionForm');
   },
   async removeItem({ commit, rootState, dispatch }: ActionContext<RecordState, RootState>, row) {
-    const { dbClient } = rootState.dbModule;
-    const { currentTable } = rootState.tableModule;
+    const { dbClient } = rootState.database;
+    const { currentTable } = rootState.table;
     const params = {
       TableName: currentTable,
       Key: {
@@ -124,10 +125,10 @@ export const actions: ActionTree<RecordState, RootState> = {
     try {
       await dbClient.delete(params).promise();
     } catch (err) {
-      commit('dbModule/responseError', err.message, {root: true});
+      commit('database/responseError', err.message, {root: true});
       return;
     }
-    dispatch('tableModule/table/scanTable', null, {root: true});
+    dispatch('table/scanTable', null, {root: true});
   },
 };
 

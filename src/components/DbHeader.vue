@@ -3,15 +3,15 @@
     el-col(:span="6")
       .header.header-text Database Endpoint
     el-col(:span="18")
-      .header.header-url {{ dbModule.currentDb.endpoint }}
+      .header.header-url {{ database.currentDb.endpoint }}
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import { State } from 'vuex-class';
 @Component
-export default class DbInfo extends Vue {
-  @State('dbModule') private dbModule: any;
+export default class DbHeader extends Vue {
+  @State('database') private database: any;
 }
 </script>
 

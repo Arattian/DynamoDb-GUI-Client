@@ -1,7 +1,9 @@
+import { table } from './modules/table';
 
 export interface RootState {
-  dbModule: any;
-  tableModule: any;
+  database: any;
+  table: any;
+  records: any;
 }
 
 export interface SingleDbState {
@@ -21,10 +23,11 @@ export interface DbConfigs {
 
 export interface CurrentDb {
   endpoint: string;
-  tables: string[];
+  tables: Array<{name: string, ItemCount: number;}>;
+  tableNames: string[];
 }
 
-export interface DbModuleState {
+export interface DbState {
   list: SingleDbState[];
   currentDb: CurrentDb;
   error: any;
@@ -32,13 +35,7 @@ export interface DbModuleState {
   dbClient: any;
 }
 
-export interface TableModuleState {
-  currentTable: string;
-  loading: boolean;
-  creatingTable: boolean;
-}
-
-export interface AddNewDatabaseState {
+export interface AddDatabaseState {
   visible: boolean;
   configs: DbConfigs;
   regionList: string[];
@@ -49,6 +46,10 @@ export interface AddNewDatabaseState {
 export interface TableState {
   defaultJsonContent: any;
   jsonContent: any;
+  creatingTable: boolean;
+  deletingTable: boolean;
+  currentTable: string;
+  loading: boolean;
 }
 
 export interface RecordState {

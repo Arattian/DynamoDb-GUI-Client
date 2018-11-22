@@ -1,14 +1,19 @@
 <template lang="pug">
   el-col(:span="24")
-    el-row(class="actions" v-if="tableModule.currentTable")
+    el-row(class="actions" v-if="table.currentTable")
       i(class="el-icon-circle-plus-outline add" @click="generateJsonContent" title="Add Record")
       i(class="el-icon-refresh refresh" @click="scanTable" title="Refresh Table")
       el-input(placeholder="Filter table" suffix-icon="el-icon-search" v-model="filterText" spellcheck="false")
+      el-select(v-model="pageSize" placeholder="Item per page" @change="pageSizeChange")
+        el-option(label="Item per page" default :disabled="true" value="0")
+        el-option(:label="5" :value="5")
+        el-option(:label="15" :value="15")
+        el-option(:label="30" :value="30")
+        el-option(:label="50" :value="50")
+        el-option(:label="100" :value="100")
     el-row(class="table")
       el-table(ref="tableRef" :data="tableDataPage()" border v-if="records.hashKey" @row-dblclick="getItem" size="mini")
-        el-table-column(fixed="left" width="50" label="#")
-          template(slot-scope="scope")
-            span(class="index-column") {{ paginationIndex(scope.$index) }}
+        el-table-column(type="index" :index="paginationIndex")
         el-table-column(:prop="records.hashKey" :label="records.hashKeyLabel" :render-header="renderHash")
         el-table-column(:prop="records.rangeKey" :label="records.rangeKeyLabel" :render-header="renderRange" v-if="records.rangeKey")
         el-table-column(v-for="(header, index) of records.header" :prop="header.prop" :label="header.label" :key="index" v-if="hideHashKey(header)")        
@@ -17,39 +22,39 @@
             span(class="delete-column")
               i(class="el-icon-delete delete" @click="deleteRow(scope.$index, records.data)" title="Delete Raw")
     el-pagination(
-      layout="prev, pager, next"
+      layout="pager"
       :total="total()"
       :page-size="pageSize"
       background
       @current-change="currentPage"
+      ref="pagination"
     )
-    ItemAction(v-if="records.visible")
+    RecordAction(v-if="records.visible")
 </template>
 
 <script lang="ts">
 import { Vue, Component} from 'vue-property-decorator';
 import { State, Action, Mutation } from 'vuex-class';
-import ItemAction from './ItemAction.vue';
-const namespace: string = 'tableModule/records';
+import RecordAction from './RecordAction.vue';
+const namespace: string = 'records';
 
 @Component({
   components: {
-    ItemAction,
+    RecordAction,
   },
 })
 export default class Records extends Vue {
   private pageNumber: number = 1;
   private pageSize: any = 15;
   private filterText: any = '';
-  @State('tableModule') private tableModule: any;
-  @State((state) => state.tableModule.records) private records: any;
-  @State((state) => state.tableModule.table) private table: any;
+  @State('records') private records: any;
+  @State('table') private table: any;
   @Action('generateJsonContent', { namespace }) private generateJsonContent: any;
   @Action('removeItem', { namespace }) private removeItem: any;
-  @Action('scanTable', { namespace: 'tableModule/table' }) private scanTable: any;
+  @Action('scanTable', { namespace: 'table' }) private scanTable: any;
   @Action('getItem', { namespace }) private getItem: any;
   private beforeUpdate() {
-    if (this.tableModule.loading && this.pageNumber !== 1) {
+    if (this.table.loading && this.pageNumber !== 1) {
       this.pageNumber = 1;
     }
   }
@@ -108,7 +113,8 @@ export default class Records extends Vue {
   }
 
   private pageSizeChange(val: number) {
-    this.pageSize = val;
+    const { handleCurrentChange }: any = this.$refs.pagination;
+    handleCurrentChange(1);
   }
 
   private hideHashKey(el: any) {
@@ -120,8 +126,10 @@ export default class Records extends Vue {
 <style lang="stylus" scoped>
 .actions
   display flex
-  justify-content flex-end
+  justify-content space-between
   width 100%
+.actions .el-input
+  margin-right 15px
 .actions i
   font-size 1.5em
   padding 10px
@@ -152,11 +160,8 @@ export default class Records extends Vue {
   width 100%
   font-size 0.9em
   color #eee
-.index-column
-  width 100%
-  text-align center
-  display block
 .table
+  overflow-y auto
   width 100%
-  height 75vh
+  height 70vh
 </style>
