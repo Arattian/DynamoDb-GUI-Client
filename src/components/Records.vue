@@ -1,18 +1,28 @@
 <template lang="pug">
   el-col(:span="24")
     el-row(class="actions" v-if="table.currentTable")
-      i(class="el-icon-circle-plus-outline add" @click="generateJsonContent" title="Add Record")
-      i(class="el-icon-refresh refresh" @click="scanTable" title="Refresh Table")
-      el-input(placeholder="Filter table" suffix-icon="el-icon-search" v-model="filterText" spellcheck="false")
-      el-select(v-model="pageSize" placeholder="Item per page" @change="pageSizeChange")
-        el-option(label="Item per page" default :disabled="true" value="0")
-        el-option(:label="5" :value="5")
-        el-option(:label="15" :value="15")
-        el-option(:label="30" :value="30")
-        el-option(:label="50" :value="50")
-        el-option(:label="100" :value="100")
+      el-col(:span="1")
+        i(class="el-icon-circle-plus-outline add" @click="generateJsonContent" title="Add Record")
+      el-col(:span="2")
+        i(class="el-icon-refresh refresh" @click="scanTable" title="Refresh Table")
+      el-col(:span="8" class="text-filter")
+        el-input(placeholder="Filter table" suffix-icon="el-icon-search" v-model="filterText" spellcheck="false")
+      el-col(:span="7" class="attributes")
+        el-select(v-model="attributes" multiple collapse-tags placeholder="Has Attributes")
+          el-option(v-for="attribute in records.header" :key="attribute.prop" :label="attribute.prop" :value="attribute.prop")
+            .wrapper
+              span {{attribute.prop}}
+              el-badge(type="warning" :value="hasAttribute(attribute.prop)")
+      el-col(:span="6")
+        el-select(v-model="pageSize" placeholder="Item per page" @change="pageSizeChange")
+          el-option(label="Item per page" default :disabled="true" value="0")
+          el-option(:label="5" :value="5")
+          el-option(:label="15" :value="15")
+          el-option(:label="30" :value="30")
+          el-option(:label="50" :value="50")
+          el-option(:label="100" :value="100")
     el-row(class="table")
-      el-table(ref="tableRef" :data="tableDataPage()" border v-if="records.hashKey" @row-dblclick="getItem" size="mini")
+      el-table(:data="tableDataPage()" border v-if="records.hashKey" @row-dblclick="getItem" size="mini")
         el-table-column(type="index" :index="paginationIndex")
         el-table-column(:prop="records.hashKey" :label="records.hashKeyLabel" :render-header="renderHash")
         el-table-column(:prop="records.rangeKey" :label="records.rangeKeyLabel" :render-header="renderRange" v-if="records.rangeKey")
@@ -47,15 +57,19 @@ export default class Records extends Vue {
   private pageNumber: number = 1;
   private pageSize: any = 15;
   private filterText: any = '';
+  private attributes: any = [];
   @State('records') private records: any;
   @State('table') private table: any;
   @Action('generateJsonContent', { namespace }) private generateJsonContent: any;
   @Action('removeItem', { namespace }) private removeItem: any;
   @Action('scanTable', { namespace: 'table' }) private scanTable: any;
   @Action('getItem', { namespace }) private getItem: any;
+  @Mutation('setHeader', { namespace }) private setHeader: any;
   private beforeUpdate() {
     if (this.table.loading && this.pageNumber !== 1) {
       this.pageNumber = 1;
+      const { handleCurrentChange }: any = this.$refs.pagination;
+      handleCurrentChange(1);
     }
   }
   private total(): number {
@@ -73,13 +87,35 @@ export default class Records extends Vue {
     });
   }
   private filterTable() {
-    return this.records.data.filter((record: any) => {
+    let data = this.records.data.filter((record: any) => {
       for (const key in record) {
         if (record[key].includes(this.filterText)) {
           return record;
         }
       }
     });
+    if (this.attributes.length) {
+      data = this.filterByAttribute(data);
+    }
+    return data;
+  }
+  private filterByAttribute(data: any) {
+    return data.filter((record: any) => {
+        for (const key in record) {
+          if (this.attributes.indexOf(key) > -1) {
+            return record;
+          }
+        }
+    });
+  }
+  private hasAttribute(attribute: string) {
+    return this.records.data.filter((record: any) => {
+      for (const key in record) {
+          if (attribute === key) {
+            return record;
+          }
+        }
+    }).length;
   }
   private renderHash(createElement: any, { column }: any) {
     return createElement(
@@ -128,8 +164,11 @@ export default class Records extends Vue {
   display flex
   justify-content space-between
   width 100%
-.actions .el-input
-  margin-right 15px
+  margin-bottom 5px
+.actions .text-filter
+  margin-right 5px
+.actions .attributes
+  margin-right 5px
 .actions i
   font-size 1.5em
   padding 10px
@@ -164,4 +203,8 @@ export default class Records extends Vue {
   overflow-y auto
   width 100%
   height 70vh
+.wrapper
+  display flex
+  justify-content space-between
+  align-items center
 </style>

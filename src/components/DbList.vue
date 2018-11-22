@@ -1,6 +1,6 @@
 <template lang="pug">
   el-col(:span="6")
-    el-button(@click='addingDatabase' type="primary") Add Database
+    el-button(@click='addingDatabase' plain type="primary") Add Database
     el-row(v-for="(db, index) in database.list" :key="index")
       .info(@click='getCurrentDb(db)')
         img(src="../assets/logo.svg")

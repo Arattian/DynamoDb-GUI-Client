@@ -37,10 +37,14 @@ export const mutations: MutationTree<RecordState> = {
       }
     }
   },
-  setHeader(state) {
+  setHeader(state, data) {
+    let extractData = state.data;
+    if (data) {
+      extractData = data;
+    }
     state.header = [];
     const keyArray: any = [];
-    for (const row of state.data) {
+    for (const row of extractData) {
       // tslint:disable-next-line:forin
       for (const key in row) {
         if (!keyArray.includes(key)) {

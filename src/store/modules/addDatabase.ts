@@ -97,11 +97,6 @@ export const actions: ActionTree<AddDatabaseState, RootState> = {
       return;
     }
     const DB = new AWS.DynamoDB({...state.configs});
-    // const cred = new AWS.CognitoIdentityCredentials({
-    //   IdentityPoolId: 'us-east-1:8853780f-54b9-4f6d-a92a-28d4138aec20'
-    // });
-    // const DB = new AWS.DynamoDB({...cred});
-    // console.log(cred);
     try {
       await DB.listTables();
     } catch (err) {

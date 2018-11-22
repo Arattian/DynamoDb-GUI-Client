@@ -23,7 +23,7 @@ export interface DbConfigs {
 
 export interface CurrentDb {
   endpoint: string;
-  tables: Array<{name: string, ItemCount: number;}>;
+  tables: Array<{name: string, ItemCount: number}>;
   tableNames: string[];
 }
 
