@@ -1,5 +1,6 @@
 import { RecordState, RootState } from '../types';
 import { Module, MutationTree, ActionTree, ActionContext } from 'vuex';
+import { stat } from 'fs';
 const namespaced: boolean = true;
 
 export const state: RecordState = {
@@ -9,6 +10,7 @@ export const state: RecordState = {
   hashKeyLabel: '',
   rangeKey: '',
   rangeKeyLabel: '',
+  attributes: [],
   data: [],
   header: [],
 };
@@ -39,6 +41,7 @@ export const mutations: MutationTree<RecordState> = {
   },
   setHeader(state, data) {
     let extractData = state.data;
+    state.attributes = [];
     if (data) {
       extractData = data;
     }

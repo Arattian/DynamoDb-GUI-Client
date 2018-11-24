@@ -61,4 +61,5 @@ export interface RecordState {
   rangeKeyLabel: string;
   header: any[];
   data: any[];
+  attributes: string[];
 }

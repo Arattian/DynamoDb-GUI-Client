@@ -22,8 +22,6 @@ export default {
 
 <style lang="stylus">
 @import url('https://fonts.googleapis.com/css?family=Roboto')
-.CodeMirror
-  height 50% !important
 *
   padding 0
   margin 0 

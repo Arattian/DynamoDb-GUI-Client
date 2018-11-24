@@ -172,7 +172,7 @@ export const actions: ActionTree<TableState, RootState> = {
     dispatch('scanTable');
     dispatch('describeTable');
   },
-  async createTable({ commit, rootState, state }: ActionContext<TableState, RootState>) {
+  async createTable({ commit, dispatch, rootState, state }: ActionContext<TableState, RootState>) {
     const { dbInstance } = rootState.database;
     const params = state.defaultJsonContent;
     commit('loading');

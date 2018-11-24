@@ -8,13 +8,13 @@
       el-col(:span="8" class="text-filter")
         el-input(placeholder="Filter table" suffix-icon="el-icon-search" v-model="filterText" spellcheck="false")
       el-col(:span="7" class="attributes")
-        el-select(v-model="attributes" multiple collapse-tags placeholder="Has Attributes")
+        el-select(v-model="records.attributes" multiple collapse-tags placeholder="Has Attributes")
           el-option(v-for="attribute in records.header" :key="attribute.prop" :label="attribute.prop" :value="attribute.prop")
             .wrapper
               span {{attribute.prop}}
               el-badge(type="warning" :value="hasAttribute(attribute.prop)")
       el-col(:span="6")
-        el-select(v-model="pageSize" placeholder="Item per page" @change="pageSizeChange")
+        el-select(v-model="pageSize" placeholder="Item per page" @change="setCurrentPage")
           el-option(label="Item per page" default :disabled="true" value="0")
           el-option(:label="5" :value="5")
           el-option(:label="15" :value="15")
@@ -57,7 +57,6 @@ export default class Records extends Vue {
   private pageNumber: number = 1;
   private pageSize: any = 15;
   private filterText: any = '';
-  private attributes: any = [];
   @State('records') private records: any;
   @State('table') private table: any;
   @Action('generateJsonContent', { namespace }) private generateJsonContent: any;
@@ -94,15 +93,16 @@ export default class Records extends Vue {
         }
       }
     });
-    if (this.attributes.length) {
+    if (this.records.attributes.length) {
       data = this.filterByAttribute(data);
     }
     return data;
   }
   private filterByAttribute(data: any) {
+    this.setCurrentPage();
     return data.filter((record: any) => {
         for (const key in record) {
-          if (this.attributes.indexOf(key) > -1) {
+          if (this.records.attributes.indexOf(key) > -1) {
             return record;
           }
         }
@@ -148,7 +148,7 @@ export default class Records extends Vue {
     return i + (this.pageNumber - 1) * this.pageSize + 1;
   }
 
-  private pageSizeChange(val: number) {
+  private setCurrentPage() {
     const { handleCurrentChange }: any = this.$refs.pagination;
     handleCurrentChange(1);
   }

@@ -62,8 +62,8 @@ export const mutations: MutationTree<DbState> = {
     state.currentDb.tableNames = tableNames;
   },
   setDBInstances(state, configs) {
-    state.dbInstance = new AWS.DynamoDB({...configs});
-    state.dbClient = new AWS.DynamoDB.DocumentClient({...configs});
+    state.dbInstance = new AWS.DynamoDB(configs);
+    state.dbClient = new AWS.DynamoDB.DocumentClient(configs);
     state.currentDb.endpoint = configs.endpoint;
   },
   deleteFromList(state, tableName) {
@@ -79,6 +79,7 @@ export const actions: ActionTree<DbState, RootState> = {
     commit('getDbList');
   },
   async getCurrentDb({ commit, state, dispatch }, payload) {
+    await new AWS.DynamoDBStreams(payload);
     commit('table/loading', null, {root: true});
     commit('setDBInstances', payload);
     let data;

@@ -12,7 +12,6 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "@types/codemirror": "0.0.67",
     "aws-sdk": "^2.348.0",
     "element-ui": "^2.4.5",
     "remove": "^0.1.5",
