@@ -1,5 +1,5 @@
 <template lang="pug">
-  el-col(:span="24")
+  el-col(:span="24" class="records-container")
     el-row(class="actions" v-if="table.currentTable")
       el-col(:span="1")
         i(class="el-icon-circle-plus-outline add" @click="generateJsonContent" title="Add Record")
@@ -207,4 +207,6 @@ export default class Records extends Vue {
   display flex
   justify-content space-between
   align-items center
+.records-container
+  height 100vh
 </style>
