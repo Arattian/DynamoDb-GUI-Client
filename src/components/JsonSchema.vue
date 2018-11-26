@@ -2,22 +2,22 @@
   el-col(:span="24")
     el-row(class="actions")
       i(class="el-icon-circle-check-outline upload" @click="updateTable" title="Save")
-      i(class="el-icon-refresh refresh" @click="describeTable" title="Refresh")
+      i(class="el-icon-refresh refresh" @click="getMeta" title="Refresh")
     el-row(class="editor")
-      vue-json-editor(v-model="table.jsonContent" :showBtns="false" ref="editorInstance")
+      vue-json-editor(:value="jsonContent" @json-change="setTableJson" :showBtns="false" ref="editorInstance")
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
-import { State, Action } from 'vuex-class';
+import { Getter, Action, Mutation } from 'vuex-class';
 const namespace = 'table';
 
 @Component
 export default class JsonSchema extends Vue {
-  @Prop() private expand: any;
-  @State('table') private table: any;
-  @Action('describeTable', { namespace }) private describeTable: any;
+  @Getter('jsonContent', { namespace }) private jsonContent: any;
+  @Action('getMeta', { namespace }) private getMeta: any;
   @Action('updateTable', { namespace }) private updateTable: any;
+  @Mutation('setTableJson', { namespace }) private setTableJson: any;
   private expandAll() {
     const { editor }: any = this.$refs.editorInstance;
     editor.expandAll();

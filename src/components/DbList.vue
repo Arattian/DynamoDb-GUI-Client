@@ -1,7 +1,7 @@
 <template lang="pug">
   el-col(:span="6")
     el-button(@click='addingDatabase' plain type="primary") Add Database
-    el-row(v-for="(db, index) in database.list" :key="index")
+    el-row(v-for="(db, index) in list" :key="index")
       .info(@click='getCurrentDb(db)')
         img(src="../assets/logo.svg")
         span {{db.name}}
@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { State, Action, Mutation } from 'vuex-class';
+import { Getter, Action, Mutation } from 'vuex-class';
 import AddDatabase from './AddDatabase.vue';
 import CreateTable from './CreateTable.vue';
 const namespace: string = 'database';
@@ -22,11 +22,11 @@ const namespace: string = 'database';
   },
 })
 export default class DbList extends Vue {
-  @State('database') private database: any;
-  @Mutation('addingDatabase', {namespace: 'database/addDatabase'}) private addingDatabase: any;
+  @Getter('list', { namespace }) private list: any;
+  @Mutation('addingDatabase', { namespace }) private addingDatabase: any;
   @Mutation('getDbList', { namespace }) private getDbList: any;
   @Action('removeDbFromStorage', { namespace }) private removeDbFromStorage: any;
-  @Action('getCurrentDb', { namespace }) private getCurrentDb: any;
+  @Action('getCurrentDb') private getCurrentDb: any;
   private created() {
     this.getDbList();
   }

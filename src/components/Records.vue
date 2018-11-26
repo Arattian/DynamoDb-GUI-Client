@@ -1,15 +1,15 @@
 <template lang="pug">
   el-col(:span="24" class="records-container")
-    el-row(class="actions" v-if="table.currentTable")
+    el-row(class="actions")
       el-col(:span="1")
         i(class="el-icon-circle-plus-outline add" @click="generateJsonContent" title="Add Record")
       el-col(:span="2")
-        i(class="el-icon-refresh refresh" @click="scanTable" title="Refresh Table")
+        i(class="el-icon-refresh refresh" @click="getRecords" title="Refresh Table")
       el-col(:span="8" class="text-filter")
         el-input(placeholder="Filter table" suffix-icon="el-icon-search" v-model="filterText" spellcheck="false")
       el-col(:span="7" class="attributes")
         el-select(v-model="records.attributes" multiple collapse-tags placeholder="Has Attributes")
-          el-option(v-for="attribute in records.header" :key="attribute.prop" :label="attribute.prop" :value="attribute.prop")
+          el-option(v-for="attribute in header" :key="attribute.prop" :label="attribute.prop" :value="attribute.prop")
             .wrapper
               span {{attribute.prop}}
               el-badge(type="warning" :value="hasAttribute(attribute.prop)")
@@ -22,15 +22,15 @@
           el-option(:label="50" :value="50")
           el-option(:label="100" :value="100")
     el-row(class="table")
-      el-table(:data="tableDataPage()" border v-if="records.hashKey" @row-dblclick="getItem" size="mini")
+      el-table(:data="tableDataPage()" border v-if="keys.hashKey" @row-dblclick="getItem" size="mini")
         el-table-column(type="index" :index="paginationIndex")
-        el-table-column(:prop="records.hashKey" :label="records.hashKeyLabel" :render-header="renderHash")
-        el-table-column(:prop="records.rangeKey" :label="records.rangeKeyLabel" :render-header="renderRange" v-if="records.rangeKey")
-        el-table-column(v-for="(header, index) of records.header" :prop="header.prop" :label="header.label" :key="index" v-if="hideHashKey(header)")        
+        el-table-column(:prop="keys.hashKey" :label="keys.hashKeyLabel" :render-header="renderHash")
+        el-table-column(:prop="keys.rangeKey" :label="keys.rangeKeyLabel" :render-header="renderRange" v-if="keys.rangeKey")
+        el-table-column(v-for="(header, index) of header" :prop="header.prop" :label="header.label" :key="index" v-if="hideHashKey(header)")        
         el-table-column(fixed="right" width="50")
           template(slot-scope="scope")
             span(class="delete-column")
-              i(class="el-icon-delete delete" @click="deleteRow(scope.$index, records.data)" title="Delete Raw")
+              i(class="el-icon-delete delete" @click="deleteRow(scope.$index, data)" title="Delete Raw")
     el-pagination(
       layout="pager"
       :total="total()"
@@ -39,12 +39,12 @@
       @current-change="currentPage"
       ref="pagination"
     )
-    RecordAction(v-if="records.visible")
+    RecordAction(v-if="visible")
 </template>
 
 <script lang="ts">
 import { Vue, Component} from 'vue-property-decorator';
-import { State, Action, Mutation } from 'vuex-class';
+import { Getter, Action, Mutation, State } from 'vuex-class';
 import RecordAction from './RecordAction.vue';
 const namespace: string = 'records';
 
@@ -57,15 +57,21 @@ export default class Records extends Vue {
   private pageNumber: number = 1;
   private pageSize: any = 15;
   private filterText: any = '';
+  @Getter('loading') private loading: any;
   @State('records') private records: any;
-  @State('table') private table: any;
+  @Getter('header', { namespace }) private header: any;
+  @Getter('keys', { namespace }) private keys: any;
+  @Getter('data', { namespace }) private data: any;
+  @Getter('attributes', { namespace }) private attributes: any;
+  @Getter('visible', { namespace }) private visible: any;
   @Action('generateJsonContent', { namespace }) private generateJsonContent: any;
   @Action('removeItem', { namespace }) private removeItem: any;
-  @Action('scanTable', { namespace: 'table' }) private scanTable: any;
+  @Action('getRecords', { namespace }) private getRecords: any;
   @Action('getItem', { namespace }) private getItem: any;
   @Mutation('setHeader', { namespace }) private setHeader: any;
+  @Mutation('newAttribute', { namespace }) private newAttribute: any;
   private beforeUpdate() {
-    if (this.table.loading && this.pageNumber !== 1) {
+    if (this.loading && this.pageNumber !== 1) {
       this.pageNumber = 1;
       const { handleCurrentChange }: any = this.$refs.pagination;
       handleCurrentChange(1);
@@ -86,14 +92,14 @@ export default class Records extends Vue {
     });
   }
   private filterTable() {
-    let data = this.records.data.filter((record: any) => {
+    let data = this.data.filter((record: any) => {
       for (const key in record) {
         if (record[key].includes(this.filterText)) {
           return record;
         }
       }
     });
-    if (this.records.attributes.length) {
+    if (this.attributes.length) {
       data = this.filterByAttribute(data);
     }
     return data;
@@ -102,14 +108,14 @@ export default class Records extends Vue {
     this.setCurrentPage();
     return data.filter((record: any) => {
         for (const key in record) {
-          if (this.records.attributes.indexOf(key) > -1) {
+          if (this.attributes.indexOf(key) > -1) {
             return record;
           }
         }
     });
   }
   private hasAttribute(attribute: string) {
-    return this.records.data.filter((record: any) => {
+    return this.data.filter((record: any) => {
       for (const key in record) {
           if (attribute === key) {
             return record;
@@ -154,7 +160,7 @@ export default class Records extends Vue {
   }
 
   private hideHashKey(el: any) {
-    return el.prop !== this.records.hashKey && el.prop !== this.records.rangeKey;
+    return el.prop !== this.keys.hashKey && el.prop !== this.keys.rangeKey;
   }
 }
 </script>

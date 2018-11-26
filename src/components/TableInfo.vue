@@ -1,5 +1,5 @@
 <template lang="pug">
-  el-col(:span="18" v-loading="table.loading")
+  el-col(:span="18" v-loading="loading")
     el-row
       el-col(:span="16")
         el-tabs(v-model="activeTab" @tab-click="handleClick")
@@ -10,9 +10,9 @@
           i(class="el-icon-delete remove" @click="deleteTableForm" title="Delete Table")
           i(class="el-icon-circle-plus-outline add" @click="createTableForm" title="Create Table")
       el-col(:span="6")
-        el-select(v-model="table.currentTable" filterable @change="switchTable()" placeholder="Select Table" spellcheck="false" :title="table.currentTable")
+        el-select(v-model="currentTable" filterable @change="switchTable()" placeholder="Select Table" spellcheck="false" :title="table.currentTable")
           el-option(
-            v-for="table in database.currentDb.tables" 
+            v-for="table in tables" 
             :key="table.name"
             :value="table.name"
           )
@@ -23,12 +23,12 @@
     JsonSchema(v-if="jsonTab" ref="jsonSchema")
     CreateTable(v-if="table.creatingTable")
     DeleteTable(v-if="table.deletingTable")
-    span(v-if="database.error")
+    span(v-if="error")
 </template>
 
 <script lang="ts">
 import { Vue, Component} from 'vue-property-decorator';
-import { State, Action, Mutation } from 'vuex-class';
+import { State, Action, Mutation, Getter } from 'vuex-class';
 import JsonSchema from './JsonSchema.vue';
 import Records from './Records.vue';
 import CreateTable from './CreateTable.vue';
@@ -48,25 +48,28 @@ export default class TableInfo extends Vue {
   private activeTab: string = 'records';
   private jsonTab: boolean = false;
   private recordsTab: boolean = true;
-  @State('database') private database: any;
+  @Getter('tables') private tables: any;
+  @Getter('error') private error: any;
+  @Getter('loading') private loading: any;
+  @Getter('currentTable') private currentTable: any;
   @State('table') private table: any;
-  @Action('scanTable', { namespace }) private scanTable: any;
-  @Action('getCurrentDb', { namespace: 'database' }) private getCurrentDb: any;
-  @Mutation('setErrorToNull', { namespace: 'database' }) private setErrorToNull: any;
+  @Action('getRecords', { namespace: 'records' }) private getRecords: any;
   @Mutation('createTableForm', { namespace }) private createTableForm: any;
   @Mutation('deleteTableForm', { namespace }) private deleteTableForm: any;
+  @Mutation('getMeta', {namespace}) private getMeta: any;
   private updated() {
-    if (this.database.error) {
+    if (this.error) {
       this.$notify.error({
         title: 'Error',
-        message: this.database.error,
+        message: this.error,
         duration: 3500,
       });
     }
   }
   private switchTable() {
     this.expandJsonSchema();
-    this.scanTable();
+    this.getRecords();
+    this.getMeta();
   }
   private expandJsonSchema() {
     setTimeout(() => {

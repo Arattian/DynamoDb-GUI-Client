@@ -1,5 +1,5 @@
 <template lang="pug">
-  el-dialog(center :visible.sync="records.visible" width="800px")  
+  el-dialog(center :visible.sync="visible" width="800px")  
     el-row(class="hint-container")
       el-popover(    
         placement="left-end"
@@ -9,7 +9,7 @@
         content="Confirmation creates a new item, or replaces an old item with a new item by delegating to AWS.DynamoDB.putItem()")
         i(class="el-icon-question hint" slot="reference")
     el-row(class="editor")
-      vue-json-editor(v-model="records.jsonContent" :showBtns="false" ref="editorInstance")
+      vue-json-editor(:value="jsonContent" @json-change="setJsonContent" :showBtns="false" ref="editorInstance")
     el-row(class="actions")
       el-button(type="primary" plain @click="toggleActionForm") Cancel
       el-button(type="success" plain @click="putItem") Save
@@ -17,13 +17,15 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
-import { State, Action, Mutation } from 'vuex-class';
+import { Getter, Action, Mutation } from 'vuex-class';
 const namespace: string = 'records';
 @Component
 export default class RecordAction extends Vue {
-  @State('records') private records: any;
+  @Getter('jsonContent', { namespace }) private jsonContent: any;
+  @Getter('visible', { namespace }) private visible: any;
   @Action('putItem', { namespace }) private putItem: any;
   @Mutation('toggleActionForm', { namespace }) private toggleActionForm: any;
+  @Mutation('setJsonContent', { namespace }) private setJsonContent: any;
   private mounted() {
     setTimeout(() => {
       const { editor }: any = this.$refs.editorInstance;

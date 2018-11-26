@@ -1,7 +1,7 @@
 <template lang="pug">
-  el-dialog(center :visible.sync="table.creatingTable" width="800px")  
+  el-dialog(center :visible.sync="creatingTable" width="800px")  
     el-row(class="editor")
-      vue-json-editor(v-model="table.defaultJsonContent" :showBtns="false" ref="editorInstance")
+      vue-json-editor(v-model="defaultJsonContent" :showBtns="false" ref="editorInstance")
     el-row(class="actions")
       el-button(type="primary" plain @click="createTableForm") Cancel
       el-button(type="success" plain @click="createTable") Create
@@ -9,11 +9,12 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
-import { State, Action, Mutation } from 'vuex-class';
+import { Getter, Action, Mutation } from 'vuex-class';
 const namespace: string = 'table';
 @Component
 export default class ItemAction extends Vue {
-  @State('table') private table: any;
+  @Getter('creatingTable', { namespace }) private creatingTable: any;
+  @Getter('defaultJsonContent', { namespace }) private defaultJsonContent: any;
   @Action('createTable', { namespace }) private createTable: any;
   @Mutation('createTableForm', { namespace }) private createTableForm: any;
   private mounted() {
