@@ -13,11 +13,15 @@ Vue.use(Vuex);
 const state = {
   dbInstance: {},
   dbClient: {},
-  error: null,
   currentTable: '',
   endpoint: '',
   tables: [],
   loading: false,
+  response: {
+    title: '',
+    type: '',
+    message: '',
+  },
 };
 
 const modules: ModuleTree<RootState> = {

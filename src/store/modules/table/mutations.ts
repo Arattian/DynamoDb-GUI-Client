@@ -50,23 +50,6 @@ function createTableForm(state: TableState) {
         },
       },
     ],
-    LocalSecondaryIndexes: [
-      {
-        IndexName: '',
-        KeySchema: [
-          {
-            AttributeName: '',
-            KeyType: 'HASH | RANGE',
-          },
-        ],
-        Projection: {
-          NonKeyAttributes: [
-            '',
-          ],
-          ProjectionType: 'ALL | KEYS_ONLY | INCLUDE',
-        },
-      },
-    ],
     SSESpecification: {
       Enabled: false,
       KMSMasterKeyId: '',

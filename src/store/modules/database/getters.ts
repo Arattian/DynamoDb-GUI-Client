@@ -16,7 +16,6 @@ const formVisible = (state: DbState) => state.formVisible;
 const configs = (state: DbState) => state.configs;
 const regionList = (state: DbState) => state.regionList;
 const isRemote = (state: DbState) => state.isRemote;
-const status = (state: DbState) => state.status;
 const list = (state: DbState) => state.list;
 
 const getters: GetterTree<DbState, RootState> = {
@@ -26,7 +25,6 @@ const getters: GetterTree<DbState, RootState> = {
   regionList,
   isRemote,
   list,
-  status,
 };
 
 export default getters;

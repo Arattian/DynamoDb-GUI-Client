@@ -4,6 +4,10 @@ export interface RootState {
   currentTable: any;
   dbInstance: any;
   dbClient: any;
-  error: any;
+  response: {
+    title: string,
+    type: string,
+    message: string,
+  };
   loading: boolean;
 }

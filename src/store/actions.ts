@@ -3,12 +3,12 @@ import { RootState } from './types';
 
 async function getCurrentDb({ commit, state, dispatch }: ActionContext<RootState, RootState>, configs: any) {
   commit('loading');
-  commit('setDBInstances', configs);
+  configs && commit('setDBInstances', configs);
   let data;
   try {
     data = await state.dbInstance.listTables().promise();
   } catch (err) {
-    commit('responseError', err.message);
+    commit('showResponse', err);
     commit('loading');
     return;
   }

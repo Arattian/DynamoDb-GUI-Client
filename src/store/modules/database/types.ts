@@ -13,7 +13,6 @@ export interface DbState {
   formVisible: boolean;
   configs: DbConfigs;
   regionList: string[];
-  status: string;
   isRemote: boolean;
 }
 

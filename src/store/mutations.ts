@@ -2,10 +2,22 @@ import { MutationTree } from 'vuex';
 import { RootState } from './types';
 import AWS from 'aws-sdk';
 
-function responseError(state: RootState, payload: any) {
-  state.error = payload;
+function showResponse(state: RootState, response: any) {
+  if (typeof response === 'object') {
+    state.response.title = 'Error';
+    state.response.type = 'error';
+    state.response.message = response.message;
+  } else {
+    state.response.title = 'Success';
+    state.response.type = 'success';
+    state.response.message = response;
+  }
   setTimeout(() => {
-    state.error = null;
+    state.response = {
+      title: '',
+      type: '',
+      message: '',
+    };
   }, 100);
 }
 
@@ -47,7 +59,7 @@ function setCurrentTable(state: RootState, tableName: string) {
 }
 
 const mutations: MutationTree<RootState> = {
-  responseError,
+  showResponse,
   setDBInstances,
   removeDbFromState,
   setTableNames,

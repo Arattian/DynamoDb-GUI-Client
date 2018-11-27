@@ -13,12 +13,13 @@ async function putItem({ dispatch, commit, rootState, state }: ActionContext<Rec
   try {
     await dbClient.put(params).promise();
   } catch (err) {
-    commit('responseError', err.message, {root: true});
+    commit('showResponse', err, {root: true});
     return;
   }
   dispatch('getRecords');
   dispatch('getTableItemCounts', null, {root: true});
   commit('toggleActionForm');
+  commit('showResponse', ' ', {root: true});
 }
 
 async function getItem({state, commit, rootState}: ActionContext<RecordState, RootState>, row: any) {
@@ -35,7 +36,7 @@ async function getItem({state, commit, rootState}: ActionContext<RecordState, Ro
   try {
     data = await dbClient.get(params).promise();
   } catch (err) {
-    commit('responseError', err.message, {root: true});
+    commit('showResponse', err, {root: true});
     return;
   }
   commit('setJsonContent', data.Item);
@@ -53,9 +54,10 @@ async function removeItem({ commit, rootState, dispatch, state }: ActionContext<
   try {
     await dbClient.delete(params).promise();
   } catch (err) {
-    commit('responseError', err.message, {root: true});
+    commit('showResponse', err, {root: true});
     return;
   }
+  commit('showResponse', ' ', {root: true});
   dispatch('getRecords');
 }
 
@@ -80,7 +82,7 @@ async function getRecords({ commit, rootState }: ActionContext<RecordState, Root
   try {
     data = await dbClient.scan({TableName: currentTable}).promise();
   } catch (err) {
-    commit('responseError', err.message, {root: true});
+    commit('showResponse', err, {root: true});
     commit('loading', null, {root: true});
     return;
   }

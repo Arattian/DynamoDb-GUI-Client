@@ -1,5 +1,5 @@
 <template lang="pug">
-  el-dialog(title="Add Database" center :visible.sync="formVisible")
+  el-dialog(title="Add Database" center :visible="formVisible")
     el-form(:model="configs")
       el-form-item(label="Database Name (Custom)" required)
         el-input(v-model="configs.name" placeholder="Database display name")
@@ -15,7 +15,6 @@
     span(slot="footer" class="dialog-footer")
         el-button(@click="setToDefault" type="primary" plain) Cancel
         el-button(@click="submitForm" type="success" plain) Confirm
-    span(v-model="status")
 </template>
 
 <script lang="ts">
@@ -29,21 +28,9 @@ export default class AddDatabase extends Vue {
   @Getter('configs', { namespace }) private configs: any;
   @Getter('regionList', { namespace }) private regionList: any;
   @Getter('isRemote', { namespace }) private isRemote: any;
-  @Getter('status', { namespace }) private status: any;
   @Action('submitForm', { namespace }) private submitForm: any;
   @Mutation('setToDefault', { namespace }) private setToDefault: any;
-  @Mutation('responseError', { namespace }) private responseError: any;
-  @Mutation('getDbList', { namespace }) private getDbList: any;
   @Mutation('generateEndpoint', { namespace }) private generateEndpoint: any;
-  private updated() {
-    if (this.status === 'success') {
-      this.getDbList();
-      this.setToDefault();
-    } else if (this.status !== '') {
-      this.responseError(this.status);
-      this.setToDefault();
-    }
-  }
 }
 </script>
 

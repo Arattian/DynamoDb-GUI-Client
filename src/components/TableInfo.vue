@@ -23,7 +23,7 @@
     JsonSchema(v-if="jsonTab" ref="jsonSchema")
     CreateTable(v-if="creatingTable")
     DeleteTable(v-if="deletingTable")
-    span(v-if="error")
+    span(v-if="response.message")
 </template>
 
 <script lang="ts">
@@ -34,7 +34,6 @@ import Records from './Records.vue';
 import CreateTable from './CreateTable.vue';
 import DeleteTable from './DeleteTable.vue';
 const namespace: string = 'table';
-
 @Component({
   components: {
     Records,
@@ -49,7 +48,7 @@ export default class TableInfo extends Vue {
   private jsonTab: boolean = false;
   private recordsTab: boolean = true;
   @Getter('tables') private tables: any;
-  @Getter('error') private error: any;
+  @Getter('response') private response: any;
   @Getter('loading') private loading: any;
   @Getter('currentTable') private currentTable: any;
   @Getter('creatingTable', { namespace }) private creatingTable: any;
@@ -60,11 +59,12 @@ export default class TableInfo extends Vue {
   @Action('getCurrentTable') private getCurrentTable: any;
   @Mutation('getMeta', {namespace}) private getMeta: any;
   private updated() {
-    if (this.error) {
-      this.$notify.error({
-        title: 'Error',
-        message: this.error,
-        duration: 3500,
+    if (this.response.message) {
+      this.$notify({
+        title: this.response.title,
+        message: this.response.message,
+        type: this.response.type,
+        duration: 3000,
       });
     }
   }

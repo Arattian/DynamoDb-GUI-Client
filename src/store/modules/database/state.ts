@@ -31,7 +31,6 @@ const state: DbState = {
     region: '',
     endpoint: '',
   },
-  status: '',
   isRemote: true,
 };
 

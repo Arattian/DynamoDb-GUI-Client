@@ -28,7 +28,6 @@ function setToDefault(state: DbState) {
     endpoint: '',
   };
   state.formVisible = false;
-  state.status = '';
   state.isRemote = true;
 }
 
@@ -46,14 +45,9 @@ function generateEndpoint(state: DbState) {
   }
 }
 
-function setStatus(state: DbState, message: string) {
-  state.status = message;
-}
-
 const mutations: MutationTree<DbState> = {
   addingDatabase,
   generateEndpoint,
-  setStatus,
   setToDefault,
   getDbList,
 };

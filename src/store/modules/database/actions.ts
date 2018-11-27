@@ -11,18 +11,21 @@ function removeDbFromStorage({ commit }: ActionContext<DbState, RootState>, db: 
 
 async function setCredentials({ commit, state }: ActionContext<DbState, RootState>) {
   if (localStorage.getItem(`${state.configs.name}-db`)) {
-    commit('setStatus', 'Database with that name already exists');
+    commit('showResponse', {message: 'Database with that name already exists'}, {root: true});
     return;
   }
   const DB = new AWS.DynamoDB({...state.configs});
   try {
-    await DB.listTables();
+    await DB.listTables().promise();
   } catch (err) {
-    commit('setStatus', err.message);
+    commit('showResponse', err, {root: true});
+    commit('setToDefault');
     return;
   }
   localStorage.setItem(`${state.configs.name}-db`, JSON.stringify(state.configs));
-  commit('setStatus', 'success');
+  commit('showResponse', 'Successfully added', {root: true});
+  commit('getDbList');
+  commit('setToDefault');
 }
 
 function submitForm({ dispatch, getters }: ActionContext<DbState, RootState>) {
