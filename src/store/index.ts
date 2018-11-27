@@ -16,9 +16,7 @@ const state = {
   error: null,
   currentTable: '',
   endpoint: '',
-  currentDb: {
-    tables: [],
-  },
+  tables: [],
   loading: false,
 };
 

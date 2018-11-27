@@ -16,19 +16,26 @@ function setDBInstances(state: RootState, configs: any) {
 }
 
 function removeDbFromState(state: RootState) {
-  const emptyDb = {
-    tables: [],
-  };
-  state.currentDb = emptyDb;
+  state.tables = [];
   state.endpoint = '';
 }
 
-function setTables(state: RootState, tables: Array<{name: string, ItemCount: number}>) {
-  state.currentDb.tables = tables;
+function setTableNames(state: RootState, tableNames: any[]) {
+  state.tables = [];
+  for (const name of tableNames) {
+    state.tables.push({
+      name,
+      ItemCount: 0,
+    });
+  }
+}
+
+function setTablesWithItemCount(state: RootState, tables: Array<{name: string, ItemCount: number}>) {
+  state.tables = tables;
 }
 
 function deleteFromList(state: RootState, tableName: string) {
-  state.currentDb.tables = state.currentDb.tables.filter((table: any) => table.name !== tableName);
+  state.tables = state.tables.filter((table: any) => table.name !== tableName);
 }
 
 function loading(state: RootState) {
@@ -43,7 +50,8 @@ const mutations: MutationTree<RootState> = {
   responseError,
   setDBInstances,
   removeDbFromState,
-  setTables,
+  setTableNames,
+  setTablesWithItemCount,
   deleteFromList,
   loading,
   setCurrentTable,

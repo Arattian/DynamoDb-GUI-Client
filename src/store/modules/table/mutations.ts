@@ -2,12 +2,16 @@
 import { MutationTree } from 'vuex';
 import { TableState } from './types';
 
-function setTableJson(state: TableState, jsonContent: string) {
-  state.jsonContent = jsonContent;
+function setTableMeta(state: TableState, tableMeta: string) {
+  state.tableMeta = tableMeta;
+}
+
+function setNewTableMeta(state: TableState, newTableMeta: string) {
+  state.newTableMeta = newTableMeta;
 }
 
 function createTableForm(state: TableState) {
-  const defaultJsonContent = {
+  const defaultMeta = {
     AttributeDefinitions: [
       {
         AttributeName: '',
@@ -73,7 +77,7 @@ function createTableForm(state: TableState) {
       StreamViewType: 'NEW_IMAGE | OLD_IMAGE | NEW_AND_OLD_IMAGES | KEYS_ONLY',
     },
   };
-  state.defaultJsonContent = defaultJsonContent;
+  state.newTableMeta = defaultMeta;
   state.creatingTable = !state.creatingTable;
 }
 
@@ -82,9 +86,10 @@ function deleteTableForm(state: TableState) {
 }
 
 const mutations: MutationTree<TableState> = {
-  setTableJson,
+  setTableMeta,
   createTableForm,
   deleteTableForm,
+  setNewTableMeta,
 };
 
 export default mutations;

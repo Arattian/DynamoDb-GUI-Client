@@ -3,14 +3,14 @@ import { TableState } from './types';
 import { RootState } from '@/store/types';
 
 const creatingTable = (state: TableState) => state.creatingTable;
-const defaultJsonContent = (state: TableState) => state.defaultJsonContent;
+const newTableMeta = (state: TableState) => state.newTableMeta;
 const deletingTable = (state: TableState) => state.deletingTable;
-const jsonContent = (state: TableState) => state.jsonContent;
+const tableMeta = (state: TableState) => state.tableMeta;
 
 const getters: GetterTree<TableState, RootState> = {
   creatingTable,
-  defaultJsonContent,
+  newTableMeta,
   deletingTable,
-  jsonContent,
+  tableMeta,
 };
 export default getters;

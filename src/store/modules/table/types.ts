@@ -1,6 +1,6 @@
 export interface TableState {
-  defaultJsonContent: any;
-  jsonContent: any;
+  newTableMeta: any;
+  tableMeta: any;
   creatingTable: boolean;
   deletingTable: boolean;
 }

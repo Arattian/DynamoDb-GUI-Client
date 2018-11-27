@@ -4,7 +4,7 @@ import { RootState } from '@/store/types';
 
 async function createTable({ commit, rootState, state }: ActionContext<TableState, RootState>) {
   const { dbInstance } = rootState;
-  const params = state.defaultJsonContent;
+  const params = state.newTableMeta;
   commit('loading', null, {root: true});
   try {
     await dbInstance.createTable(params).promise();
@@ -28,25 +28,25 @@ async function getMeta({ commit, rootState }: ActionContext<TableState, RootStat
     commit('loading', null, {root: true});
     return;
   }
-  commit('setTableJson', data.Table);
+  commit('setTableMeta', data.Table);
   commit('records/extractKeys', data.Table, {root: true});
   commit('loading', null, {root: true});
 }
 
 async function updateTable({ commit, rootState, state }: ActionContext<TableState, RootState>) {
   const { dbInstance } = rootState;
-  const { jsonContent }: any = state;
+  const { tableMeta } = state;
   commit('loading', null, {root: true});
   const params = {
-    TableName: jsonContent.TableName,
-    AttributeDefinitions: jsonContent.AttributeDefinitions,
-    GlobalSecondaryIndexUpdates: jsonContent.GlobalSecondaryIndexUpdates,
+    TableName: tableMeta.TableName,
+    AttributeDefinitions: tableMeta.AttributeDefinitions,
+    GlobalSecondaryIndexUpdates: tableMeta.GlobalSecondaryIndexUpdates,
     ProvisionedThroughput: {
-      ReadCapacityUnits: jsonContent.ProvisionedThroughput && jsonContent.ProvisionedThroughput.ReadCapacityUnits,
-      WriteCapacityUnits: jsonContent.ProvisionedThroughput && jsonContent.ProvisionedThroughput.WriteCapacityUnits,
+      ReadCapacityUnits: tableMeta.ProvisionedThroughput && tableMeta.ProvisionedThroughput.ReadCapacityUnits,
+      WriteCapacityUnits: tableMeta.ProvisionedThroughput && tableMeta.ProvisionedThroughput.WriteCapacityUnits,
     },
-    SSESpecification: jsonContent.SSESpecification,
-    StreamSpecification: jsonContent.StreamSpecification,
+    SSESpecification: tableMeta.SSESpecification,
+    StreamSpecification: tableMeta.StreamSpecification,
   };
   try {
     await dbInstance.updateTable(params).promise();

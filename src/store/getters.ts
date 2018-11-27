@@ -3,7 +3,7 @@ import { GetterTree } from 'vuex';
 
 const endpoint = (state: RootState) => state.endpoint;
 const loading = (state: RootState) => state.loading;
-const tables = (state: RootState) => state.currentDb.tables;
+const tables = (state: RootState) => state.tables;
 const error = (state: RootState) => state.error;
 const currentTable = (state: RootState) => state.currentTable;
 

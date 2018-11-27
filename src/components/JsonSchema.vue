@@ -4,7 +4,7 @@
       i(class="el-icon-circle-check-outline upload" @click="updateTable" title="Save")
       i(class="el-icon-refresh refresh" @click="getMeta" title="Refresh")
     el-row(class="editor")
-      vue-json-editor(:value="jsonContent" @json-change="setTableJson" :showBtns="false" ref="editorInstance")
+      vue-json-editor(:value="tableMeta" @json-change="setTableMeta" :showBtns="false" ref="editorInstance")
 </template>
 
 <script lang="ts">
@@ -14,10 +14,10 @@ const namespace = 'table';
 
 @Component
 export default class JsonSchema extends Vue {
-  @Getter('jsonContent', { namespace }) private jsonContent: any;
+  @Getter('tableMeta', { namespace }) private tableMeta: any;
   @Action('getMeta', { namespace }) private getMeta: any;
   @Action('updateTable', { namespace }) private updateTable: any;
-  @Mutation('setTableJson', { namespace }) private setTableJson: any;
+  @Mutation('setTableMeta', { namespace }) private setTableMeta: any;
   private expandAll() {
     const { editor }: any = this.$refs.editorInstance;
     editor.expandAll();

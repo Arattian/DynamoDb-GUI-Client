@@ -13,12 +13,13 @@ async function getCurrentDb({ commit, state, dispatch }: ActionContext<RootState
     return;
   }
   commit('loading');
+  commit('setTableNames', data.TableNames);
   dispatch('getTableItemCounts');
   dispatch('getCurrentTable', data.TableNames[0]);
 }
 
 async function getTableItemCounts({ commit, state }: ActionContext<RootState, RootState>) {
-  const { tables }: any = state.currentDb;
+  const { tables } = state;
   const tableList = [];
   for (const table of tables) {
     const data = await state.dbInstance.scan({TableName: table.name}).promise();
@@ -28,16 +29,14 @@ async function getTableItemCounts({ commit, state }: ActionContext<RootState, Ro
     };
     tableList.push(newTable);
   }
-  commit('setTables', tableList);
+  commit('setTablesWithItemCount', tableList);
 }
 
 function getNewTable({ commit, state, dispatch }: ActionContext<RootState, RootState>, tableName: string) {
   commit('deleteFromList', tableName);
-  if (state.currentDb.tables) {
-    const newTable: any = state.currentDb.tables[0][name];
-    if (newTable) {
-      dispatch('getCurrentTable', newTable);
-    }
+  if (state.tables) {
+    const newTable: any = state.tables[0];
+    dispatch('getCurrentTable', newTable.name);
   }
 }
 

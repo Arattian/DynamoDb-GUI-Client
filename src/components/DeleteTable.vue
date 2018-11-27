@@ -1,5 +1,5 @@
 <template lang="pug">
-  el-dialog(:visible.sync="deletingTable" width="500px")  
+  el-dialog(:visible="deletingTable" width="500px")  
     el-row(class="header")
       i(class="el-icon-warning")
       p This will permanently delete table and all its items. Continue?
@@ -14,7 +14,7 @@ import { Getter, Action, Mutation } from 'vuex-class';
 const namespace: string = 'table';
 @Component
 export default class DeleteTable extends Vue {
-  @Getter('deletingTable') private deletingTable: any;
+  @Getter('deletingTable', { namespace }) private deletingTable: any;
   @Action('deleteTable', { namespace }) private deleteTable: any;
   @Mutation('deleteTableForm', { namespace }) private deleteTableForm: any;
 }

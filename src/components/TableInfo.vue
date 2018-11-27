@@ -10,7 +10,7 @@
           i(class="el-icon-delete remove" @click="deleteTableForm" title="Delete Table")
           i(class="el-icon-circle-plus-outline add" @click="createTableForm" title="Create Table")
       el-col(:span="6")
-        el-select(v-model="currentTable" filterable @change="switchTable()" placeholder="Select Table" spellcheck="false" :title="table.currentTable")
+        el-select(:value="currentTable" filterable @change="switchTable" placeholder="Select Table" spellcheck="false" :title="currentTable")
           el-option(
             v-for="table in tables" 
             :key="table.name"
@@ -21,8 +21,8 @@
               el-badge(type="warning" :value="table.ItemCount")
     Records(v-if="recordsTab")
     JsonSchema(v-if="jsonTab" ref="jsonSchema")
-    CreateTable(v-if="table.creatingTable")
-    DeleteTable(v-if="table.deletingTable")
+    CreateTable(v-if="creatingTable")
+    DeleteTable(v-if="deletingTable")
     span(v-if="error")
 </template>
 
@@ -52,10 +52,12 @@ export default class TableInfo extends Vue {
   @Getter('error') private error: any;
   @Getter('loading') private loading: any;
   @Getter('currentTable') private currentTable: any;
-  @State('table') private table: any;
+  @Getter('creatingTable', { namespace }) private creatingTable: any;
+  @Getter('deletingTable', { namespace }) private deletingTable: any;
   @Action('getRecords', { namespace: 'records' }) private getRecords: any;
   @Mutation('createTableForm', { namespace }) private createTableForm: any;
   @Mutation('deleteTableForm', { namespace }) private deleteTableForm: any;
+  @Action('getCurrentTable') private getCurrentTable: any;
   @Mutation('getMeta', {namespace}) private getMeta: any;
   private updated() {
     if (this.error) {
@@ -66,10 +68,9 @@ export default class TableInfo extends Vue {
       });
     }
   }
-  private switchTable() {
+  private switchTable(tableName: string) {
+    this.getCurrentTable(tableName);
     this.expandJsonSchema();
-    this.getRecords();
-    this.getMeta();
   }
   private expandJsonSchema() {
     setTimeout(() => {

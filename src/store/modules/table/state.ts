@@ -1,7 +1,7 @@
 import { TableState } from './types';
 
 export const state: TableState = {
-  defaultJsonContent: {
+  newTableMeta: {
     AttributeDefinitions: [
       {
         AttributeName: '',
@@ -67,7 +67,7 @@ export const state: TableState = {
       StreamViewType: 'NEW_IMAGE | OLD_IMAGE | NEW_AND_OLD_IMAGES | KEYS_ONLY',
     },
   },
-  jsonContent: '',
+  tableMeta: '',
   creatingTable: false,
   deletingTable: false,
 };
