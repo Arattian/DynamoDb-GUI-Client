@@ -1,31 +1,43 @@
-# electron
+# DynamoDb-Vue
+## GUI client for DynamoDb
 
-## Project setup
-```
-npm install
-```
+![Logo](src/assets/git-logo.png)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## **To Do List**
+* [ ] Wrap application with electron
+### **Problems**
+* [ ] AWS-SDK is not working properly in electron. Util.Streams got undefined.
+* [ ] Electron doesn't support localstorage, so need to switch from localstorage to file system.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## run
 
-### Run your tests
-```
-npm run test
+```bash
+git clone https://github.com/Arattian/DynamoDb-Vue.git
+cd Dynamodb-Vue
+npm i
+npm start
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+## features
 
-### Run your unit tests
-```
-npm run test:unit
-```
+* [x] Remote Access of AWS DynamoDB Service*
+* [x] Local DynamoDB
+* [x] Supports multiple databases
+* View
+  * Table view
+    * [x] Records view
+    * [x] Table schema view
+  * [x] JSON view
+* Operation
+  * Record
+    * [x] Add Record
+    * [x] Edit Record
+    * [x] Delete Record
+  * Table
+    * [x] Add Table
+    * [x] Edit Table
+    * [x] Delete Table
+  * Filter by attribute value
+  * Filter by attribute name
+    
+* For remote access, need to provide access and secret keys.All keys stored in localstorage.
