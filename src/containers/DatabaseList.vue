@@ -1,11 +1,11 @@
 <template lang="pug">
   el-col(:span="6")
     el-button(@click='addingDatabase' plain type="primary") Add Database
-    el-row(v-for="(db, index) in list" :key="index")
-      .info(@click='getCurrentDb(db)')
-        img(src="../assets/logo.svg")
-        span {{db.name}}
-      i(class="el-icon-delete delete" @click="removeDbFromStorage(db)")
+    DatabaseListElement(
+      :list="list"
+      :removeHandler="removeDbFromStorage"
+      :elementHandler="getCurrentDb"
+    )
     AddDatabase
 </template>
 
@@ -13,15 +13,15 @@
 import { Vue, Component } from 'vue-property-decorator';
 import { Getter, Action, Mutation } from 'vuex-class';
 import AddDatabase from './AddDatabase.vue';
-import CreateTable from './CreateTable.vue';
+import DatabaseListElement from '../components/DatabaseListElement.vue';
 const namespace: string = 'database';
 @Component({
   components: {
     AddDatabase,
-    CreateTable,
+    DatabaseListElement,
   },
 })
-export default class DbList extends Vue {
+export default class DatabaseList extends Vue {
   @Getter('list', { namespace }) private list: any;
   @Mutation('addingDatabase', { namespace }) private addingDatabase: any;
   @Mutation('getDbList', { namespace }) private getDbList: any;
@@ -43,30 +43,4 @@ export default class DbList extends Vue {
   height 100vh
 .el-button
   width 100%
-.el-row
-  background #121820
-  margin 10px 0
-  padding 10px
-  align-items center
-  display flex
-  color #eee
-  border-radius 5px
-.el-row .info 
-  display flex
-  align-items center
-  width 90%
-  overflow hidden
-.el-row .info:hover 
-  cursor pointer
-  text-decoration underline
-.el-row .delete
-  position absolute
-  font-size 1.1em
-  right 10px
-.el-row .delete:hover
-  color #ff6d6d
-  cursor pointer
-.el-row img
-  width 20px
-  margin-right 10px
 </style>

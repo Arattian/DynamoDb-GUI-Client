@@ -13,7 +13,7 @@ import { Getter, Action, Mutation } from 'vuex-class';
 const namespace = 'table';
 
 @Component
-export default class JsonSchema extends Vue {
+export default class TableMeta extends Vue {
   @Getter('tableMeta', { namespace }) private tableMeta: any;
   @Action('getMeta', { namespace }) private getMeta: any;
   @Action('updateTable', { namespace }) private updateTable: any;

@@ -5,8 +5,8 @@ import { RecordState } from './types';
 function toggleActionForm(state: RecordState) {
   state.visible = !state.visible;
 }
-function setJsonContent(state: RecordState, jsonData: string) {
-  state.jsonContent = jsonData;
+function setMeta(state: RecordState, meta: string) {
+  state.recordMeta = meta;
 }
 function extractKeys(state: RecordState, schema: any) {
   state.hashKey = '';
@@ -54,8 +54,24 @@ function setData(state: RecordState, data: any[]) {
   state.data = data;
 }
 
+function filterTextChange(state: RecordState, filterText: any) {
+  state.filterText = filterText.target.value;
+}
+
 function newAttribute(state: RecordState, attributeName: string) {
   state.attributes.indexOf(attributeName) === -1 && state.attributes.push(attributeName);
+}
+
+function changeCurrentPage(state: RecordState, val: number) {
+  state.pageNumber = val;
+}
+
+function changePageSize(state: RecordState, val: number) {
+  state.pageSize = val;
+}
+
+function setNewMeta(state: RecordState, newRecordMeta: string) {
+  state.recordMeta = newRecordMeta;
 }
 
 const mutations: MutationTree<RecordState> = {
@@ -63,8 +79,12 @@ const mutations: MutationTree<RecordState> = {
   setData,
   setHeader,
   extractKeys,
-  setJsonContent,
+  setMeta,
+  filterTextChange,
   newAttribute,
+  setNewMeta,
+  changeCurrentPage,
+  changePageSize,
 };
 
 export default mutations;

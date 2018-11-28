@@ -1,21 +1,21 @@
 <template lang="pug">
   #app
-    DbHeader
+    AppHeader
     el-row
-      DbList
-      TableInfo
+      DatabaseList
+      DatabaseMain
 </template>
 
 <script>
-import DbHeader from './components/DbHeader.vue';
-import TableInfo from './components/TableInfo.vue';
-import DbList from './components/DbList.vue';
+import AppHeader from './containers/AppHeader.vue';
+import DatabaseMain from './containers/DatabaseMain.vue';
+import DatabaseList from './containers/DatabaseList.vue';
 export default {
   name: 'app',
   components: {
-    DbHeader,
-    TableInfo,
-    DbList,
+    AppHeader,
+    DatabaseMain,
+    DatabaseList,
   },
 };
 </script>

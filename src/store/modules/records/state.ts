@@ -2,7 +2,7 @@ import { RecordState } from './types';
 
 const state: RecordState = {
   visible: false,
-  jsonContent: '',
+  recordMeta: '',
   hashKey: '',
   hashKeyLabel: '',
   rangeKey: '',
@@ -10,6 +10,9 @@ const state: RecordState = {
   attributes: [],
   data: [],
   header: [],
+  pageSize: 15,
+  pageNumber: 1,
+  filterText: '',
 };
 
 export default state;

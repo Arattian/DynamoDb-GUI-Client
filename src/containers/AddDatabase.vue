@@ -1,5 +1,5 @@
 <template lang="pug">
-  el-dialog(title="Add Database" center :visible="formVisible")
+  el-dialog(title="Add Database" center :show-close="false" :visible="formVisible")
     el-form(:model="configs")
       el-form-item(label="Database Name (Custom)" required)
         el-input(v-model="configs.name" placeholder="Database display name")
@@ -12,17 +12,24 @@
         el-input(v-model="configs.accessKeyId" placeholder="AWS access key id")
       el-form-item(label="Secret Access Key" required v-if="isRemote")
         el-input(v-model="configs.secretAccessKey" placeholder="AWS secret access key")
-    span(slot="footer" class="dialog-footer")
-        el-button(@click="setToDefault" type="primary" plain) Cancel
-        el-button(@click="submitForm" type="success" plain) Confirm
+    ActionButtons(
+      :cancelHandler="setToDefault"
+      :confirmHandler="submitForm"
+    )
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import { Getter, Action, Mutation } from 'vuex-class';
+import ActionButtons from '../components/ActionButtons.vue';
+
 const namespace: string = 'database';
 
-@Component
+@Component({
+  components: {
+    ActionButtons,
+  },
+})
 export default class AddDatabase extends Vue {
   @Getter('formVisible', { namespace }) private formVisible: any;
   @Getter('configs', { namespace }) private configs: any;

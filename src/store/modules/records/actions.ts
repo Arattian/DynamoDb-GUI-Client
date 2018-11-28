@@ -5,7 +5,7 @@ import { RootState } from '@/store/types';
 async function putItem({ dispatch, commit, rootState, state }: ActionContext<RecordState, RootState>) {
   const { dbClient } = rootState;
   const { currentTable } = rootState;
-  const Item = state.jsonContent;
+  const Item = state.recordMeta;
   const params: any = {
     TableName: currentTable,
     Item,
@@ -39,7 +39,7 @@ async function getItem({state, commit, rootState}: ActionContext<RecordState, Ro
     commit('showResponse', err, {root: true});
     return;
   }
-  commit('setJsonContent', data.Item);
+  commit('setMeta', data.Item);
   commit('toggleActionForm');
 }
 async function removeItem({ commit, rootState, dispatch, state }: ActionContext<RecordState, RootState>, row: any) {
@@ -61,16 +61,16 @@ async function removeItem({ commit, rootState, dispatch, state }: ActionContext<
   dispatch('getRecords');
 }
 
-function generateJsonContent({commit, state}: ActionContext<RecordState, RootState>) {
+function generateMeta({commit, state}: ActionContext<RecordState, RootState>) {
   const { hashKey, rangeKey } = state;
-  let jsonData;
-  rangeKey ? jsonData = {
+  let meta;
+  rangeKey ? meta = {
       [hashKey] : '',
       [rangeKey]: '',
-    } : jsonData = {
+    } : meta = {
       [hashKey] : '',
     };
-  commit('setJsonContent', jsonData);
+  commit('setMeta', meta);
   commit('toggleActionForm');
 }
 
@@ -96,7 +96,7 @@ const actions: ActionTree<RecordState, RootState> = {
   putItem,
   getItem,
   removeItem,
-  generateJsonContent,
+  generateMeta,
 };
 
 export default actions;

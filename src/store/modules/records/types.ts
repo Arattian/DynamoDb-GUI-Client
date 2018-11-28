@@ -1,6 +1,6 @@
 export interface RecordState {
   visible: boolean;
-  jsonContent: string;
+  recordMeta: string;
   hashKey: string;
   hashKeyLabel: string;
   rangeKey: string;
@@ -8,4 +8,7 @@ export interface RecordState {
   header: any[];
   data: any[];
   attributes: string[];
+  pageSize: number;
+  pageNumber: number;
+  filterText: string;
 }
