@@ -20,8 +20,8 @@
       :isVisible="creatingTable"
       :metaValue="newTableMeta"
       :metaChange="setNewTableMeta"
-      :createTableForm="createTableForm"
-      :createTable="createTable"
+      :cancelHandler="createTableForm"
+      :confirmHandler="createTable"
     )
     DeleteTable(
       v-if="deletingTable"

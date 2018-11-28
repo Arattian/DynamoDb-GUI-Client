@@ -8,7 +8,7 @@
       el-table-column(fixed="right" width="50")
         template(slot-scope="scope")
           span(class="delete-column")
-            i(class="el-icon-delete delete" @click="removeItem(scope.row)" title="Delete Raw")
+            i(class="el-icon-delete delete" @click="removeHandler(scope.row)" title="Delete Raw")
 </template>
 
 <script lang="ts">
@@ -16,13 +16,13 @@ import { Vue, Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class RecordList extends Vue {
-  @Prop() private list: any;
+  @Prop() private list!: any[];
   @Prop() private keys: any;
   @Prop() private getItem: any;
-  @Prop() private paginationIndex!: any;
-  @Prop() private header: any;
+  @Prop() private paginationIndex: any;
+  @Prop() private header!: any[];
   @Prop() private hideHashKey: any;
-  @Prop() private removeItem: any;
+  @Prop() private removeHandler: any;
   @Prop({default: 'mini'}) private size!: string;
   private renderHash(createElement: any, { column }: any) {
     return createElement(

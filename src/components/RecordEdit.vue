@@ -11,8 +11,8 @@
     el-row(class="editor")
       vue-json-editor(:value="metaValue" @json-change="metaChange" :showBtns="false" ref="editorInstance")
     ActionButtons(
-      :cancelHandler="toggleActionForm"
-      :confirmHandler="putItem"
+      :cancelHandler="cancelHandler"
+      :confirmHandler="confirmHandler"
       confirmText="Save"
     )
 </template>
@@ -27,8 +27,8 @@ import ActionButtons from './ActionButtons.vue';
   },
 })
 export default class RecordEdit extends Vue {
-  @Prop() private putItem: any;
-  @Prop() private toggleActionForm: any;
+  @Prop() private confirmHandler: any;
+  @Prop() private cancelHandler: any;
   @Prop() private metaValue: any;
   @Prop() private metaChange: any;
   @Prop() private isVisible!: boolean;

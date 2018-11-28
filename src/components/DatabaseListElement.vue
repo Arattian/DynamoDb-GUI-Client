@@ -11,7 +11,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator';
 @Component
 export default class DatabaseList extends Vue {
-  @Prop() private list: any;
+  @Prop() private list!: any[];
   @Prop() private removeHandler: any;
   @Prop() private elementHandler: any;
 }

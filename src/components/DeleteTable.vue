@@ -4,8 +4,8 @@
       i(class="el-icon-warning")
       p This will permanently delete table and all its items. Continue?
     ActionButtons(
-      :cancelHandler="deleteTableForm"
-      :confirmHandler="deleteTable"
+      :cancelHandler="cancelHandler"
+      :confirmHandler="confirmHandler"
       confirmType="danger"
       confirmText="Delete"
     )
@@ -21,9 +21,9 @@ import ActionButtons from './ActionButtons.vue';
   },
 })
 export default class DeleteTable extends Vue {
-  @Prop() private isVisible: any;
-  @Prop() private deleteTable: any;
-  @Prop() private deleteTableForm: any;
+  @Prop() private isVisible!: boolean;
+  @Prop() private confirmHandler: any;
+  @Prop() private cancelHandler: any;
 }
 </script>
 

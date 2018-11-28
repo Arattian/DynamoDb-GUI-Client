@@ -3,8 +3,8 @@
     el-row(class="editor")
       vue-json-editor(:value="metaValue" :showBtns="false" @json-change="metaChange" ref="editorInstance")
     ActionButtons(
-      :cancelHandler="createTableForm"
-      :confirmHandler="createTable"
+      :cancelHandler="cancelHandler"
+      :confirmHandler="confirmHandler"
       confirmText="Create"
     )
 </template>
@@ -19,10 +19,10 @@ import ActionButtons from './ActionButtons.vue';
   },
 })
 export default class ItemAction extends Vue {
-  @Prop() private isVisible: any;
+  @Prop() private isVisible!: boolean;
   @Prop() private metaValue: any;
-  @Prop() private createTable: any;
-  @Prop() private createTableForm: any;
+  @Prop() private confirmHandler: any;
+  @Prop() private cancelHandler: any;
   @Prop() private metaChange: any;
   private mounted() {
     setTimeout(() => {

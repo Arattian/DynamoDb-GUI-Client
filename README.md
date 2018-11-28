@@ -1,5 +1,5 @@
-# DynamoDb-Vue
-## GUI client for DynamoDb
+# DynamoDb-Vue-Electron
+## Cross-platform GUI client for DynamoDb(Under Development)
 
 ![Logo](src/assets/git-logo.png)
 
@@ -7,13 +7,13 @@
 * [ ] Wrap application with electron
 ### **Problems**
 * [ ] AWS-SDK is not working properly in electron. Util.Streams got undefined.
-* [ ] Electron doesn't support localstorage, so need to switch from localstorage to file system.
+* [ ] Electron doesn't support localstorage, so planning to switch from localstorage to file system.
 
 ## run
 
 ```bash
-git clone https://github.com/Arattian/DynamoDb-Vue.git
-cd Dynamodb-Vue
+git clone https://github.com/Arattian/DynamoDb-Vue-Electron.git
+cd Dynamodb-Vue-Electron
 npm i
 npm start
 ```

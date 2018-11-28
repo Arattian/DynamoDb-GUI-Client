@@ -18,7 +18,7 @@
       :paginationIndex="paginationIndex"
       :header="header"
       :hideHashKey="hideHashKey"
-      :removeItem="removeItem"
+      :removeHandler="removeItem"
       size="mini"
     )  
     el-pagination(
@@ -34,8 +34,8 @@
       :isVisible="records.visible"
       :metaValue="records.recordMeta"
       :metaChange="setNewMeta"
-      :putItem="putItem"
-      :toggleActionForm="toggleActionForm"
+      :confirmHandler="putItem"
+      :cancelHandler="toggleActionForm"
     )
 </template>
 
@@ -58,7 +58,7 @@ export default class TableRecords extends Vue {
   @State private records: any;
   @Getter private loading: any;
   @Getter('header', { namespace }) private header: any;
-  @Getter('keys', { namespace }) private keys: any;
+  @Getter('keys', { namespace }) private keys!: {hashKey: string; rangeKey: string};
   @Getter('pageSize', { namespace }) private pageSize: any;
   @Getter('filterText', { namespace }) private filterText: any;
   @Getter('hasAttribute', { namespace }) private hasAttribute: any;
