@@ -17,6 +17,7 @@ async function getDbTables({ state, commit, dispatch }: ActionContext<RootState,
     commit('loading');
     return;
   }
+  commit('loading');
   if (!data.TableNames.length) {
     commit('records/emptyDatabase');
     commit('table/setTableMeta', {});

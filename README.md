@@ -3,13 +3,16 @@
 
 ![Logo](src/assets/git-logo.png)
 
+:eyes:
+![Logo](src/assets/App-View.png)
+
 ## **To Do List**
 * [ ] Wrap application with electron
 ### **Problems**
 * [ ] AWS-SDK is not working properly in electron. Util.Streams got undefined.
 * [ ] Electron doesn't support localstorage, so planning to switch from localstorage to file system.
 
-## run
+## Run
 
 ```bash
 git clone https://github.com/Arattian/DynamoDb-Vue-Electron.git
@@ -18,7 +21,7 @@ npm i
 npm start
 ```
 
-## features
+## Features
 
 * [x] Remote Access of AWS DynamoDB Service*
 * [x] Local DynamoDB
