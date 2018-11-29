@@ -35,10 +35,25 @@ function submitForm({ dispatch, getters }: ActionContext<DbState, RootState>) {
   dispatch('setCredentials');
 }
 
+function getDbList({ commit, dispatch }: ActionContext<DbState, RootState>) {
+  const newDbList = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    try {
+      JSON.parse(Object.values(localStorage)[i]);
+    } catch {
+      continue;
+    }
+    newDbList.push(JSON.parse(Object.values(localStorage)[i]));
+  }
+  commit('setDbList', newDbList);
+  newDbList && dispatch('getCurrentDb', newDbList[0], {root: true});
+}
+
 const actions: ActionTree<DbState, RootState> = {
   removeDbFromStorage,
   setCredentials,
   submitForm,
+  getDbList,
 };
 
 export default actions;

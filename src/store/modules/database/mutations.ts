@@ -2,19 +2,6 @@
 import { MutationTree } from 'vuex';
 import { DbState } from './types';
 
-function  getDbList(state: DbState) {
-  const newDbList = [];
-  for (let i = 0; i < localStorage.length; i++) {
-    try {
-      JSON.parse(Object.values(localStorage)[i]);
-    } catch {
-      continue;
-    }
-    newDbList.push(JSON.parse(Object.values(localStorage)[i]));
-  }
-  state.list = newDbList;
-}
-
 function addingDatabase(state: DbState) {
   state.formVisible = !state.formVisible;
 }
@@ -29,6 +16,10 @@ function setToDefault(state: DbState) {
   };
   state.formVisible = false;
   state.isRemote = true;
+}
+
+function setDbList(state: DbState, newDbList: any) {
+  state.list = newDbList;
 }
 
 function generateEndpoint(state: DbState) {
@@ -49,6 +40,6 @@ const mutations: MutationTree<DbState> = {
   addingDatabase,
   generateEndpoint,
   setToDefault,
-  getDbList,
+  setDbList,
 };
 export default mutations;

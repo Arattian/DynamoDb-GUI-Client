@@ -18,6 +18,7 @@ function showResponse(state: RootState, response: any) {
       type: '',
       message: '',
     };
+    state.loading = false;
   }, 100);
 }
 
@@ -25,6 +26,7 @@ function setDBInstances(state: RootState, configs: any) {
   state.dbInstance = new AWS.DynamoDB(configs);
   state.dbClient = new AWS.DynamoDB.DocumentClient(configs);
   state.endpoint = configs.endpoint;
+  state.currentDb = configs.name;
 }
 
 function removeDbFromState(state: RootState) {

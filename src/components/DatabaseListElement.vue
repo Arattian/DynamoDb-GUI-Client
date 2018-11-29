@@ -1,6 +1,6 @@
 <template lang="pug">
   .container
-    el-row(v-for="(db, index) in list" :key="index")
+    el-row(v-for="(db, index) in list" :key="index" :class="{active: isActive(db)}")
       .info(@click='elementHandler(db)')
         img(src="../assets/logo.svg")
         span {{db.name}}
@@ -14,6 +14,10 @@ export default class DatabaseList extends Vue {
   @Prop() private list!: any[];
   @Prop() private removeHandler: any;
   @Prop() private elementHandler: any;
+  @Prop() private activeDb: any;
+  private isActive(db: any) {
+    return db.name === this.activeDb;
+  }
 }
 </script>
 
@@ -44,4 +48,6 @@ export default class DatabaseList extends Vue {
 .el-row img
   width 20px
   margin-right 10px
+.active
+  border-bottom 1.5px solid #008753
 </style>

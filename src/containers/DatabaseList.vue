@@ -5,6 +5,7 @@
       :list="list"
       :removeHandler="removeDbFromStorage"
       :elementHandler="getCurrentDb"
+      :activeDb="currentDb"
     )
     AddDatabase
 </template>
@@ -22,9 +23,10 @@ const namespace: string = 'database';
   },
 })
 export default class DatabaseList extends Vue {
+  @Getter private currentDb: any;
   @Getter('list', { namespace }) private list: any;
   @Mutation('addingDatabase', { namespace }) private addingDatabase: any;
-  @Mutation('getDbList', { namespace }) private getDbList: any;
+  @Action('getDbList', { namespace }) private getDbList: any;
   @Action('removeDbFromStorage', { namespace }) private removeDbFromStorage: any;
   @Action('getCurrentDb') private getCurrentDb: any;
   private created() {
