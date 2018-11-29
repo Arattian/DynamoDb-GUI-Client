@@ -26,8 +26,8 @@
     DeleteTable(
       v-if="deletingTable"
       :isVisible="deletingTable"
-      :deleteTableForm="deleteTableForm"
-      :deleteTable="deleteTable"
+      :cancelHandler="deleteTableForm"
+      :confirmHandler="deleteTable"
     )
 </template>
 

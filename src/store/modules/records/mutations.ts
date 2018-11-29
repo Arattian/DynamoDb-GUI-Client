@@ -58,10 +58,6 @@ function filterTextChange(state: RecordState, filterText: any) {
   state.filterText = filterText.target.value;
 }
 
-function newAttribute(state: RecordState, attributeName: string) {
-  state.attributes.indexOf(attributeName) === -1 && state.attributes.push(attributeName);
-}
-
 function changeCurrentPage(state: RecordState, val: number) {
   state.pageNumber = val;
 }
@@ -70,8 +66,18 @@ function changePageSize(state: RecordState, val: number) {
   state.pageSize = val;
 }
 
-function setNewMeta(state: RecordState, newRecordMeta: string) {
-  state.recordMeta = newRecordMeta;
+function emptyDatabase(state: RecordState) {
+  state.recordMeta = '';
+  state.hashKey = '';
+  state.hashKeyLabel = '';
+  state.rangeKey = '';
+  state.rangeKeyLabel = '';
+  state.attributes = [];
+  state.data = [];
+  state.header = [];
+  state.pageSize = 15;
+  state.pageNumber = 1;
+  state.filterText = '';
 }
 
 const mutations: MutationTree<RecordState> = {
@@ -81,10 +87,9 @@ const mutations: MutationTree<RecordState> = {
   extractKeys,
   setMeta,
   filterTextChange,
-  newAttribute,
-  setNewMeta,
   changeCurrentPage,
   changePageSize,
+  emptyDatabase,
 };
 
 export default mutations;

@@ -1,5 +1,5 @@
 <template lang="pug">
-  el-row(class="actions")
+  el-row(class="actions" v-if="records.data")
     el-col(:span="1")
       i(class="el-icon-circle-plus-outline add" @click="generateMeta" title="Add Record")
     el-col(:span="2")

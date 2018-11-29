@@ -4,7 +4,7 @@
       :generateMeta="generateMeta"
       :getRecords="getRecords"
       :filterText="records.filterText"
-      :filterTextChange="filterTextChange"
+      :filterTextChange="filterChangeHandler"
       :resetCurrentPage="resetCurrentPage"
       :header="header"
       :hasAttribute="hasAttribute"
@@ -33,7 +33,7 @@
       v-if="records.visible"
       :isVisible="records.visible"
       :metaValue="records.recordMeta"
-      :metaChange="setNewMeta"
+      :metaChange="setMeta"
       :confirmHandler="putItem"
       :cancelHandler="toggleActionForm"
     )
@@ -75,7 +75,7 @@ export default class TableRecords extends Vue {
   @Mutation('changeCurrentPage', { namespace }) private changeCurrentPage: any;
   @Mutation('changePageSize', { namespace }) private changePageSize: any;
   @Mutation('toggleActionForm', { namespace }) private toggleActionForm: any;
-  @Mutation('setNewMeta', { namespace }) private setNewMeta: any;
+  @Mutation('setMeta', { namespace }) private setMeta: any;
   private beforeUpdate() {
     if (this.loading && this.records.pageNumber !== 1) {
       this.changeCurrentPage(1);
@@ -91,6 +91,10 @@ export default class TableRecords extends Vue {
   private changePageSizeAndReset(val: number) {
     this.changePageSize(val);
     this.resetCurrentPage();
+  }
+  private filterChangeHandler(el: any) {
+    this.resetCurrentPage();
+    this.filterTextChange(el);
   }
 }
 </script>

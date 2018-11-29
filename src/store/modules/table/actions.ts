@@ -17,7 +17,7 @@ async function createTable({ commit, rootState, state, dispatch }: ActionContext
   commit('createTableForm');
   commit('showResponse', 'Table creating in process... Auto-refresh in 10 seconds...', {root: true});
   setTimeout(() => {
-    dispatch('getCurrentDb', null, {root: true});
+    dispatch('getDbTables', params.TableName, {root: true});
   }, 10000);
 }
 

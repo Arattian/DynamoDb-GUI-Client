@@ -26,14 +26,15 @@ function generateEndpoint(state: DbState) {
   if (state.configs.region === 'localhost') {
     state.isRemote = false;
     state.configs.endpoint = '';
-    state.configs.accessKeyId = '_' + Math.random().toString(36).substr(2, 9);
-    state.configs.secretAccessKey = '_' + Math.random().toString(36).substr(2, 9);
-  } else {
-    state.isRemote = true;
+    state.configs.accessKeyId = ' ';
+    state.configs.secretAccessKey = ' ';
+    return;
+  } else if (!state.isRemote) {
     state.configs.accessKeyId = '';
     state.configs.secretAccessKey = '';
-    state.configs.endpoint = `https://dynamodb.${state.configs.region}.amazonaws.com`;
   }
+  state.isRemote = true;
+  state.configs.endpoint = `https://dynamodb.${state.configs.region}.amazonaws.com`;
 }
 
 const mutations: MutationTree<DbState> = {

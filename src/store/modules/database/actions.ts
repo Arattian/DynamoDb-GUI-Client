@@ -1,12 +1,12 @@
 import { ActionTree, ActionContext } from 'vuex';
 import { DbState } from './types';
 import { RootState } from '@/store/types';
-import AWS from 'aws-sdk';
+import DynamoDB from 'aws-sdk/clients/dynamodb';
 
-function removeDbFromStorage({ commit }: ActionContext<DbState, RootState>, db: any) {
+function removeDbFromStorage({ commit, dispatch }: ActionContext<DbState, RootState>, db: any) {
   localStorage.removeItem(`${db.name}-db`);
   commit('removeDbFromState', null, {root: true});
-  commit('getDbList');
+  dispatch('getDbList');
 }
 
 async function setCredentials({ commit, state, dispatch }: ActionContext<DbState, RootState>) {
@@ -14,7 +14,7 @@ async function setCredentials({ commit, state, dispatch }: ActionContext<DbState
     commit('showResponse', {message: 'Database with that name already exists'}, {root: true});
     return;
   }
-  const DB = new AWS.DynamoDB({...state.configs});
+  const DB = new DynamoDB({...state.configs});
   try {
     await DB.listTables().promise();
   } catch (err) {

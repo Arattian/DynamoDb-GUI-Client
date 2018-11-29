@@ -69,5 +69,5 @@ export default class RecordList extends Vue {
 .table
   overflow-y auto
   width 100%
-  height 70vh
+  height 65vh
 </style>

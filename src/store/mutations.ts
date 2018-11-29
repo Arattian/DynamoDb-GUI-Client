@@ -1,6 +1,6 @@
 import { MutationTree } from 'vuex';
 import { RootState } from './types';
-import AWS from 'aws-sdk';
+import DynamoDB from 'aws-sdk/clients/dynamodb';
 
 function showResponse(state: RootState, response: any) {
   if (typeof response === 'object') {
@@ -23,10 +23,12 @@ function notifyed(state: RootState) {
 }
 
 function setDBInstances(state: RootState, configs: any) {
-  state.dbInstance = new AWS.DynamoDB(configs);
-  state.dbClient = new AWS.DynamoDB.DocumentClient(configs);
+  state.dbInstance = new DynamoDB(configs);
+  state.dbClient = new DynamoDB.DocumentClient(configs);
   state.endpoint = configs.endpoint;
   state.currentDb = configs.name;
+  state.tables = [];
+  state.currentTable = '';
 }
 
 function removeDbFromState(state: RootState) {

@@ -1,9 +1,14 @@
 import { ActionContext, ActionTree } from 'vuex';
 import { RootState } from './types';
 
-async function getCurrentDb({ commit, state, dispatch }: ActionContext<RootState, RootState>, configs: any) {
+async function getCurrentDb({ commit, dispatch }: ActionContext<RootState, RootState>, configs: any) {
   commit('loading');
-  configs && commit('setDBInstances', configs);
+  commit('setDBInstances', configs);
+  dispatch('getDbTables');
+}
+
+async function getDbTables({ state, commit, dispatch }: ActionContext<RootState, RootState>, tableToGet: string) {
+  commit('loading');
   let data;
   try {
     data = await state.dbInstance.listTables().promise();
@@ -12,10 +17,16 @@ async function getCurrentDb({ commit, state, dispatch }: ActionContext<RootState
     commit('loading');
     return;
   }
-  commit('loading');
-  commit('setTableNames', data.TableNames);
-  dispatch('getTableItemCounts');
-  dispatch('getCurrentTable', data.TableNames[0]);
+  if (!data.TableNames.length) {
+    commit('records/emptyDatabase');
+    commit('table/setTableMeta', {});
+  } else {
+    commit('setTableNames', data.TableNames);
+    dispatch('getTableItemCounts');
+    tableToGet ?
+      dispatch('getCurrentTable', tableToGet) :
+      dispatch('getCurrentTable', data.TableNames[0]);
+  }
 }
 
 async function getTableItemCounts({ commit, state }: ActionContext<RootState, RootState>) {
@@ -51,6 +62,7 @@ const actions: ActionTree<RootState, RootState> = {
   getTableItemCounts,
   getNewTable,
   getCurrentTable,
+  getDbTables,
 };
 
 export default actions;
