@@ -9,7 +9,7 @@ function removeDbFromStorage({ commit }: ActionContext<DbState, RootState>, db: 
   commit('getDbList');
 }
 
-async function setCredentials({ commit, state }: ActionContext<DbState, RootState>) {
+async function setCredentials({ commit, state, dispatch }: ActionContext<DbState, RootState>) {
   if (localStorage.getItem(`${state.configs.name}-db`)) {
     commit('showResponse', {message: 'Database with that name already exists'}, {root: true});
     return;
@@ -23,8 +23,8 @@ async function setCredentials({ commit, state }: ActionContext<DbState, RootStat
     return;
   }
   localStorage.setItem(`${state.configs.name}-db`, JSON.stringify(state.configs));
-  commit('showResponse', 'Successfully added', {root: true});
-  commit('getDbList');
+  dispatch('getDbList');
+  dispatch('getCurrentDb', state.configs, {root: true});
   commit('setToDefault');
 }
 

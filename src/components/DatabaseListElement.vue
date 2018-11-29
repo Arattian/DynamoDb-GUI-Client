@@ -49,5 +49,5 @@ export default class DatabaseList extends Vue {
   width 20px
   margin-right 10px
 .active
-  border-bottom 1.5px solid #008753
+  border-left 3px solid #008753
 </style>

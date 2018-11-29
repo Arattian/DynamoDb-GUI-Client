@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { Vue, Component} from 'vue-property-decorator';
-import { Action, Getter } from 'vuex-class';
+import { Action, Getter, Mutation } from 'vuex-class';
 import TableMeta from './TableMeta.vue';
 import TableRecords from './TableRecords.vue';
 import TableActions from './TableActions.vue';
@@ -32,6 +32,7 @@ export default class DatabaseMain extends Vue {
   private activeTab: string = 'records';
   @Getter private response: any;
   @Getter private loading: any;
+  @Mutation private notifyed: any;
 
   private updated() {
     if (this.response.message) {
@@ -41,6 +42,7 @@ export default class DatabaseMain extends Vue {
         type: this.response.type,
         duration: 3000,
       });
+      this.notifyed();
     }
   }
   private expandMeta() {

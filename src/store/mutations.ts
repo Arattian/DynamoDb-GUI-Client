@@ -12,14 +12,14 @@ function showResponse(state: RootState, response: any) {
     state.response.type = 'success';
     state.response.message = response;
   }
-  setTimeout(() => {
-    state.response = {
-      title: '',
-      type: '',
-      message: '',
-    };
-    state.loading = false;
-  }, 100);
+}
+
+function notifyed(state: RootState) {
+  state.response = {
+    title: '',
+    type: '',
+    message: '',
+  };
 }
 
 function setDBInstances(state: RootState, configs: any) {
@@ -69,6 +69,7 @@ const mutations: MutationTree<RootState> = {
   deleteFromList,
   loading,
   setCurrentTable,
+  notifyed,
 };
 
 export default mutations;

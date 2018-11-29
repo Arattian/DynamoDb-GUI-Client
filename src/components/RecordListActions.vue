@@ -72,4 +72,8 @@ export default class RecordListActions extends Vue {
   display flex
   justify-content space-between
   align-items center
+.el-badge
+  display flex
+  justify-content space-between
+  align-items center
 </style>
