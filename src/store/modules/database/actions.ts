@@ -46,7 +46,7 @@ function getDbList({ commit, dispatch }: ActionContext<DbState, RootState>) {
     newDbList.push(JSON.parse(Object.values(localStorage)[i]));
   }
   commit('setDbList', newDbList);
-  newDbList && dispatch('getCurrentDb', newDbList[0], {root: true});
+  newDbList.length && dispatch('getCurrentDb', newDbList[0], {root: true});
 }
 
 const actions: ActionTree<DbState, RootState> = {
