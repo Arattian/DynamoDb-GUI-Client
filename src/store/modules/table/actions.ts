@@ -18,7 +18,7 @@ async function createTable({ commit, rootState, state, dispatch }: ActionContext
   commit('showResponse', 'Table creating in process... Auto-refresh in 10 seconds...', {root: true});
   setTimeout(() => {
     dispatch('getDbTables', params.TableName, {root: true});
-  }, 10000);
+  }, 12000);
 }
 
 async function getMeta({ commit, rootState }: ActionContext<TableState, RootState>) {
@@ -73,8 +73,8 @@ async function deleteTable({ commit, rootState, dispatch }: ActionContext<TableS
     return;
   }
   commit('deleteTableForm');
-  dispatch('getNewTable', currentTable, {root: true});
   commit('loading', null, {root: true});
+  dispatch('getNewTable', currentTable, {root: true});
   commit('showResponse', ' ', {root: true});
 }
 

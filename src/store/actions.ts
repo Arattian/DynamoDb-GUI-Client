@@ -2,7 +2,6 @@ import { ActionContext, ActionTree } from 'vuex';
 import { RootState } from './types';
 
 async function getCurrentDb({ commit, dispatch }: ActionContext<RootState, RootState>, configs: any) {
-  commit('loading');
   commit('setDBInstances', configs);
   dispatch('getDbTables');
 }
@@ -19,7 +18,7 @@ async function getDbTables({ state, commit, dispatch }: ActionContext<RootState,
   }
   commit('loading');
   if (!data.TableNames.length) {
-    commit('records/emptyDatabase');
+    commit('records/initialState');
     commit('table/setTableMeta', {});
   } else {
     commit('setTableNames', data.TableNames);
@@ -46,7 +45,8 @@ async function getTableItemCounts({ commit, state }: ActionContext<RootState, Ro
 
 function getNewTable({ commit, state, dispatch }: ActionContext<RootState, RootState>, tableName: string) {
   commit('deleteFromList', tableName);
-  if (state.tables) {
+  commit('records/initialState');
+  if (state.tables.length) {
     const newTable: any = state.tables[0];
     dispatch('getCurrentTable', newTable.name);
   }

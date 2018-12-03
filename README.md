@@ -6,19 +6,19 @@
 :eyes:
 ![Logo](src/assets/App-View.png)
 
-## **To Do List**
-* [ ] Wrap application with electron
-### **Problems**
-* [ ] AWS-SDK is not working properly in electron. Util.Streams got undefined.
-
 ## Run
+
 
 ```bash
 git clone https://github.com/Arattian/DynamoDb-Vue-Electron.git
 cd Dynamodb-Vue-Electron
 npm i
+# Electron serve
+npm run electron:serve
+# Vue Cli serve
 npm start
 ```
+
 
 ## Features
 

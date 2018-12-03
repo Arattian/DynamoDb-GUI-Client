@@ -52,6 +52,7 @@ function setTablesWithItemCount(state: RootState, tables: Array<{name: string, I
 
 function deleteFromList(state: RootState, tableName: string) {
   state.tables = state.tables.filter((table: any) => table.name !== tableName);
+  state.currentTable = '';
 }
 
 function loading(state: RootState) {

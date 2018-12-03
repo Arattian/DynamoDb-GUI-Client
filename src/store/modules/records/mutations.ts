@@ -66,7 +66,7 @@ function changePageSize(state: RecordState, val: number) {
   state.pageSize = val;
 }
 
-function emptyDatabase(state: RecordState) {
+function initialState(state: RecordState) {
   state.recordMeta = '';
   state.hashKey = '';
   state.hashKeyLabel = '';
@@ -89,7 +89,7 @@ const mutations: MutationTree<RecordState> = {
   filterTextChange,
   changeCurrentPage,
   changePageSize,
-  emptyDatabase,
+  initialState,
 };
 
 export default mutations;
