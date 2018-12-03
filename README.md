@@ -10,7 +10,6 @@
 * [ ] Wrap application with electron
 ### **Problems**
 * [ ] AWS-SDK is not working properly in electron. Util.Streams got undefined.
-* [ ] Electron doesn't support localstorage, so planning to switch from localstorage to file system.
 
 ## Run
 
