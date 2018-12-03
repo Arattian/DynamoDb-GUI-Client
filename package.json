@@ -1,5 +1,5 @@
 {
-  "name": "electron",
+  "name": "dynamodb-client",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,8 +12,8 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "aws-sdk": "^2.348.0",
-    "element-ui": "^2.4.5",
+    "aws-sdk": "^2.368.0",
+    "element-ui": "^2.4.11",
     "vue": "^2.5.17",
     "vue-class-component": "^6.0.0",
     "vue-json-editor": "^1.2.3",
@@ -22,14 +22,14 @@
     "vuex-class": "^0.3.1"
   },
   "devDependencies": {
-    "@types/jest": "^23.1.4",
+    "@types/jest": "^23.3.10",
     "@vue/cli-plugin-babel": "^3.0.4",
     "@vue/cli-plugin-typescript": "^3.0.4",
     "@vue/cli-plugin-unit-jest": "^3.0.4",
     "@vue/cli-service": "^3.0.4",
-    "@vue/test-utils": "^1.0.0-beta.20",
+    "@vue/test-utils": "^1.0.0-beta.26",
     "babel-core": "7.0.0-bridge.0",
-    "electron": "^3.0.0",
+    "electron": "^3.0.10",
     "element-theme-chalk": "^2.4.10",
     "pug": "^2.0.3",
     "pug-plain-loader": "^1.0.0",
