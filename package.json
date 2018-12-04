@@ -1,6 +1,10 @@
 {
-  "name": "dynamodb-client",
+  "name": "dynamodb-gui-client",
   "version": "0.1.0",
+  "author": {
+    "name": "Misak Poghosyan",
+    "url": "https://github.com/Arattian"
+  },
   "private": true,
   "scripts": {
     "start": "vue-cli-service serve --open",

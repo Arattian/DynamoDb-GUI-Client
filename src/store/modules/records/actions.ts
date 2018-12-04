@@ -77,18 +77,18 @@ function generateMeta({commit, state}: ActionContext<RecordState, RootState>) {
 async function getRecords({ commit, rootState }: ActionContext<RecordState, RootState>) {
   const { dbClient } = rootState;
   const { currentTable } = rootState;
-  commit('loading', null, {root: true});
+  commit('loading', true, {root: true});
   let data;
   try {
     data = await dbClient.scan({TableName: currentTable}).promise();
   } catch (err) {
     commit('showResponse', err, {root: true});
-    commit('loading', null, {root: true});
+    commit('loading', false, {root: true});
     return;
   }
   commit('setData', data.Items);
   commit('setHeader');
-  commit('loading', null, {root: true});
+  commit('loading', false, {root: true});
 }
 
 const actions: ActionTree<RecordState, RootState> = {

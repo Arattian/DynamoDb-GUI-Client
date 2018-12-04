@@ -7,16 +7,16 @@ async function getCurrentDb({ commit, dispatch }: ActionContext<RootState, RootS
 }
 
 async function getDbTables({ state, commit, dispatch }: ActionContext<RootState, RootState>, tableToGet: string) {
-  commit('loading');
+  commit('loading', true);
   let data;
   try {
     data = await state.dbInstance.listTables().promise();
   } catch (err) {
     commit('showResponse', err);
-    commit('loading');
+    commit('loading', false);
     return;
   }
-  commit('loading');
+  commit('loading', false);
   if (!data.TableNames.length) {
     commit('records/initialState');
     commit('table/setTableMeta', {});

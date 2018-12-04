@@ -1,0 +1,32 @@
+appId: com.dynamodb.guiclient
+productName: DynamoDbGUI
+artifactName: "${productName}-${os}-${arch}-${version}.${ext}"
+files:
+  - "**/*"
+  - "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme,test,__tests__,tests,powered-test,example,examples,*.d.ts}"
+  - "!**/node_modules/.bin"
+  - "!**/._*"
+  - "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,__pycache__,thumbs.db,.gitignore,.gitattributes,.editorconfig,.flowconfig,.yarn-metadata.json,.idea,appveyor.yml,.travis.yml,circle.yml,npm-debug.log,.nyc_output,yarn.lock,.yarn-integrity}"
+asar: true
+compression: maximum
+dmg:
+  icon: "build/icon.icns"
+  contents:
+    - x: 532
+      y: 249
+      type: link
+      path: /Applications
+    - x: 281
+      y: 249
+      type: file
+linux:
+  description: "DynamoDb GUI Client"
+  target:
+    - deb
+    - AppImage
+  maintainer: "Misak Poghosyan <poghosyanmisak97@gmail.com>"
+win:
+  icon: "build/icon.ico"
+nsis:
+  perMachine: true
+  oneClick: true

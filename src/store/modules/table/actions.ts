@@ -5,15 +5,15 @@ import { RootState } from '@/store/types';
 async function createTable({ commit, rootState, state, dispatch }: ActionContext<TableState, RootState>) {
   const { dbInstance } = rootState;
   const params = state.newTableMeta;
-  commit('loading', null, {root: true});
+  commit('loading', true, {root: true});
   try {
     await dbInstance.createTable(params).promise();
   } catch (err) {
     commit('showResponse', err, {root: true});
-    commit('loading', null, {root: true});
+    commit('loading', false, {root: true});
     return;
   }
-  commit('loading', null, {root: true});
+  commit('loading', false, {root: true});
   commit('createTableForm');
   commit('showResponse', 'Table creating in process... Auto-refresh in 10 seconds...', {root: true});
   setTimeout(() => {
@@ -23,24 +23,24 @@ async function createTable({ commit, rootState, state, dispatch }: ActionContext
 
 async function getMeta({ commit, rootState }: ActionContext<TableState, RootState>) {
   const { dbInstance, currentTable } = rootState;
-  commit('loading', null, {root: true});
+  commit('loading', true, {root: true});
   let data;
   try {
     data = await dbInstance.describeTable({TableName: currentTable}).promise();
   } catch (err) {
     commit('showResponse', err, {root: true});
-    commit('loading', null, {root: true});
+    commit('loading', false, {root: true});
     return;
   }
   commit('setTableMeta', data.Table);
   commit('records/extractKeys', data.Table, {root: true});
-  commit('loading', null, {root: true});
+  commit('loading', false, {root: true});
 }
 
 async function updateTable({ commit, rootState, state }: ActionContext<TableState, RootState>) {
   const { dbInstance } = rootState;
   const { tableMeta } = state;
-  commit('loading', null, {root: true});
+  commit('loading', true, {root: true});
   const params = {
     TableName: tableMeta.TableName,
     AttributeDefinitions: tableMeta.AttributeDefinitions,
@@ -54,26 +54,26 @@ async function updateTable({ commit, rootState, state }: ActionContext<TableStat
   };
   try {
     await dbInstance.updateTable(params).promise();
-    commit('loading', null, {root: true});
   } catch (err) {
     commit('showResponse', err, {root: true});
-    commit('loading', null, {root: true});
+    commit('loading', false, {root: true});
     return;
   }
+  commit('loading', false, {root: true});
   commit('showResponse', 'It will take a while before the change takes an effect', {root: true});
 }
 async function deleteTable({ commit, rootState, dispatch }: ActionContext<TableState, RootState>) {
   const { dbInstance, currentTable } = rootState;
-  commit('loading', null, {root: true});
+  commit('loading', true, {root: true});
   try {
     await dbInstance.deleteTable({TableName: currentTable}).promise();
   } catch (err) {
     commit('showResponse', err, {root: true});
-    commit('loading', null, {root: true});
+    commit('loading', false, {root: true});
     return;
   }
   commit('deleteTableForm');
-  commit('loading', null, {root: true});
+  commit('loading', false, {root: true});
   dispatch('getNewTable', currentTable, {root: true});
   commit('showResponse', ' ', {root: true});
 }
