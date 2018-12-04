@@ -55,13 +55,8 @@ function deleteFromList(state: RootState, tableName: string) {
   state.currentTable = '';
 }
 
-function loading(state: RootState, needToLoad: boolean) {
-  if (needToLoad && state.loading || !needToLoad && !state.loading) {
-    state.loading = false;
-    return;
-  }
-  needToLoad && (state.loading = true);
-  !needToLoad && (state.loading = false);
+function loading(state: RootState, isLoading: boolean) {
+  state.loading = isLoading;
 }
 
 function setCurrentTable(state: RootState, tableName: string) {
