@@ -3,13 +3,18 @@
 
 ### Builded Electron Application
 * [.deb](https://www.dropbox.com/s/r9059en5f2lhm4g/DynamoDbGUI-linux-amd64-0.1.0.deb?dl=0)
-* [Linux-AppImage](https://www.dropbox.com/s/17e88lei7b4jzxj/DynamoDbGUI-linux-x86_64-0.1.0.AppImage?dl=0)
-* [How to open .AppImage files](https://itsfoss.com/use-appimage-linux/)
+* [.AppImage](https://www.dropbox.com/s/17e88lei7b4jzxj/DynamoDbGUI-linux-x86_64-0.1.0.AppImage?dl=0)
+
+[How to open .AppImage files on Linux](https://itsfoss.com/use-appimage-linux/)
 
 ![Logo](src/assets/git-logo.png)
 
 :eyes:
 ![Logo](src/assets/App-View.png)
+
+## To-Do List
+* [ ] MacOS build
+* [ ] Windows build
 
 ## Run
 
