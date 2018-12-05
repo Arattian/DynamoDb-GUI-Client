@@ -18,7 +18,7 @@ import ActionButtons from './ActionButtons.vue';
     ActionButtons,
   },
 })
-export default class ItemAction extends Vue {
+export default class CreateTable extends Vue {
   @Prop() private isVisible!: boolean;
   @Prop() private metaValue: any;
   @Prop() private confirmHandler: any;

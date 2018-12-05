@@ -10,7 +10,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
 @Component
-export default class DatabaseList extends Vue {
+export default class DatabaseListElement extends Vue {
   @Prop() private list!: any[];
   @Prop() private removeHandler: any;
   @Prop() private elementHandler: any;

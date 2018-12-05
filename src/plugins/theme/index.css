@@ -1,114 +1,8 @@
 @charset "UTF-8";
-/* Element Chalk Variables */
-/* Transition
--------------------------- */
-/* Colors
--------------------------- */
-/* 53a8ff */
-/* 66b1ff */
-/* 79bbff */
-/* 8cc5ff */
-/* a0cfff */
-/* b3d8ff */
-/* c6e2ff */
-/* d9ecff */
-/* ecf5ff */
-/* Link
--------------------------- */
-/* Background
--------------------------- */
-/* Border
--------------------------- */
-/* Box-shadow
--------------------------- */
-/* Fill
--------------------------- */
-/* Font
--------------------------- */
-/* Size
--------------------------- */
-/* z-index
--------------------------- */
-/* Disable base
--------------------------- */
-/* Icon
--------------------------- */
-/* Checkbox
--------------------------- */
-/* Radio
--------------------------- */
-/* Select
--------------------------- */
-/* Alert
--------------------------- */
-/* Message Box
--------------------------- */
-/* Message
--------------------------- */
-/* Notification
--------------------------- */
-/* Input
--------------------------- */
-/* Cascader
--------------------------- */
-/* Group
--------------------------- */
-/* Tab
--------------------------- */
-/* Button
--------------------------- */
-/* cascader
--------------------------- */
-/* Switch
--------------------------- */
-/* Dialog
--------------------------- */
-/* Table
--------------------------- */
-/* Pagination
--------------------------- */
-/* Popover
--------------------------- */
-/* Tooltip
--------------------------- */
-/* Tag
--------------------------- */
-/* Tree
--------------------------- */
-/* Dropdown
--------------------------- */
-/* Badge
--------------------------- */
-/* Card
---------------------------*/
-/* Slider
---------------------------*/
-/* Steps
---------------------------*/
-/* Menu
---------------------------*/
-/* Rate
---------------------------*/
-/* DatePicker
---------------------------*/
-/* Loading
---------------------------*/
-/* Scrollbar
---------------------------*/
-/* Carousel
---------------------------*/
-/* Collapse
---------------------------*/
-/* Transfer
---------------------------*/
-/* Header
-  --------------------------*/
-/* Footer
---------------------------*/
-/* Main
---------------------------*/
-/* Break-point
---------------------------*/
+html, body {
+  background: #222933;
+  color: #eee
+}
 .fade-in-linear-enter-active,
 .fade-in-linear-leave-active {
   -webkit-transition: opacity 200ms linear;
@@ -10296,7 +10190,7 @@
     position: relative;
     vertical-align: middle; }
     .el-checkbox__input.is-disabled .el-checkbox__inner {
-      background-color: #edf2fc;
+      background-color: #000;
       border-color: #121820;
       cursor: not-allowed; }
       .el-checkbox__input.is-disabled .el-checkbox__inner::after {
@@ -14577,7 +14471,7 @@
     position: relative;
     vertical-align: middle; }
     .el-checkbox__input.is-disabled .el-checkbox__inner {
-      background-color: #edf2fc;
+      background-color: #000;
       border-color: #121820;
       cursor: not-allowed; }
       .el-checkbox__input.is-disabled .el-checkbox__inner::after {
@@ -16416,7 +16310,7 @@
     position: relative;
     vertical-align: middle; }
     .el-checkbox__input.is-disabled .el-checkbox__inner {
-      background-color: #edf2fc;
+      background-color: #000;
       border-color: #121820;
       cursor: not-allowed; }
       .el-checkbox__input.is-disabled .el-checkbox__inner::after {
@@ -18380,6 +18274,7 @@
     -moz-appearance: none;
     appearance: none;
     border: none;
+    background-color: #222933;
     outline: none;
     display: inline-block;
     height: 100%;
@@ -29951,7 +29846,7 @@
     position: relative;
     vertical-align: middle; }
     .el-checkbox__input.is-disabled .el-checkbox__inner {
-      background-color: #edf2fc;
+      background-color: #000;
       border-color: #121820;
       cursor: not-allowed; }
       .el-checkbox__input.is-disabled .el-checkbox__inner::after {
@@ -35477,6 +35372,7 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     border-radius: 4px;
+    background: #222933 !important;
     width: 100%; }
     .el-upload-list__item .el-progress {
       position: absolute;
@@ -42941,7 +42837,7 @@
     position: relative;
     vertical-align: middle; }
     .el-checkbox__input.is-disabled .el-checkbox__inner {
-      background-color: #edf2fc;
+      background-color: #000;
       border-color: #121820;
       cursor: not-allowed; }
       .el-checkbox__input.is-disabled .el-checkbox__inner::after {

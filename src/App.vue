@@ -33,7 +33,7 @@ html,body
   width 100%
   font-size 14px
   overflow hidden
-  background-color #222933
+  background-color #fff
 .el-header
   padding 0px
 .cell

@@ -34,7 +34,6 @@
     "@vue/test-utils": "^1.0.0-beta.26",
     "babel-core": "7.0.0-bridge.0",
     "electron": "^3.0.10",
-    "element-theme-chalk": "^2.4.10",
     "pug": "^2.0.3",
     "pug-plain-loader": "^1.0.0",
     "stylus": "^0.54.5",
