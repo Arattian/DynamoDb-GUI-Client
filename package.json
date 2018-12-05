@@ -1,6 +1,6 @@
 {
   "name": "dynamodb-gui-client",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": {
     "name": "Misak Poghosyan",
     "url": "https://github.com/Arattian"

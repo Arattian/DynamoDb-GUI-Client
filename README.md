@@ -2,8 +2,8 @@
 ## Cross-platform GUI client for DynamoDb(Under Development)
 
 ### Builded Electron Application
-* [.deb](https://www.dropbox.com/s/r9059en5f2lhm4g/DynamoDbGUI-linux-amd64-0.1.0.deb?dl=0)
-* [.AppImage](https://www.dropbox.com/s/17e88lei7b4jzxj/DynamoDbGUI-linux-x86_64-0.1.0.AppImage?dl=0)
+* [.deb](https://www.dropbox.com/s/6evuca09vy89e3d/DynamoDbGUI-linux-amd64-1.0.0.deb?dl=0)
+* [.AppImage](https://www.dropbox.com/s/ihscol2qg013r4g/DynamoDbGUI-linux-x86_64-1.0.0.AppImage?dl=0)
 
 [How to open .AppImage files on Linux](https://itsfoss.com/use-appimage-linux/)
 
@@ -15,7 +15,6 @@
 ## To-Do List
 * [ ] MacOS build
 * [ ] Windows build
-* [ ] Dark-theme import with separate module
 
 ## Run
 
