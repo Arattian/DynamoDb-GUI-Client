@@ -1,23 +1,32 @@
 {
   "name": "dynamodb-gui-client",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": {
     "name": "Misak Poghosyan",
     "url": "https://github.com/Arattian"
   },
-  "private": true,
+  "license": "MIT",
+  "repository": "Arattian/DynamoDb-GUI-Client",
+  "keywords": [
+    "element-ui",
+    "npm",
+    "package",
+    "dark",
+    "theme",
+    "aratta"
+  ],
   "scripts": {
     "start": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
-    "postinstall": "electron-builder install-app-deps",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "aws-sdk": "^2.368.0",
     "element-ui": "^2.4.11",
+    "shelljs": "^0.8.3",
     "vue": "^2.5.17",
     "vue-class-component": "^6.0.0",
     "vue-json-editor": "^1.2.3",
@@ -45,5 +54,8 @@
     "vue-cli-plugin-element": "^1.0.0",
     "vue-template-compiler": "^2.5.17"
   },
-  "main": "background.js"
+  "main": "background.js",
+  "bin": {
+    "dynamodb-client": "./bin/cli.js"
+  }
 }
