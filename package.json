@@ -1,10 +1,11 @@
 {
   "name": "dynamodb-gui-client",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "author": {
     "name": "Misak Poghosyan",
     "url": "https://github.com/Arattian"
   },
+  "description": "DynamoDb-GUI-Client",
   "license": "MIT",
   "repository": "Arattian/DynamoDb-GUI-Client",
   "keywords": [
