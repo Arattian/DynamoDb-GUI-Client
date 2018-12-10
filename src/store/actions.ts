@@ -46,6 +46,7 @@ async function getTableItemCounts({ commit, state }: ActionContext<RootState, Ro
 function getNewTable({ commit, state, dispatch }: ActionContext<RootState, RootState>, tableName: string) {
   commit('deleteFromList', tableName);
   commit('records/initialState');
+  commit('table/setTableMeta', '');
   if (state.tables.length) {
     const newTable: any = state.tables[0];
     dispatch('getCurrentTable', newTable.name);

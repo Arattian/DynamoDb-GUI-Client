@@ -34,6 +34,8 @@ html,body
   font-size 14px
   overflow hidden
   background-color #fff
+  background #222933
+  color #eee
 .el-header
   padding 0px
 .cell

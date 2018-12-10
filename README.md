@@ -1,13 +1,13 @@
 # DynamoDb-GUI-Client
-## Cross-platform GUI client for DynamoDb(Under Development)
+## Cross-platform GUI client for DynamoDb
 
 [![npm](https://img.shields.io/npm/dt/dynamodb-gui-client.svg)](https://www.npmjs.com/package/dynamodb-gui-client)
 [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/Arattian/DynamoDb-GUI-Client/blob/master/LICENSE)
 
 
 ### Builded Electron Application
-* [.deb](https://www.dropbox.com/s/6evuca09vy89e3d/DynamoDbGUI-linux-amd64-1.0.0.deb?dl=0)
-* [.AppImage](https://www.dropbox.com/s/ihscol2qg013r4g/DynamoDbGUI-linux-x86_64-1.0.0.AppImage?dl=0)
+* [.deb](https://www.dropbox.com/s/vs9jj0oo93q68jh/DynamoDbGUI-linux-amd64-2.0.4.deb?dl=0)
+* [.AppImage](https://www.dropbox.com/s/7vevslvt4t5vtqm/DynamoDbGUI-linux-x86_64-2.0.4.AppImage?dl=0)
 
 [How to open .AppImage files on Linux](https://itsfoss.com/use-appimage-linux/)
 
