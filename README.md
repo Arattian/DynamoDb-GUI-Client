@@ -5,7 +5,9 @@
 
 
 ### [Release v2.1.0](https://github.com/Arattian/DynamoDb-GUI-Client/releases/tag/v2.1.0)
-
+##### [Download for MacOS (.dmg)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/v2.1.0/DynamoDbGUI-mac-2.1.0.dmg)
+##### [Download for Linux (.AppImage)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/v2.1.0/DynamoDbGUI-linux-x86_64-2.1.0.AppImage)
+##### [Download for Debian (.deb)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/v2.1.0/DynamoDbGUI-linux-amd64-2.1.0.deb)
 ![Logo](src/assets/git-logo.png)
 
 :eyes:
