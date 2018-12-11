@@ -10,7 +10,7 @@ files:
 asar: true
 compression: maximum
 dmg:
-  icon: "build/icon.icns"
+  icon: "public/icon.icns"
   contents:
     - x: 532
       y: 249
@@ -26,7 +26,7 @@ linux:
     - AppImage
   maintainer: "Misak Poghosyan <poghosyanmisak97@gmail.com>"
 win:
-  icon: "build/icon.ico"
+  icon: "public/icon.ico"
 nsis:
   perMachine: true
   oneClick: true
