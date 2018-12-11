@@ -14,7 +14,6 @@
 ![Logo](src/assets/App-View.png)
 
 ## To-Do List
-* [ ] MacOS build
 * [ ] Windows build
 
 ## Run
