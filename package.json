@@ -1,6 +1,6 @@
 {
   "name": "dynamodb-gui-client",
-  "version": "2.0.6",
+  "version": "2.1.0",
   "author": {
     "name": "Misak Poghosyan",
     "url": "https://github.com/Arattian"
@@ -54,8 +54,5 @@
     "vue-cli-plugin-element": "^1.0.0",
     "vue-template-compiler": "^2.5.17"
   },
-  "main": "background.js",
-  "bin": {
-    "dynamodb-client": "./bin/cli.js"
-  }
+  "main": "background.js"
 }

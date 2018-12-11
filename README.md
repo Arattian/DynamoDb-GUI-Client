@@ -19,12 +19,6 @@
 ## Run
 
 ```bash
-npm i -g dynamodb-gui-client
-#and simply run from terminal
-dynamodb-client
-```
-
-```bash
 git clone https://github.com/Arattian/DynamoDb-GUI-Client.git
 cd Dynamodb-GUI-Client
 npm i
