@@ -1,6 +1,6 @@
 {
   "name": "dynamodb-gui-client",
-  "version": "2.0.4",
+  "version": "2.0.6",
   "author": {
     "name": "Misak Poghosyan",
     "url": "https://github.com/Arattian"
@@ -17,7 +17,7 @@
     "aratta"
   ],
   "scripts": {
-    "start": "vue-cli-service serve --open",
+    "start": "vue-cli-service serve --port 5000 --open",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "electron:build": "vue-cli-service electron:build",
@@ -27,7 +27,6 @@
   "dependencies": {
     "aws-sdk": "^2.368.0",
     "element-ui": "^2.4.11",
-    "shelljs": "^0.8.3",
     "vue": "^2.5.17",
     "vue-class-component": "^6.0.0",
     "vue-json-editor": "^1.2.3",

@@ -1,4 +1,4 @@
 #!/usr/bin/env node
 
-const shell = require('shelljs');
-shell.exec('npm start');
+const { exec } = require('child_process');
+exec('npm start');
