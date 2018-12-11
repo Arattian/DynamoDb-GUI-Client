@@ -1,11 +1,10 @@
 # DynamoDb-GUI-Client
 ## Cross-platform GUI client for DynamoDb
 
-[![npm](https://img.shields.io/npm/dt/dynamodb-gui-client.svg)](https://www.npmjs.com/package/dynamodb-gui-client)
 [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/Arattian/DynamoDb-GUI-Client/blob/master/LICENSE)
 
 
-### [Release v2.0.4](https://github.com/Arattian/DynamoDb-GUI-Client/releases/tag/v2.0.4)
+### [Release v2.1.0](https://github.com/Arattian/DynamoDb-GUI-Client/releases/tag/v2.1.0)
 
 ![Logo](src/assets/git-logo.png)
 
