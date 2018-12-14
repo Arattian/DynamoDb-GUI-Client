@@ -32,7 +32,7 @@ export default class DatabaseMain extends Vue {
   private activeTab: string = 'records';
   @Getter private response: any;
   @Getter private loading: any;
-  @Mutation private notifyed: any;
+  @Mutation private notified: any;
 
   private updated() {
     if (this.response.message) {
@@ -42,7 +42,7 @@ export default class DatabaseMain extends Vue {
         type: this.response.type,
         duration: 3000,
       });
-      this.notifyed();
+      this.notified();
     }
   }
   private expandMeta() {

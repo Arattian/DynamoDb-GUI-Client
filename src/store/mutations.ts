@@ -14,7 +14,7 @@ function showResponse(state: RootState, response: any) {
   }
 }
 
-function notifyed(state: RootState) {
+function notified(state: RootState) {
   state.response = {
     title: '',
     type: '',
@@ -23,6 +23,7 @@ function notifyed(state: RootState) {
 }
 
 function setDBInstances(state: RootState, configs: any) {
+  configs.maxRetries = 5;
   state.dbInstance = new DynamoDB(configs);
   state.dbClient = new DynamoDB.DocumentClient(configs);
   state.endpoint = configs.endpoint;
@@ -72,7 +73,7 @@ const mutations: MutationTree<RootState> = {
   deleteFromList,
   loading,
   setCurrentTable,
-  notifyed,
+  notified,
 };
 
 export default mutations;

@@ -26,12 +26,9 @@ function extractKeys(state: RecordState, schema: any) {
   }
 }
 
-function setHeader(state: RecordState, data: any[]) {
-  let extractData = state.data;
+function setHeader(state: RecordState) {
+  const extractData = state.data;
   state.attributes = [];
-  if (data) {
-    extractData = data;
-  }
   state.header = [];
   const keyArray: any = [];
   for (const row of extractData) {
