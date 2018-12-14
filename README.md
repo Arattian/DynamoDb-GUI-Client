@@ -4,19 +4,14 @@
 [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/Arattian/DynamoDb-GUI-Client/blob/master/LICENSE)
 
 
-### [Release v2.1.0](https://github.com/Arattian/DynamoDb-GUI-Client/releases/tag/v2.1.0)
-##### [Download for MacOS (.dmg)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/v2.1.0/DynamoDbGUI-mac-2.1.0.dmg)
-##### [Download for Linux (.AppImage)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/v2.1.0/DynamoDbGUI-linux-x86_64-2.1.0.AppImage)
-##### [Download for Debian (.deb)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/v2.1.0/DynamoDbGUI-linux-amd64-2.1.0.deb)
+### [Release v2.1.1](https://github.com/Arattian/DynamoDb-GUI-Client/releases/tag/v2.1.1)
+##### [Download for MacOS (.dmg)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/v2.1.1/DynamoDbGUI-mac-2.1.1.dmg)
 
-###### As i switched to MacOS and Electron doesn't provide way to build many versions of application on one OS, next releases will only contain changes only for MacOS. Or if you want to contribute, you can clone latest version of repo, build it for your OS and provide me download link. I will include it on release versions.
+###### As i switched to MacOS and Electron doesn't provide way to build many versions of application on one OS, next releases will contain changes only for MacOS. Or if you want to contribute, you can clone latest version of repo, build it for your OS and provide me download link. I will include it on release versions.
 ![Logo](src/assets/git-logo.png)
 
 :eyes:
 ![Logo](src/assets/App-View.png)
-
-## To-Do List
-* [ ] Windows build
 
 ## Run
 
