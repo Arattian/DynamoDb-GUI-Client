@@ -5,14 +5,17 @@
 
 
 ### [Release v2.1.0](https://github.com/Arattian/DynamoDb-GUI-Client/releases/tag/v2.1.0)
+##### [Download for MacOS (.dmg)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/v2.1.0/DynamoDbGUI-mac-2.1.0.dmg)
+##### [Download for Linux (.AppImage)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/v2.1.0/DynamoDbGUI-linux-x86_64-2.1.0.AppImage)
+##### [Download for Debian (.deb)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/v2.1.0/DynamoDbGUI-linux-amd64-2.1.0.deb)
 
+###### As i switched to MacOS and Electron doesn't provide way to build many versions of application on one OS, next releases will only contain changes only for MacOS. Or if you want to contribute, you can clone latest version of repo, build it for your OS and provide me download link. I will include it on release versions.
 ![Logo](src/assets/git-logo.png)
 
 :eyes:
 ![Logo](src/assets/App-View.png)
 
 ## To-Do List
-* [ ] MacOS build
 * [ ] Windows build
 
 ## Run
@@ -25,6 +28,8 @@ npm i
 npm run electron:serve
 # Vue Cli serve
 npm start
+# Electron application build(This will build app for your OS)
+npm run electron:build
 ```
 
 ## Features
@@ -48,5 +53,5 @@ npm start
     * [x] Delete Table
   * Filter by attribute value
   * Filter by attribute name
-    
+
 * For remote access, need to provide access and secret keys.All keys stored in localstorage.
