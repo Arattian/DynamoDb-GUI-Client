@@ -30,12 +30,12 @@ export default class DatabaseListElement extends Vue {
   display flex
   color #eee
   border-radius 5px
-.el-row .info 
+.el-row .info
   display flex
   align-items center
   width 90%
   overflow hidden
-.el-row .info:hover 
+.el-row .info:hover
   cursor pointer
   text-decoration underline
 .el-row .delete

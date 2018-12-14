@@ -24,7 +24,7 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Roboto')
 *
   padding 0
-  margin 0 
+  margin 0
   font-family 'Roboto', sans-serif
   box-sizing border-box
   user-select none !important
@@ -50,7 +50,7 @@ td
 .jsoneditor-field:hover,.jsoneditor-field:focus
   color #fff !important
   background #191d25 !important
-  border 1px solid #191d25 !important 
+  border 1px solid #191d25 !important
 .jsoneditor-string
   color #46b7ff !important
 .jsoneditor-menu
@@ -67,7 +67,7 @@ td
 .jsoneditor-value:hover,.jsoneditor-value:focus
   color #fff !important
   background #191d25 !important
-  border 1px solid #191d25 !important 
+  border 1px solid #191d25 !important
 .jsoneditor-tree button:focus
   background none !important
   outline none !important

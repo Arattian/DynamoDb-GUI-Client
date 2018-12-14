@@ -1,5 +1,5 @@
 <template lang="pug">
-  el-dialog(center :visible="isVisible" :show-close="false" width="800px")  
+  el-dialog(center :visible="isVisible" :show-close="false" width="800px")
     el-row(class="editor")
       vue-json-editor(:value="metaValue" :showBtns="false" @json-change="metaChange" ref="editorInstance")
     ActionButtons(

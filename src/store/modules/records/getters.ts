@@ -24,7 +24,7 @@ const tableDataPage = (state: RecordState, getters: GetterTree<RecordState, Root
 const filterTable = (state: RecordState) => {
   let data = state.data.filter((record: any) => {
     for (const key in record) {
-      if (record[key].includes(state.filterText)) {
+      if ((record[key] + '').includes(state.filterText)) {
         return record;
       }
     }

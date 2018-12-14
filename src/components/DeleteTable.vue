@@ -1,5 +1,5 @@
 <template lang="pug">
-  el-dialog(:visible="isVisible" :show-close="false" width="500px")  
+  el-dialog(:visible="isVisible" :show-close="false" width="500px")
     el-row(class="header")
       i(class="el-icon-warning")
       p This will permanently delete table and all its items. Continue?

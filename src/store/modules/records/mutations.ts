@@ -38,10 +38,8 @@ function setHeader(state: RecordState) {
         state.header.push({label: key.toUpperCase(), prop: `${key}`});
         keyArray.push(key);
       }
-      if (row[key] + '' === '[object Object]') {
+      if (typeof row[key] === 'object') {
         row[key] = JSON.stringify(row[key]);
-      } else {
-        row[key] += '';
       }
     }
   }

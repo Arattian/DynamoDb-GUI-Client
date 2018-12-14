@@ -8,7 +8,7 @@
       el-col(:span="20")
         el-select(:value="currentTable" @change="switchTable" placeholder="Select Table" spellcheck="false" :title="currentTable")
           el-option(
-            v-for="table in tables" 
+            v-for="table in tables"
             :key="table.name"
             :value="table.name"
           )

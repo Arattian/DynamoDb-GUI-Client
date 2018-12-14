@@ -4,7 +4,7 @@
       el-table-column(type="index" :index="paginationIndex")
       el-table-column(:prop="keys.hashKey" :label="keys.hashKeyLabel" :render-header="renderHash")
       el-table-column(:prop="keys.rangeKey" :label="keys.rangeKeyLabel" :render-header="renderRange" v-if="keys.rangeKey")
-      el-table-column(v-for="(header, index) of header" :prop="header.prop" :label="header.label" :key="index" v-if="hideHashKey(header)")        
+      el-table-column(v-for="(header, index) of header" :prop="header.prop" :label="header.label" :key="index" v-if="hideHashKey(header)")
       el-table-column(fixed="right" width="50")
         template(slot-scope="scope")
           span(class="delete-column")
