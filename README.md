@@ -8,6 +8,16 @@
 ##### [Download for MacOS (.dmg)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/v2.1.1/DynamoDbGUI-mac-2.1.1.dmg)
 
 ###### As i switched to MacOS and Electron doesn't provide way to build many versions of application on one OS, next releases will contain changes only for MacOS. Or if you want to contribute, you can clone latest version of repo, build it for your OS and provide me download link. I will include it on release versions.
+
+## Build Instructions 
+
+```bash
+git clone https://github.com/Arattian/DynamoDb-GUI-Client.git
+cd Dynamodb-GUI-Client
+# Electron application build(This will build app for your OS)
+npm run electron:build
+```
+
 ![Logo](src/assets/git-logo.png)
 
 :eyes:
@@ -23,8 +33,6 @@ npm i
 npm run electron:serve
 # Vue Cli serve
 npm start
-# Electron application build(This will build app for your OS)
-npm run electron:build
 ```
 
 ## Features
