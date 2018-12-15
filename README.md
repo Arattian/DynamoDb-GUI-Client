@@ -6,17 +6,8 @@
 
 ### [Release v2.1.1](https://github.com/Arattian/DynamoDb-GUI-Client/releases/tag/v2.1.1)
 ##### [Download for MacOS (.dmg)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/v2.1.1/DynamoDbGUI-mac-2.1.1.dmg)
-
-###### As i switched to MacOS and Electron doesn't provide way to build many versions of application on one OS, next releases will contain changes only for MacOS. Or if you want to contribute, you can clone latest version of repo, build it for your OS and provide me download link. I will include it on release versions.
-
-## Build Instructions 
-
-```bash
-git clone https://github.com/Arattian/DynamoDb-GUI-Client.git
-cd Dynamodb-GUI-Client
-# Electron application build(This will build app for your OS)
-npm run electron:build
-```
+##### [Download for Debian (.deb)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/v2.1.1/DynamoDbGUI-linux-amd64-2.1.1.deb)
+##### [Download for Liux (.AppImage)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/v2.1.1/DynamoDbGUI-linux-x86_64-2.1.1.AppImage)
 
 ![Logo](src/assets/git-logo.png)
 
@@ -35,6 +26,15 @@ npm run electron:serve
 npm start
 ```
 
+## Build Instructions 
+
+```bash
+git clone https://github.com/Arattian/DynamoDb-GUI-Client.git
+cd Dynamodb-GUI-Client
+# Electron application build(This will build app for your OS)
+npm run electron:build
+```
+
 ## Features
 
 * [x] Remote Access of AWS DynamoDB Service*
@@ -44,7 +44,6 @@ npm start
   * Table view
     * [x] Records view
     * [x] Table schema view
-  * [x] JSON view
 * Operation
   * Record
     * [x] Add Record
