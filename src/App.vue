@@ -1,23 +1,33 @@
 <template lang="pug">
   #app
-    AppHeader
     el-row
-      DatabaseList
-      DatabaseMain
+      FavoriteList(v-if="!currentDb")
+      TableList(v-if="currentDb")
+      DatabaseMain(v-if="currentTable")
+      AddDatabase(v-if="!currentDb")
 </template>
 
-<script>
-import AppHeader from './containers/AppHeader.vue';
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator';
+import { Getter } from 'vuex-class';
 import DatabaseMain from './containers/DatabaseMain.vue';
-import DatabaseList from './containers/DatabaseList.vue';
-export default {
+import FavoriteList from './containers/FavoriteList.vue';
+import TableList from './containers/TableList.vue';
+import AddDatabase from './containers/AddDatabase.vue';
+
+@Component({
   name: 'app',
   components: {
-    AppHeader,
     DatabaseMain,
-    DatabaseList,
+    FavoriteList,
+    TableList,
+    AddDatabase,
   },
-};
+})
+export default class App extends Vue {
+  @Getter private currentDb: any;
+  @Getter private currentTable: any;
+}
 </script>
 
 <style lang="stylus">
@@ -33,11 +43,17 @@ html,body
   width 100%
   font-size 14px
   overflow hidden
-.el-header
-  padding 0px
+::placeholder
+  opacity 0.5
+.el-input__inner
+  background-color #2c323a !important
 .cell
   text-overflow ellipsis
   white-space nowrap !important
+.el-tabs__header
+  background none !important
+.el-color-picker__trigger
+  border none !important
 td
   cursor pointer
 .jsoneditor

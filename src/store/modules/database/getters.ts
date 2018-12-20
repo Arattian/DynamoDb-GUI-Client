@@ -2,8 +2,8 @@ import { GetterTree } from 'vuex';
 import { DbState } from './types';
 import { RootState } from '@/store/types';
 
-const validate = (state: DbState) => {
-  const obj: any = state.configs;
+const validateForm = (state: DbState) => {
+  const obj: any = state.submitForm.configs;
   for (const key in obj) {
     if (!obj[key]) {
       return;
@@ -12,19 +12,18 @@ const validate = (state: DbState) => {
   return true;
 };
 
-const formVisible = (state: DbState) => state.formVisible;
-const configs = (state: DbState) => state.configs;
+
+const configs = (state: DbState) => state.submitForm.configs;
 const regionList = (state: DbState) => state.regionList;
-const isRemote = (state: DbState) => state.isRemote;
 const list = (state: DbState) => state.list;
+const submitForm = (state: DbState) => state.submitForm;
 
 const getters: GetterTree<DbState, RootState> = {
-  validate,
-  formVisible,
+  validateForm,
   configs,
   regionList,
-  isRemote,
   list,
+  submitForm,
 };
 
 export default getters;

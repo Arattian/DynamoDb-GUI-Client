@@ -22,11 +22,12 @@ function notified(state: RootState) {
   };
 }
 
-function setDBInstances(state: RootState, configs: any) {
+function setDBInstances(state: RootState, name: any) {
+  const configsJson: any = localStorage.getItem(`${name}-db`);
+  const configs = JSON.parse(configsJson);
   configs.maxRetries = 5;
   state.dbInstance = new DynamoDB(configs);
   state.dbClient = new DynamoDB.DocumentClient(configs);
-  state.endpoint = configs.endpoint;
   state.currentDb = configs.name;
   state.tables = [];
   state.currentTable = '';
@@ -34,7 +35,6 @@ function setDBInstances(state: RootState, configs: any) {
 
 function removeDbFromState(state: RootState) {
   state.tables = [];
-  state.endpoint = '';
 }
 
 function setTableNames(state: RootState, tableNames: any[]) {
@@ -64,6 +64,10 @@ function setCurrentTable(state: RootState, tableName: string) {
   state.currentTable = tableName;
 }
 
+function filterTextChange(state: RootState, filterField: any) {
+  state.filterText = filterField.target.value;
+}
+
 const mutations: MutationTree<RootState> = {
   showResponse,
   setDBInstances,
@@ -74,6 +78,7 @@ const mutations: MutationTree<RootState> = {
   loading,
   setCurrentTable,
   notified,
+  filterTextChange,
 };
 
 export default mutations;

@@ -20,7 +20,7 @@
       :hideHashKey="hideHashKey"
       :removeHandler="removeItem"
       size="mini"
-    )  
+    )
     el-pagination(
       layout="pager"
       :total="total"

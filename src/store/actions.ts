@@ -1,8 +1,8 @@
 import { ActionContext, ActionTree } from 'vuex';
 import { RootState } from './types';
 
-async function getCurrentDb({ commit, dispatch }: ActionContext<RootState, RootState>, configs: any) {
-  commit('setDBInstances', configs);
+async function getCurrentDb({ commit, dispatch }: ActionContext<RootState, RootState>, name: any) {
+  commit('setDBInstances', name);
   dispatch('getDbTables');
 }
 
@@ -23,9 +23,8 @@ async function getDbTables({ state, commit, dispatch }: ActionContext<RootState,
   } else {
     commit('setTableNames', data.TableNames);
     dispatch('getTableItemCounts');
-    tableToGet ?
-      dispatch('getCurrentTable', tableToGet) :
-      dispatch('getCurrentTable', data.TableNames[0]);
+    tableToGet &&
+      dispatch('getCurrentTable', tableToGet);
   }
 }
 

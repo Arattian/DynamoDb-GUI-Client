@@ -1,21 +1,42 @@
 <template lang="pug">
-  el-dialog(title="Add Database" center :show-close="false" :visible="formVisible")
-    el-form(:model="configs")
-      el-form-item(label="Database Name (Custom)" required)
-        el-input(v-model="configs.name" placeholder="Database display name")
-      el-form-item(label="AWS region" required)
-        el-select(v-model="configs.region" placeholder="AWS Region" @change="generateEndpoint")
-          el-option(v-for="(region, index) in regionList" :key="index" :label="region" :value="region")
-      el-form-item(label="Endpoint")
-        el-input(placeholder="Database Endpoint" :disabled="isRemote" v-model="configs.endpoint")
-      el-form-item(label="Access Key Id" required v-if="isRemote")
-        el-input(v-model="configs.accessKeyId" placeholder="AWS access key id")
-      el-form-item(label="Secret Access Key" required v-if="isRemote")
-        el-input(v-model="configs.secretAccessKey" placeholder="AWS secret access key")
-    ActionButtons(
-      :cancelHandler="setToDefault"
-      :confirmHandler="submitForm"
-    )
+  el-col(:span="20")
+    el-tabs(type="border-card")
+      el-tab-pane(label="Remote")
+        el-form(:model="configs")
+          el-form-item(label="Database Name (Optional)")
+            el-input(placeholder="Database display name" :value="'Database ' + (list.length + 1)" @change="setDbName")
+              template(slot="append")
+                el-color-picker(v-model="submitForm.color" size="mini")
+          el-form-item(label="AWS region" required)
+            el-select(v-model="configs.region" placeholder="AWS Region")
+              el-option(v-for="(region, index) in regionList" :key="index" :label="region" :value="region")
+          el-form-item(label="Access Key Id" required)
+            el-input(v-model="configs.accessKeyId" placeholder="AWS access key id")
+          el-form-item(label="Secret Access Key" required)
+            el-input(v-model="configs.secretAccessKey" placeholder="AWS secret access key")
+        .actions
+          ActionButtons(
+            :cancelHandler="setToDefault"
+            :confirmHandler="submitRemoteForm"
+            :confirmText="'Connect'"
+            :cancelText="'Clear'"
+          )
+      el-tab-pane(label="Local")
+        el-form(:model="configs")
+          el-form-item(label="Database Name (Optional)")
+            el-input(placeholder="Database display name" :value="'Database ' + (list.length + 1)" @change="setDbName")
+              template(slot="append")
+                el-color-picker(v-model="submitForm.color" size="mini")
+          el-form-item(label="Localhost Port" required)
+            el-input(placeholder="port" v-model="submitForm.port")
+              template(slot="prepend") http://localhost:
+        .actions
+          ActionButtons(
+            :cancelHandler="setToDefault"
+            :confirmHandler="submitLocalForm"
+            :confirmText="'Connect'"
+            :cancelText="'Clear'"
+          )
 </template>
 
 <script lang="ts">
@@ -31,17 +52,32 @@ const namespace: string = 'database';
   },
 })
 export default class AddDatabase extends Vue {
-  @Getter('formVisible', { namespace }) private formVisible: any;
   @Getter('configs', { namespace }) private configs: any;
   @Getter('regionList', { namespace }) private regionList: any;
-  @Getter('isRemote', { namespace }) private isRemote: any;
-  @Action('submitForm', { namespace }) private submitForm: any;
+  @Getter('list', { namespace }) private list: any;
+  @Getter('submitForm', { namespace }) private submitForm: any;
+  @Action('submitRemoteForm', { namespace }) private submitRemoteForm: any;
+  @Action('submitLocalForm', { namespace }) private submitLocalForm: any;
   @Mutation('setToDefault', { namespace }) private setToDefault: any;
-  @Mutation('generateEndpoint', { namespace }) private generateEndpoint: any;
+  @Mutation('setDbName', { namespace }) private setDbName: any;
 }
 </script>
 
 <style lang="stylus" scoped>
+.el-col
+  display flex
+  justify-content center
+  align-items center
+  height 100vh
+.el-tabs
+  width 80%
+  max-width 700px
+.el-form
+  width 100%
+  border-radius 2px
+  height 40vh
+.actions
+  align-self flex-end
 .el-button
   min-width 100px
 </style>

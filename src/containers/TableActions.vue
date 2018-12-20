@@ -5,16 +5,6 @@
         el-row
           i(class="el-icon-delete remove" @click="deleteTableForm" title="Delete Table")
           i(class="el-icon-circle-plus-outline add" @click="createTableForm" title="Create Table")
-      el-col(:span="20")
-        el-select(:value="currentTable" @change="switchTable" placeholder="Select Table" spellcheck="false" :title="currentTable")
-          el-option(
-            v-for="table in tables"
-            :key="table.name"
-            :value="table.name"
-          )
-            .wrapper
-              span {{table.name}}
-              el-badge(type="warning" :value="table.ItemCount")
     CreateTable(
       v-if="creatingTable"
       :isVisible="creatingTable"
@@ -47,7 +37,6 @@ export default class TableActions extends Vue {
   @Prop() private expandMeta: any;
   @Getter private currentTable: any;
   @Getter private tables: any;
-  @Action private getCurrentTable: any;
   @Getter('newTableMeta', { namespace }) private newTableMeta: any;
   @Getter('creatingTable', { namespace }) private creatingTable: any;
   @Getter('deletingTable', { namespace }) private deletingTable: any;
@@ -56,11 +45,6 @@ export default class TableActions extends Vue {
   @Mutation('createTableForm', { namespace }) private createTableForm: any;
   @Mutation('deleteTableForm', { namespace }) private deleteTableForm: any;
   @Mutation('setNewTableMeta', { namespace }) private setNewTableMeta: any;
-
-  private switchTable(tableName: string) {
-    this.getCurrentTable(tableName);
-    this.expandMeta();
-  }
 }
 </script>
 

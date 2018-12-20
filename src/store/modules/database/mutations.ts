@@ -2,45 +2,46 @@
 import { MutationTree } from 'vuex';
 import { DbState } from './types';
 
-function addingDatabase(state: DbState) {
-  state.formVisible = !state.formVisible;
-}
-
 function setToDefault(state: DbState) {
-  state.configs = {
-    name: '',
+  state.submitForm.configs = {
     accessKeyId: '',
     secretAccessKey: '',
     region: '',
     endpoint: '',
   };
-  state.formVisible = false;
-  state.isRemote = true;
+  state.submitForm.color = '';
+  state.submitForm.port = '';
+  state.submitForm.name = 'Database ' + state.list.length;
 }
 
 function setDbList(state: DbState, newDbList: any) {
   state.list = newDbList;
 }
 
-function generateEndpoint(state: DbState) {
-  if (state.configs.region === 'localhost') {
-    state.isRemote = false;
-    state.configs.endpoint = '';
-    state.configs.accessKeyId = ' ';
-    state.configs.secretAccessKey = ' ';
-    return;
-  } else if (!state.isRemote) {
-    state.configs.accessKeyId = '';
-    state.configs.secretAccessKey = '';
+function setDbName(state: DbState, name: any) {
+  state.submitForm.name = name;
+}
+
+function correctInputs(state: DbState, serviceType: string) {
+  switch (serviceType) {
+    case 'remote':
+      state.submitForm.configs.endpoint = `https://dynamodb.${state.submitForm.configs.region}.amazonaws.com`;
+      state.submitForm.name = state.submitForm.name || `Database ${state.list.length}`;
+      break;
+    case 'local':
+      state.submitForm.configs.region = 'localhost';
+      state.submitForm.configs.endpoint = `http://localhost:${state.submitForm.port}`;
+      state.submitForm.configs.accessKeyId = Math.random().toString(36).substring(7);
+      state.submitForm.configs.secretAccessKey = Math.random().toString(36).substring(7);
+      state.submitForm.name = state.submitForm.name || `Database ${state.list.length}`;
+      break;
   }
-  state.isRemote = true;
-  state.configs.endpoint = `https://dynamodb.${state.configs.region}.amazonaws.com`;
 }
 
 const mutations: MutationTree<DbState> = {
-  addingDatabase,
-  generateEndpoint,
+  correctInputs,
   setToDefault,
   setDbList,
+  setDbName,
 };
 export default mutations;

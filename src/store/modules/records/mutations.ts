@@ -17,10 +17,10 @@ function extractKeys(state: RecordState, schema: any) {
     for (const key in item) {
       if (item[key] === 'HASH') {
         state.hashKey = item.AttributeName;
-        state.hashKeyLabel = item.AttributeName.toUpperCase();
+        state.hashKeyLabel = item.AttributeName;
       } else if (item[key] === 'RANGE') {
         state.rangeKey = item.AttributeName;
-        state.rangeKeyLabel = item.AttributeName.toUpperCase();
+        state.rangeKeyLabel = item.AttributeName;
       }
     }
   }
@@ -35,7 +35,7 @@ function setHeader(state: RecordState) {
     // tslint:disable-next-line:forin
     for (const key in row) {
       if (!keyArray.includes(key)) {
-        state.header.push({label: key.toUpperCase(), prop: `${key}`});
+        state.header.push({label: key, prop: `${key}`});
         keyArray.push(key);
       }
       if (typeof row[key] === 'object') {

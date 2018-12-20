@@ -1,25 +1,21 @@
 <template lang="pug">
-  el-col(:span="6")
-    el-button(@click='addingDatabase' plain type="primary") Add Database
-    DatabaseListElement(
+  el-col(:span="4")
+    FavoriteListElement(
       :list="list"
       :removeHandler="removeDbFromStorage"
       :elementHandler="getCurrentDb"
       :activeDb="currentDb"
     )
-    AddDatabase
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import { Getter, Action, Mutation } from 'vuex-class';
-import AddDatabase from './AddDatabase.vue';
-import DatabaseListElement from '../components/DatabaseListElement.vue';
+import FavoriteListElement from '../components/FavoriteListElement.vue';
 const namespace: string = 'database';
 @Component({
   components: {
-    AddDatabase,
-    DatabaseListElement,
+    FavoriteListElement,
   },
 })
 export default class DatabaseList extends Vue {
@@ -41,8 +37,12 @@ export default class DatabaseList extends Vue {
   border-right 2px solid #121820
   border-top 2px solid #121820
   min-height 55px
-  padding 10px
   height 100vh
 .el-button
   width 100%
+  border-radius 0px
+  border-left 0px
+  border-right 0px
+span
+  margin-left 5px
 </style>

@@ -1,5 +1,5 @@
 <template lang="pug">
-  el-col(:span="18" v-loading="loading")
+  el-col(:span="20" v-loading="loading")
     el-row
       el-col(:span="24")
         el-tabs(v-model="activeTab" type="card" @tab-click="handleClick")
@@ -33,7 +33,7 @@ export default class DatabaseMain extends Vue {
   @Getter private response: any;
   @Getter private loading: any;
   @Mutation private notified: any;
-
+  @Getter private currentTable: any;
   private updated() {
     if (this.response.message) {
       this.$notify({
