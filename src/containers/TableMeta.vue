@@ -8,19 +8,28 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
+import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
 import { Getter, Action, Mutation } from 'vuex-class';
 const namespace = 'table';
 
 @Component
 export default class TableMeta extends Vue {
+  @Getter private currentTable: any;
   @Getter('tableMeta', { namespace }) private tableMeta: any;
   @Action('getMeta', { namespace }) private getMeta: any;
   @Action('updateTable', { namespace }) private updateTable: any;
   @Mutation('setTableMeta', { namespace }) private setTableMeta: any;
+  @Watch('currentTable')
   private expandAll() {
-    const { editor }: any = this.$refs.editorInstance;
-    editor.expandAll();
+    setTimeout(() => {
+      if (this.$refs.editorInstance) {
+        const { editor }: any = this.$refs.editorInstance;
+        editor.expandAll();
+      }
+    }, 100);
+  }
+  private mounted() {
+    this.expandAll();
   }
 }
 </script>

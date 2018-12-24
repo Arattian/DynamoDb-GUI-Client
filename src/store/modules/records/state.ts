@@ -10,8 +10,6 @@ const state: RecordState = {
   attributes: [],
   data: [],
   header: [],
-  pageSize: 15,
-  pageNumber: 1,
   filterText: '',
 };
 

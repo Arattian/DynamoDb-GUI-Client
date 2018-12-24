@@ -17,7 +17,6 @@ async function putItem({ dispatch, commit, rootState, state }: ActionContext<Rec
     return;
   }
   dispatch('getRecords');
-  dispatch('getTableItemCounts', null, {root: true});
   commit('toggleActionForm');
   commit('showResponse', ' ', {root: true});
 }
@@ -49,6 +48,7 @@ async function removeItem({ commit, rootState, dispatch, state }: ActionContext<
     TableName: currentTable,
     Key: {
       [state.hashKey]: row[state.hashKey],
+      [state.rangeKey]: row[state.rangeKey],
     },
   };
   try {

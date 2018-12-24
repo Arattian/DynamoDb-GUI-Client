@@ -1,6 +1,6 @@
 <template lang="pug">
   el-row(class="table")
-    el-table(:data="list" border v-if="keys.hashKey" @row-dblclick="getItem" size="mini")
+    el-table(:data="list" border v-if="keys.hashKey" size="mini" @row-dblclick="getItem")
       el-table-column(type="index" :index="paginationIndex")
       el-table-column(:prop="keys.hashKey" :label="keys.hashKeyLabel" :render-header="renderHash")
       el-table-column(:prop="keys.rangeKey" :label="keys.rangeKeyLabel" :render-header="renderRange" v-if="keys.rangeKey")
@@ -68,6 +68,6 @@ export default class RecordList extends Vue {
   color #eee
 .table
   overflow-y auto
-  width 100%
-  height 65vh
+  height 85vh
+  margin 0 20px
 </style>

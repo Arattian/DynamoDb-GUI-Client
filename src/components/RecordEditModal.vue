@@ -26,7 +26,7 @@ import ActionButtons from './ActionButtons.vue';
     ActionButtons,
   },
 })
-export default class RecordEdit extends Vue {
+export default class RecordEditModal extends Vue {
   @Prop() private confirmHandler: any;
   @Prop() private cancelHandler: any;
   @Prop() private metaValue: any;

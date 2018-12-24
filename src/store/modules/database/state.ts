@@ -32,6 +32,7 @@ const state: DbState = {
     port: '',
     name: '',
     color: '#00f97c',
+    createdAt: + new Date(),
   },
 };
 

@@ -8,7 +8,5 @@ export interface RecordState {
   header: any[];
   data: any[];
   attributes: string[];
-  pageSize: number;
-  pageNumber: number;
   filterText: string;
 }

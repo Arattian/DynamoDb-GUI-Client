@@ -73,8 +73,8 @@ async function deleteTable({ commit, rootState, dispatch }: ActionContext<TableS
     return;
   }
   commit('deleteTableForm');
+  dispatch('deleteTableFromStore', currentTable, {root: true});
   commit('loading', false, {root: true});
-  dispatch('getNewTable', currentTable, {root: true});
   commit('showResponse', ' ', {root: true});
 }
 

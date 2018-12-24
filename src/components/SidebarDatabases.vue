@@ -1,18 +1,21 @@
 <template lang="pug">
   .container
     el-row(class="title") FAVORITES
-    .list-item(v-for="(db, index) in list" :key="index" @click='elementHandler(db.name)' :style="{borderLeft: 3 + 'px solid' + db.color}")
-      .info
-        v-icon(name="database")
-        span {{db.name}}
+    .list-item(
+      v-for="(db, index) in databaseList"
+      :key="index"
+      :style="{borderLeft: 3 + 'px solid' + db.color}"
+      )
+      v-icon(name="database")
+      span(@click='elementHandler(db.name)') {{db.name}}
+      i(class="el-icon-delete delete" @click="removeHandler(db)")
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
 @Component
-export default class FavoriteListElement extends Vue {
-  private some: string = 'list';
-  @Prop() private list!: any[];
+export default class SidebarDatabases extends Vue {
+  @Prop() private databaseList!: any[];
   @Prop() private removeHandler: any;
   @Prop() private elementHandler: any;
 }
@@ -30,20 +33,12 @@ export default class FavoriteListElement extends Vue {
   align-items center
   display flex
   color #eee
+  min-width 130px
   border-radius 5px
-.list-item .info
-  display flex
-  align-items center
-  width 90%
-  overflow hidden
 .list-item:hover
   cursor pointer
   background rgba(#00397f, 0.5)
-.list-item .delete
-  position absolute
-  font-size 1.1em
-  right 10px
-.list-item .delete:hover
+.delete:hover
   color #ff6d6d
   cursor pointer
 .list-item img
@@ -51,5 +46,7 @@ export default class FavoriteListElement extends Vue {
   margin-right 10px
 span
   margin-left 5px
+  margin-right 5px
+  overflow hidden
   width 80%
 </style>

@@ -1,11 +1,6 @@
 <template lang="pug">
   .container
-    .actions
-      el-col(:span="6")
-        el-row
-          i(class="el-icon-delete remove" @click="deleteTableForm" title="Delete Table")
-          i(class="el-icon-circle-plus-outline add" @click="createTableForm" title="Create Table")
-    CreateTable(
+    CreateTableModal(
       v-if="creatingTable"
       :isVisible="creatingTable"
       :metaValue="newTableMeta"
@@ -13,7 +8,7 @@
       :cancelHandler="createTableForm"
       :confirmHandler="createTable"
     )
-    DeleteTable(
+    DeleteTableModal(
       v-if="deletingTable"
       :isVisible="deletingTable"
       :cancelHandler="deleteTableForm"
@@ -24,17 +19,16 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
 import { Action, Mutation, Getter } from 'vuex-class';
-import CreateTable from '../components/CreateTable.vue';
-import DeleteTable from '../components/DeleteTable.vue';
+import CreateTableModal from '../components/CreateTableModal.vue';
+import DeleteTableModal from '../components/DeleteTableModal.vue';
 const namespace: string = 'table';
 @Component({
   components: {
-    CreateTable,
-    DeleteTable,
+    CreateTableModal,
+    DeleteTableModal,
   },
 })
-export default class TableActions extends Vue {
-  @Prop() private expandMeta: any;
+export default class TableModals extends Vue {
   @Getter private currentTable: any;
   @Getter private tables: any;
   @Getter('newTableMeta', { namespace }) private newTableMeta: any;
@@ -57,7 +51,7 @@ export default class TableActions extends Vue {
   justify-content center
   align-items center
   font-size 1.1em
-i 
+i
   margin 0 5px
 .el-col .add:hover
   color #00d986

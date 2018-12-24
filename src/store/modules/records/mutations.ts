@@ -53,14 +53,6 @@ function filterTextChange(state: RecordState, filterText: any) {
   state.filterText = filterText.target.value;
 }
 
-function changeCurrentPage(state: RecordState, val: number) {
-  state.pageNumber = val;
-}
-
-function changePageSize(state: RecordState, val: number) {
-  state.pageSize = val;
-}
-
 function initialState(state: RecordState) {
   state.recordMeta = '';
   state.hashKey = '';
@@ -70,8 +62,6 @@ function initialState(state: RecordState) {
   state.attributes = [];
   state.data = [];
   state.header = [];
-  state.pageSize = 15;
-  state.pageNumber = 1;
   state.filterText = '';
 }
 
@@ -82,8 +72,6 @@ const mutations: MutationTree<RecordState> = {
   extractKeys,
   setMeta,
   filterTextChange,
-  changeCurrentPage,
-  changePageSize,
   initialState,
 };
 

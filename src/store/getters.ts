@@ -3,7 +3,7 @@ import { GetterTree } from 'vuex';
 
 const filteredTables = (state: RootState) => {
   return state.tables.filter((table: any) => {
-      if (table.name.includes(state.filterText)) {
+      if (table.includes(state.filterText)) {
         return table;
       }
     },

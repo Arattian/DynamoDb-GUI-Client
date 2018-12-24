@@ -25,9 +25,10 @@ async function setCredentials({ commit, dispatch, getters, state }: ActionContex
     commit('setToDefault');
     return;
   }
+  database.createdAt =  + new Date();
   localStorage.setItem(`${database.name}-db`, JSON.stringify(database));
   dispatch('getDbList');
-  dispatch('getCurrentDb', database.configs, {root: true});
+  dispatch('getCurrentDb', database.name, {root: true});
   commit('setToDefault');
 }
 
@@ -41,7 +42,7 @@ function submitLocalForm({ dispatch, commit }: ActionContext<DbState, RootState>
   dispatch('setCredentials');
 }
 
-function getDbList({ commit, dispatch }: ActionContext<DbState, RootState>) {
+function getDbList({ commit }: ActionContext<DbState, RootState>) {
   const newDbList = [];
   for (let i = 0; i < localStorage.length; i++) {
     try {
@@ -51,6 +52,7 @@ function getDbList({ commit, dispatch }: ActionContext<DbState, RootState>) {
     }
     newDbList.push(JSON.parse(Object.values(localStorage)[i]));
   }
+  newDbList.sort((a, b) => a.createdAt - b.createdAt);
   commit('setDbList', newDbList);
 }
 

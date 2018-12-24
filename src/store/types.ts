@@ -1,5 +1,5 @@
 export interface RootState {
-  tables: Array<{name: string, ItemCount: number}>;
+  tables: string[];
   filterText: string;
   currentTable: any;
   currentDb: string;

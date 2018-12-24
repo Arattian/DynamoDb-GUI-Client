@@ -11,17 +11,7 @@ const keys = (state: RecordState) => {
   };
 };
 
-const tableDataPage = (state: RecordState, getters: GetterTree<RecordState, RootState>) => {
-  const data: any = getters.filterTable;
-  return data.filter((item: any, i: any) => {
-    if (i >= (state.pageNumber - 1) * state.pageSize &&
-        i < ((state.pageNumber - 1) * state.pageSize + state.pageSize)) {
-      return item;
-    }
-  });
-};
-
-const filterTable = (state: RecordState) => {
+const tableDataPage = (state: RecordState) => {
   let data = state.data.filter((record: any) => {
     for (const key in record) {
       if ((record[key] + '').includes(state.filterText)) {
@@ -51,10 +41,6 @@ const hasAttribute = (state: RecordState) => (attribute: string) => {
   }).length;
 };
 
-const paginationIndex = (state: RecordState) => (i: any) => {
-  return i + (state.pageNumber - 1) * state.pageSize + 1;
-};
-
 const hideHashKey = (state: RecordState) => (el: any) => {
   return el.prop !== state.hashKey && el.prop !== state.rangeKey;
 };
@@ -62,8 +48,6 @@ const hideHashKey = (state: RecordState) => (el: any) => {
 const attributes = (state: RecordState) => state.attributes;
 const data = (state: RecordState) => state.data;
 const header = (state: RecordState) => state.header;
-const pageNumber = (state: RecordState) => state.pageNumber;
-const pageSize = (state: RecordState) => state.pageSize;
 const filterText = (state: RecordState) => state.filterText;
 const total = (_: any, getters: GetterTree<RecordState, RootState>) => getters.filterTable.length;
 
@@ -72,14 +56,10 @@ const getters: GetterTree<RecordState, RootState> = {
   attributes,
   data,
   header,
-  filterTable,
   tableDataPage,
-  pageNumber,
-  pageSize,
   filterText,
   hasAttribute,
   total,
-  paginationIndex,
   hideHashKey,
 };
 export default getters;

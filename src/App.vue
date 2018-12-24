@@ -1,32 +1,23 @@
 <template lang="pug">
   #app
-    el-row
-      FavoriteList(v-if="!currentDb")
-      TableList(v-if="currentDb")
-      DatabaseMain(v-if="currentTable")
-      AddDatabase(v-if="!currentDb")
+    Sidebar(class="sidebar")
+    Main(class="main")
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { Getter } from 'vuex-class';
-import DatabaseMain from './containers/DatabaseMain.vue';
-import FavoriteList from './containers/FavoriteList.vue';
-import TableList from './containers/TableList.vue';
-import AddDatabase from './containers/AddDatabase.vue';
+import { Getter, Mutation } from 'vuex-class';
+import Main from './containers/Main.vue';
+import Sidebar from './containers/Sidebar.vue';
 
 @Component({
   name: 'app',
   components: {
-    DatabaseMain,
-    FavoriteList,
-    TableList,
-    AddDatabase,
+    Main,
+    Sidebar,
   },
 })
 export default class App extends Vue {
-  @Getter private currentDb: any;
-  @Getter private currentTable: any;
 }
 </script>
 
@@ -38,6 +29,12 @@ export default class App extends Vue {
   font-family 'Roboto', sans-serif
   box-sizing border-box
   user-select none !important
+*::-webkit-scrollbar
+  width 5px
+  background transparent
+*::-webkit-scrollbar-thumb
+  background #484d54
+  border-radius 2px
 html,body
   height 100%
   width 100%
@@ -45,6 +42,9 @@ html,body
   overflow hidden
 ::placeholder
   opacity 0.5
+#app
+  display flex
+// customizing some imported components and theme selectors
 .el-input__inner
   background-color #2c323a !important
 .cell
@@ -54,15 +54,19 @@ html,body
   background none !important
 .el-color-picker__trigger
   border none !important
+.el-color-picker__color
+  border 1px solid #121820 !important
+// table row height
+.el-table .cell
+  line-height 20px !important
 td
   cursor pointer
 .jsoneditor
   border none !important
   height 100% !important
-.jsoneditor td
-  color #fff !important
 .jsoneditor-field
   color #fff !important
+// jsoneditor KEY field hover background
 .jsoneditor-field:hover,.jsoneditor-field:focus
   color #fff !important
   background #191d25 !important
@@ -80,6 +84,7 @@ td
   background none !important
 .jsoneditor-tree button
   color #000 !important
+// jsoneditor VALUE field hover background
 .jsoneditor-value:hover,.jsoneditor-value:focus
   color #fff !important
   background #191d25 !important
@@ -89,4 +94,12 @@ td
   outline none !important
 .jsoneditor-highlight
   background none !important
+.jsoneditor-search input
+  background #2c323a !important
+  color #fff !important
+.jsoneditor-search div.jsoneditor-frame
+  background #2c323a !important
+  color #fff !important
+  border-radius 2px !important
+  border 1px solid #121820 !important
 </style>

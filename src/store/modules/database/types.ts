@@ -15,6 +15,7 @@ export interface DbState {
     name: string;
     color: string;
     port: string;
+    createdAt: number;
   };
   regionList: string[];
 }
