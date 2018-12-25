@@ -43,39 +43,4 @@ export default class TableModals extends Vue {
 </script>
 
 <style lang="stylus" scoped>
-.el-col
-  padding 10px 10px
-  color #ccc
-.el-col .el-row
-  display flex
-  justify-content center
-  align-items center
-  font-size 1.1em
-i
-  margin 0 5px
-.el-col .add:hover
-  color #00d986
-  cursor pointer
-.el-col .remove:hover
-  color #ff6d6d
-  cursor pointer
-.el-col .refresh:hover
-  color #409EFF
-  cursor pointer
-.wrapper
-  display flex
-  justify-content space-between
-  align-items center
-.el-badge
-  display flex
-.container
-  position absolute
-  top 0
-  right 0
-.actions
-  z-index 1
-  display flex
-  justify-content center
-  align-items center
-  background-color #222933
 </style>

@@ -28,9 +28,9 @@ import { Getter, Action, Mutation } from 'vuex-class';
 const namespace = 'records';
 
 @Component
-export default class Footer extends Vue {
+export default class RecordFooter extends Vue {
   private visible = false;
-  private checked = false;
+  private checked = true;
   @Prop() private generateMeta: any;
   @Prop() private getRecords: any;
   @Prop() private currentTable: any;
@@ -51,15 +51,6 @@ export default class Footer extends Vue {
 .popover-close
   display flex
   justify-content flex-end
-.row-count
-  display flex
-  justify-content center
-  align-items center
-.row-count span
-  width 50%
-  margin-left 15px
-.el-popover p
-  margin-bottom 50px
 .container
   border-top 1px solid #121820
   border-left 2px solid #121820
@@ -87,6 +78,8 @@ export default class Footer extends Vue {
   color #55ffbe
 .refresh:hover
   color #52ceff
+.settings:hover
+  color #fcffe4
 .itemCount
   justify-content flex-end
 </style>

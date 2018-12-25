@@ -52,7 +52,7 @@ export default class SidebarDatabases extends Vue {
   cursor pointer
 .db-icon
   margin-left 5px
-span
+.item-content span
   margin-left 5px
   margin-right 5px
   overflow hidden

@@ -23,7 +23,6 @@ export default class RecordList extends Vue {
   @Prop() private header!: any[];
   @Prop() private hideHashKey: any;
   @Prop() private removeHandler: any;
-  @Prop({default: 'mini'}) private size!: string;
   private renderHash(createElement: any, { column }: any) {
     return createElement(
       'div',
@@ -58,10 +57,6 @@ export default class RecordList extends Vue {
 .delete-column:hover
   color #ff6d6d
   cursor pointer
-.el-col
-  align-items center
-  display flex
-  flex-direction column
 .el-table
   width 100%
   font-size 0.9em

@@ -71,10 +71,6 @@ export default class SidebarTables extends Vue {
 .remove:hover
   color #ff6d6d
   cursor pointer
-.header
-  color #eee
-  padding 10px
-  margin-bottom 20px
 .el-select
   width 100%
 .list-item
@@ -94,7 +90,7 @@ export default class SidebarTables extends Vue {
   width 90%
   height 100%
   overflow hidden
-span
+.info span
   margin-left 5px
   max-width 80%
 .active

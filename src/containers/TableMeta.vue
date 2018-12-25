@@ -35,7 +35,7 @@ export default class TableMeta extends Vue {
 </script>
 
 <style lang="stylus" scoped>
-i
+.actions i
   font-size 1.5em
   padding 10px
   cursor pointer

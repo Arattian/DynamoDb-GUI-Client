@@ -12,7 +12,7 @@ const state: RecordState = {
   data: [],
   header: [],
   filterText: '',
-  limit: 1000,
+  limit: null,
 };
 
 export default state;

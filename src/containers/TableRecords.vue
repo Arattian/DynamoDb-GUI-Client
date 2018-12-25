@@ -28,7 +28,6 @@
 <script lang="ts">
 import { Vue, Component} from 'vue-property-decorator';
 import { Getter, Action, Mutation, State } from 'vuex-class';
-import CreateModal from '../components/CreateModal.vue';
 import RecordList from '../components/RecordList.vue';
 import RecordListFilter from '../components/RecordListFilter.vue';
 import RecordFooter from '../components/RecordFooter.vue';
@@ -37,7 +36,6 @@ const namespace: string = 'records';
 
 @Component({
   components: {
-    CreateModal,
     RecordList,
     RecordListFilter,
     RecordFooter,
@@ -54,7 +52,6 @@ export default class TableRecords extends Vue {
   @Getter('limit', { namespace }) private limit: any;
   @Getter('hideHashKey', { namespace }) private hideHashKey: any;
   @Action('generateMeta', { namespace }) private generateMeta: any;
-  @Action('removeItem', { namespace }) private removeItem: any;
   @Action('getRecords', { namespace }) private getRecords: any;
   @Action('getItem', { namespace }) private getItem: any;
   @Action('getLimitedRows', { namespace }) private getLimitedRows: any;
@@ -74,11 +71,4 @@ export default class TableRecords extends Vue {
 </script>
 
 <style lang="stylus" scoped>
-.el-col
-  align-items center
-  display flex
-  justify-content center
-  flex-direction column
-.el-pagination
-  margin 20px
 </style>

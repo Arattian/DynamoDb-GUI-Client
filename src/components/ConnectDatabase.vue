@@ -75,6 +75,4 @@ export default class ConnectDatabase extends Vue {
   width 100%
   border-radius 2px
   height 50vh
-.el-button
-  min-width 100px
 </style>
