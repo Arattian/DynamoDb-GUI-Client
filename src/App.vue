@@ -2,6 +2,8 @@
   #app
     Sidebar(class="sidebar")
     Main(class="main")
+    TableModals
+    RecordModals
 </template>
 
 <script lang="ts">
@@ -9,12 +11,16 @@ import { Vue, Component } from 'vue-property-decorator';
 import { Getter, Mutation } from 'vuex-class';
 import Main from './containers/Main.vue';
 import Sidebar from './containers/Sidebar.vue';
+import TableModals from './containers/TableModals.vue';
+import RecordModals from './containers/RecordModals.vue';
 
 @Component({
   name: 'app',
   components: {
     Main,
     Sidebar,
+    TableModals,
+    RecordModals,
   },
 })
 export default class App extends Vue {
@@ -45,8 +51,23 @@ html,body
 #app
   display flex
 // customizing some imported components and theme selectors
+input[type="text"]:disabled {
+  color: #aaa !important;
+}
+.el-checkbox__inner
+  border 1px solid #307CB0 !important;
+.el-popover
+  border 1px solid #aaa !important
+.popper__arrow
+  display none !important
 .el-input__inner
   background-color #2c323a !important
+.el-tag
+  background #121820 !important
+  color #fff !important
+.el-tag__close
+  color #fff !important
+  background none !important
 .cell
   text-overflow ellipsis
   white-space nowrap !important
@@ -102,4 +123,8 @@ td
   color #fff !important
   border-radius 2px !important
   border 1px solid #121820 !important
+.jsoneditor-next
+  display none !important
+.jsoneditor-previous
+  display none !important
 </style>

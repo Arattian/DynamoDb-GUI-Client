@@ -28,10 +28,10 @@ export default class RecordListFilter extends Vue {
 .filters
   display flex
   justify-content space-between
-  width 100%
+  width 98%
+  margin auto
   margin-bottom 5px
 .text-filter
-  margin-left 20px
   width 300px
 .attribute-filter
   margin-left 20px

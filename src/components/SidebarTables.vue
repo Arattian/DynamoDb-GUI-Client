@@ -12,8 +12,8 @@
       el-input(placeholder="Search Table" @keyup.native="filterTextChange" :value="filterText" suffix-icon="el-icon-search" spellcheck="false")
     el-row(class="title") TABLES
       .actions
-        i(class="el-icon-circle-plus-outline add" @click="createTableForm" title="Create Table")
-        i(class="el-icon-delete remove" v-if="currentTable" @click="deleteTableForm" title="Delete Table" :disabled="true")
+        i(class="el-icon-circle-plus-outline add" @click="toggleCreateModal" title="Create Table")
+        i(class="el-icon-delete remove" v-if="currentTable" @click="toggleDeleteModal" title="Delete Table" :disabled="true")
     el-row(class="container")
       .list-item(v-for="(table, index) in tableList" :key="index" @click="switchTable(table)" :class="{active: isActive(table)}")
         .info
@@ -36,8 +36,8 @@ export default class SidebarTables extends Vue {
   @Prop() private filterTextChange: any;
   @Prop() private filterText: any;
   @Prop() private initialState: any;
-  @Prop() private createTableForm: any;
-  @Prop() private deleteTableForm: any;
+  @Prop() private toggleCreateModal: any;
+  @Prop() private toggleDeleteModal: any;
 
   private isActive(table: any) {
     return table === this.currentTable;

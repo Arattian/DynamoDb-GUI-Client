@@ -1,11 +1,19 @@
 <template lang="pug">
   el-dialog(center :visible="isVisible" :show-close="false" width="800px")
+    el-row(class="hint-container")
+      el-popover(
+        placement="left-end"
+        title="Hint"
+        width="500"
+        trigger="hover"
+        :content="hintText")
+        i(class="el-icon-question hint" slot="reference")
     el-row(class="editor")
-      vue-json-editor(:value="metaValue" :showBtns="false" @json-change="metaChange" ref="editorInstance")
+      vue-json-editor(:value="metaValue" @json-change="metaChange" :showBtns="false" ref="editorInstance")
     ActionButtons(
       :cancelHandler="cancelHandler"
       :confirmHandler="confirmHandler"
-      confirmText="Create"
+      confirmText="Save"
     )
 </template>
 
@@ -18,12 +26,13 @@ import ActionButtons from './ActionButtons.vue';
     ActionButtons,
   },
 })
-export default class CreateTable extends Vue {
-  @Prop() private isVisible!: boolean;
-  @Prop() private metaValue: any;
+export default class RecordEditModal extends Vue {
   @Prop() private confirmHandler: any;
   @Prop() private cancelHandler: any;
+  @Prop() private metaValue: any;
   @Prop() private metaChange: any;
+  @Prop() private isVisible!: boolean;
+  @Prop() private hintText: any;
   private mounted() {
     setTimeout(() => {
       const { editor }: any = this.$refs.editorInstance;
@@ -34,12 +43,15 @@ export default class CreateTable extends Vue {
 </script>
 
 <style lang="stylus" scoped>
-.actions
+.hint-container
   display flex
-  justify-content center
-.el-button
-  width 100px
-  margin-top 20px
+  justify-content flex-end
+.hint
+  color #fdb416
+  font-size 1.7em
+  cursor pointer
+.hint:hover
+  color #ffd272
 .editor
   height 50vh
   overflow-y auto

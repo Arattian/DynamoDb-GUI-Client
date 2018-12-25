@@ -4,6 +4,20 @@
       el-col(:span="6")
         i(class="el-icon-circle-plus-outline add" @click="generateMeta" title="Add Record")
         i(class="el-icon-refresh refresh" @click="getRecords" title="Refresh Table")
+        el-popover(
+          placement="top"
+          width="200"
+          v-model="visible")
+          .popover-content
+            el-row
+              el-row(class="popover-row") Maximum rows in table
+              el-row(class="popover-row")
+                el-input(placeholder="Row Count" @change="getLimitedRows" :disabled="checked" :value="limit" spellcheck="false") rows
+              el-row(class="popover-row")
+                el-checkbox(v-model="checked" @change="getLimitedRows(null)") No Limit
+          el-row(class="popover-close")
+            el-button(size="mini" plain type="primary" @click="visible = false") Close
+          i(class="el-icon-setting settings" slot="reference" title="Table Settings")
       el-col(:span="6" :offset="8" class="itemCount") {{itemCount}} rows in {{currentTable}}
 </template>
 
@@ -15,14 +29,37 @@ const namespace = 'records';
 
 @Component
 export default class Footer extends Vue {
+  private visible = false;
+  private checked = false;
   @Prop() private generateMeta: any;
   @Prop() private getRecords: any;
-  @Getter private currentTable: any;
-  @Getter('itemCount', { namespace: 'table' }) private itemCount: any;
+  @Prop() private currentTable: any;
+  @Prop() private itemCount: any;
+  @Prop() private limit: any;
+  @Prop() private getLimitedRows: any;
 }
 </script>
 
 <style lang="stylus" scoped>
+.popover-content
+  display flex
+  justify-content center
+  align-items center
+  flex-direction column
+.popover-row
+  margin-top 10px
+.popover-close
+  display flex
+  justify-content flex-end
+.row-count
+  display flex
+  justify-content center
+  align-items center
+.row-count span
+  width 50%
+  margin-left 15px
+.el-popover p
+  margin-bottom 50px
 .container
   border-top 1px solid #121820
   border-left 2px solid #121820
@@ -44,6 +81,8 @@ export default class Footer extends Vue {
   color #00d986
 .refresh
   color #409EFF
+.settings
+  color #fcff84
 .add:hover
   color #55ffbe
 .refresh:hover

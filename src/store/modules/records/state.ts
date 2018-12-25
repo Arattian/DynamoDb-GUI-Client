@@ -1,7 +1,8 @@
 import { RecordState } from './types';
 
 const state: RecordState = {
-  visible: false,
+  showCreateModal: false,
+  showDeleteModal: false,
   recordMeta: '',
   hashKey: '',
   hashKeyLabel: '',
@@ -11,6 +12,7 @@ const state: RecordState = {
   data: [],
   header: [],
   filterText: '',
+  limit: 1000,
 };
 
 export default state;

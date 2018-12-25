@@ -9,7 +9,6 @@ function setToDefault(state: DbState) {
     region: '',
     endpoint: '',
   };
-  state.submitForm.color = '#00f97c';
   state.submitForm.port = '';
   state.submitForm.name = 'Database ' + (state.list.length + 1);
 }

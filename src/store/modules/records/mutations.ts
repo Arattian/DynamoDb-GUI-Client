@@ -2,12 +2,18 @@
 import { MutationTree } from 'vuex';
 import { RecordState } from './types';
 
-function toggleActionForm(state: RecordState) {
-  state.visible = !state.visible;
+function toggleCreateModal(state: RecordState) {
+  state.showCreateModal = !state.showCreateModal;
 }
+
+function toggleDeleteModal(state: RecordState) {
+  state.showDeleteModal = !state.showDeleteModal;
+}
+
 function setMeta(state: RecordState, meta: string) {
   state.recordMeta = meta;
 }
+
 function extractKeys(state: RecordState, schema: any) {
   state.hashKey = '';
   state.hashKeyLabel = '';
@@ -53,6 +59,11 @@ function filterTextChange(state: RecordState, filterText: any) {
   state.filterText = filterText.target.value;
 }
 
+function setLimit(state: RecordState, limit: any) {
+  if (!isNaN(limit)) {
+    state.limit = limit;
+  }
+}
 function initialState(state: RecordState) {
   state.recordMeta = '';
   state.hashKey = '';
@@ -66,13 +77,15 @@ function initialState(state: RecordState) {
 }
 
 const mutations: MutationTree<RecordState> = {
-  toggleActionForm,
+  toggleCreateModal,
+  toggleDeleteModal,
   setData,
   setHeader,
   extractKeys,
   setMeta,
   filterTextChange,
   initialState,
+  setLimit,
 };
 
 export default mutations;

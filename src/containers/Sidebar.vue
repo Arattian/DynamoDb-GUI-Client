@@ -17,8 +17,8 @@
       :filterTextChange="filterTextChange"
       :filterText="filterText"
       :initialState="initialState"
-      :createTableForm="createTableForm"
-      :deleteTableForm="deleteTableForm"
+      :toggleCreateModal="toggleCreateModal"
+      :toggleDeleteModal="toggleDeleteModal"
     )
 </template>
 
@@ -38,7 +38,6 @@ const namespace: string = 'database';
 })
 export default class Sidebar extends Vue {
   @Getter private currentDb: any;
-  @Getter private tables: any;
   @Getter private currentTable: any;
   @Getter private filteredTables: any;
   @Getter private filterText: any;
@@ -49,8 +48,8 @@ export default class Sidebar extends Vue {
   @Getter('list', { namespace }) private databaseList: any;
   @Action('removeDbFromStorage', { namespace }) private removeDbFromStorage: any;
   @Action('getDbList', { namespace }) private getDbList: any;
-  @Mutation('createTableForm', { namespace: 'table' }) private createTableForm: any;
-  @Mutation('deleteTableForm', { namespace: 'table' }) private deleteTableForm: any;
+  @Mutation('toggleCreateModal', { namespace: 'table' }) private toggleCreateModal: any;
+  @Mutation('toggleDeleteModal', { namespace: 'table' }) private toggleDeleteModal: any;
   private created() {
     this.getDbList();
   }

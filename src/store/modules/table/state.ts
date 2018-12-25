@@ -51,8 +51,8 @@ export const state: TableState = {
     },
   },
   tableMeta: '',
-  creatingTable: false,
-  deletingTable: false,
+  showCreateModal: false,
+  showDeleteModal: false,
 };
 
 export default state;

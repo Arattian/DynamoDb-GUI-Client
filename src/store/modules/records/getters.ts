@@ -46,20 +46,26 @@ const hideHashKey = (state: RecordState) => (el: any) => {
 };
 
 const attributes = (state: RecordState) => state.attributes;
+const recordMeta = (state: RecordState) => state.recordMeta;
 const data = (state: RecordState) => state.data;
 const header = (state: RecordState) => state.header;
 const filterText = (state: RecordState) => state.filterText;
-const total = (_: any, getters: GetterTree<RecordState, RootState>) => getters.filterTable.length;
+const limit = (state: RecordState) => state.limit;
+const showCreateModal = (state: RecordState) => state.showCreateModal;
+const showDeleteModal = (state: RecordState) => state.showDeleteModal;
 
 const getters: GetterTree<RecordState, RootState> = {
   keys,
   attributes,
+  recordMeta,
   data,
   header,
   tableDataPage,
   filterText,
+  limit,
   hasAttribute,
-  total,
   hideHashKey,
+  showCreateModal,
+  showDeleteModal,
 };
 export default getters;

@@ -14,7 +14,6 @@
         TableRecords
       el-tab-pane(label="Meta" name="meta")
         TableMeta
-    TableModals
     span(v-if="response.message")
 </template>
 
@@ -24,7 +23,6 @@ import { Getter, Action, Mutation } from 'vuex-class';
 import ConnectDatabase from '../components/ConnectDatabase.vue';
 import TableRecords from './TableRecords.vue';
 import TableMeta from './TableMeta.vue';
-import TableModals from './TableModals.vue';
 const namespace: string = 'database';
 
 @Component({
@@ -32,7 +30,6 @@ const namespace: string = 'database';
     ConnectDatabase,
     TableRecords,
     TableMeta,
-    TableModals,
   },
 })
 export default class Main extends Vue {

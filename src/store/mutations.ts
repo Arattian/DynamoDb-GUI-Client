@@ -40,7 +40,6 @@ function notified(state: RootState) {
 function setDBInstances(state: RootState, name: any) {
   const databaseJson: any = localStorage.getItem(`${name}-db`);
   const database = JSON.parse(databaseJson);
-  database.configs.maxRetries = 5;
   state.dbInstance = new DynamoDB(database.configs);
   state.dbClient = new DynamoDB.DocumentClient(database.configs);
   state.currentDb = database.name;
@@ -68,7 +67,7 @@ function loading(state: RootState, isLoading: boolean) {
         state.loading = true;
         setTimeout(() => {
           state.loading = false;
-        }, 1000);
+        }, 500);
       }
     }, 500);
   }

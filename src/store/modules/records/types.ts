@@ -1,5 +1,6 @@
 export interface RecordState {
-  visible: boolean;
+  showCreateModal: boolean;
+  showDeleteModal: boolean;
   recordMeta: string;
   hashKey: string;
   hashKeyLabel: string;
@@ -9,4 +10,5 @@ export interface RecordState {
   data: any[];
   attributes: string[];
   filterText: string;
+  limit: number | null;
 }

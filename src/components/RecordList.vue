@@ -1,6 +1,6 @@
 <template lang="pug">
   el-row(class="table")
-    el-table(:data="list" border v-if="keys.hashKey" size="mini" @row-dblclick="getItem")
+    el-table(:data="list" border v-if="keys.hashKey" size="mini" @row-dblclick="editItem")
       el-table-column(type="index" :index="paginationIndex")
       el-table-column(:prop="keys.hashKey" :label="keys.hashKeyLabel" :render-header="renderHash")
       el-table-column(:prop="keys.rangeKey" :label="keys.rangeKeyLabel" :render-header="renderRange" v-if="keys.rangeKey")
@@ -18,7 +18,7 @@ import { Vue, Component, Prop} from 'vue-property-decorator';
 export default class RecordList extends Vue {
   @Prop() private list!: any[];
   @Prop() private keys: any;
-  @Prop() private getItem: any;
+  @Prop() private editItem: any;
   @Prop() private paginationIndex: any;
   @Prop() private header!: any[];
   @Prop() private hideHashKey: any;
@@ -67,7 +67,8 @@ export default class RecordList extends Vue {
   font-size 0.9em
   color #eee
 .table
-  overflow-y auto
+  width 98%
+  overflow auto
   height 85vh
-  margin 0 20px
+  margin auto
 </style>
