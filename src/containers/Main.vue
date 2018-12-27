@@ -1,5 +1,5 @@
 <template lang="pug">
-  el-row(class="main" v-loading="loading")
+  el-col(:span="24" class="main" v-loading="loading")
     ConnectDatabase(
       v-if="!currentDb"
       :configs="configs"
@@ -9,11 +9,12 @@
       :submitLocalForm="submitLocalForm"
       :setToDefault="setToDefault"
     )
-    el-tabs(v-if="currentTable" v-model="activeTab" type="card")
-      el-tab-pane(label="Records" name="records")
-        TableRecords
-      el-tab-pane(label="Meta" name="meta")
-        TableMeta
+    el-col(:span="24")
+      el-tabs(v-if="currentTable" v-model="activeTab" type="card")
+        el-tab-pane(label="Records" name="records")
+          TableRecords
+        el-tab-pane(label="Meta" name="meta")
+          TableMeta
     span(v-if="response.message")
 </template>
 
@@ -61,13 +62,10 @@ export default class Main extends Vue {
 </script>
 
 <style lang="stylus" scoped>
-.el-tabs
-  width 100%
 .main
   display flex
   justify-content center
   height 100vh
-  width 100%
   margin auto
   margin-left -2px
 </style>

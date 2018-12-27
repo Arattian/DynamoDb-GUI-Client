@@ -34,7 +34,6 @@ export default class App extends Vue {
   margin 0
   font-family 'Roboto', sans-serif
   box-sizing border-box
-  user-select none !important
 *::-webkit-scrollbar
   width 5px
   background transparent
@@ -80,6 +79,8 @@ input[type="text"]:disabled {
 // table row height
 .el-table .cell
   line-height 20px !important
+.el-table, .el-list
+  user-select none !important
 td
   cursor pointer
 .jsoneditor

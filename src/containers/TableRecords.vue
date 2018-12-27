@@ -1,5 +1,5 @@
 <template lang="pug">
-  el-row
+  el-col(:span="24")
     RecordListFilter(
       :filterText="filterText"
       :filterTextChange="filterTextChange"

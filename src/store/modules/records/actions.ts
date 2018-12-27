@@ -16,7 +16,8 @@ async function putItem({ dispatch, commit, rootState, state }: ActionContext<Rec
     commit('showResponse', err, {root: true});
     return;
   }
-  dispatch('getRecords');
+  commit('addItemToList', Item);
+  commit('setHeader');
   commit('toggleCreateModal');
   commit('showResponse', ' ', {root: true});
 }
@@ -84,6 +85,7 @@ async function getRecords({ commit, rootState, state }: ActionContext<RecordStat
     data = await dbClient.scan({
       TableName: currentTable,
       Limit: state.limit,
+      // ExclusiveStartKey: state.limit && state.lastEvaluatedKey,
     }).promise();
   } catch (err) {
     commit('showResponse', err, {root: true});
@@ -92,9 +94,25 @@ async function getRecords({ commit, rootState, state }: ActionContext<RecordStat
   }
   commit('setData', data.Items);
   commit('setHeader');
+  // commit('setLastEvaluatedKey', data.LastEvaluatedKey);
   commit('loading', false, {root: true});
 }
+/*TODO
+Vue - show prev, next button with pagenumber in center,
+  which is one digit bigger from index of lastevaluated key.
 
+TODO
+  if evaluatedKey array exists, then next page button displayed,
+  on click next page it gets next elements and
+  lastevaluated key pushed to evaluatedKeys array.
+  on click previouspage it gets all items with evaluatedkey,
+  which i get from evaluatedkeys array page minus one position.
+  On click prev i am not pushing new evaluated key in my array.
+  On row count change, i get all rows and reset the evaluatedkey array
+
+  TODO
+  Implement new filter logic, which works with dynamodb filterexpr.
+*/
 async function getLimitedRows({ commit, dispatch }: ActionContext<RecordState, RootState>, limit: any) {
   if (isNaN(limit)) {
     commit('showResponse', {message: 'Limit must be a number'}, {root: true});

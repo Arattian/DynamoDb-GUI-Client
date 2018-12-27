@@ -14,6 +14,10 @@ function setMeta(state: RecordState, meta: string) {
   state.recordMeta = meta;
 }
 
+function setLastEvaluatedKey(state: RecordState, lastEvaluatedKey: any) {
+  state.lastEvaluatedKey = lastEvaluatedKey;
+}
+
 function extractKeys(state: RecordState, schema: any) {
   state.hashKey = '';
   state.hashKeyLabel = '';
@@ -64,6 +68,20 @@ function setLimit(state: RecordState, limit: any) {
     state.limit = limit;
   }
 }
+
+function addItemToList(state: RecordState, newItem: any) {
+  let edited = false;
+  state.data = state.data.map((item) => {
+    if (item[state.rangeKey] === newItem[state.rangeKey] &&
+        item[state.hashKey] === newItem[state.hashKey]) {
+      edited = true;
+      return newItem;
+    }
+    return item;
+  });
+  !edited && state.data.push(newItem);
+}
+
 function initialState(state: RecordState) {
   state.recordMeta = '';
   state.hashKey = '';
@@ -80,10 +98,12 @@ const mutations: MutationTree<RecordState> = {
   toggleCreateModal,
   toggleDeleteModal,
   setData,
+  setLastEvaluatedKey,
   setHeader,
   extractKeys,
   setMeta,
   filterTextChange,
+  addItemToList,
   initialState,
   setLimit,
 };

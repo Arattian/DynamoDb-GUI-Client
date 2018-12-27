@@ -1,24 +1,24 @@
 <template lang="pug">
-  el-row(class="container")
-    el-row
-      el-col(:span="6")
-        i(class="el-icon-circle-plus-outline add" @click="generateMeta" title="Add Record")
-        i(class="el-icon-refresh refresh" @click="getRecords" title="Refresh Table")
-        el-popover(
-          placement="top"
-          width="200"
-          v-model="visible")
-          .popover-content
-            el-row
-              el-row(class="popover-row") Maximum rows in table
-              el-row(class="popover-row")
-                el-input(placeholder="Row Count" @change="getLimitedRows" :disabled="checked" :value="limit" spellcheck="false") rows
-              el-row(class="popover-row")
-                el-checkbox(v-model="checked" @change="getLimitedRows(null)") No Limit
-          el-row(class="popover-close")
-            el-button(size="mini" plain type="primary" @click="visible = false") Close
-          i(class="el-icon-setting settings" slot="reference" title="Table Settings")
-      el-col(:span="6" :offset="8" class="itemCount") {{itemCount}} rows in {{currentTable}}
+  el-col(:span="24" class="container")
+    el-col(:span="6")
+      i(class="el-icon-circle-plus-outline add" @click="generateMeta" title="Add Record")
+      i(class="el-icon-refresh refresh" @click="getRecords" title="Refresh Table")
+      el-popover(
+        placement="top"
+        width="200"
+        v-model="visible")
+        .popover-content
+          el-row
+            el-row(class="popover-row") Maximum rows in table
+            el-row(class="popover-row")
+              el-input(placeholder="Row Count" @change="getLimitedRows" :disabled="checked" :value="limit" spellcheck="false") rows
+            el-row(class="popover-row")
+              el-checkbox(v-model="checked" @change="getLimitedRows(null)") No Limit
+        el-row(class="popover-close")
+          el-button(size="mini" plain type="primary" @click="visible = false") Close
+        i(class="el-icon-setting settings" slot="reference" title="Table Settings")
+    el-col(:span="12")
+    el-col(:span="6" class="itemCount") {{itemCount}} rows in {{currentTable}}
 </template>
 
 <script lang="ts">
@@ -56,7 +56,7 @@ export default class RecordFooter extends Vue {
   border-left 2px solid #121820
   position fixed
   height 35px
-  width 100%
+
   bottom 0px
   background #121820
   z-index 1000

@@ -19,8 +19,6 @@ function createWindow() {
     width: 1400,
     height: 900,
     center: true,
-    minWidth: 1281,
-    minHeight: 600,
   });
   if (isDevelopment) {
     // Load the url of the dev server if in development mode

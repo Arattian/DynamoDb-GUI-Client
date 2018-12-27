@@ -13,6 +13,7 @@ const state: RecordState = {
   header: [],
   filterText: '',
   limit: null,
+  lastEvaluatedKey: null,
 };
 
 export default state;
