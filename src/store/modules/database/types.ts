@@ -10,16 +10,19 @@ export interface SingleDbState {
 
 export interface DbState {
   list: SingleDbState[];
-  formVisible: boolean;
-  configs: DbConfigs;
+  submitForm: {
+    configs: DbConfigs;
+    name: string;
+    color: string;
+    port: string;
+    createdAt: number;
+  };
   regionList: string[];
-  isRemote: boolean;
 }
 
 export interface DbConfigs {
   accessKeyId: string;
   secretAccessKey: string;
   region: string;
-  name: string;
   endpoint: string;
 }

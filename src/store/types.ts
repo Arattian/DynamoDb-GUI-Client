@@ -1,6 +1,6 @@
 export interface RootState {
-  endpoint: string;
-  tables: Array<{name: string, ItemCount: number}>;
+  tables: string[];
+  filterText: string;
   currentTable: any;
   currentDb: string;
   dbInstance: any;

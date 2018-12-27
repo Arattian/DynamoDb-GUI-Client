@@ -1,8 +1,8 @@
 import { ActionContext, ActionTree } from 'vuex';
 import { RootState } from './types';
 
-async function getCurrentDb({ commit, dispatch }: ActionContext<RootState, RootState>, configs: any) {
-  commit('setDBInstances', configs);
+async function getCurrentDb({ commit, dispatch }: ActionContext<RootState, RootState>, name: any) {
+  commit('setDBInstances', name);
   dispatch('getDbTables');
 }
 
@@ -22,35 +22,15 @@ async function getDbTables({ state, commit, dispatch }: ActionContext<RootState,
     commit('table/setTableMeta', {});
   } else {
     commit('setTableNames', data.TableNames);
-    dispatch('getTableItemCounts');
-    tableToGet ?
-      dispatch('getCurrentTable', tableToGet) :
-      dispatch('getCurrentTable', data.TableNames[0]);
+    tableToGet &&
+      dispatch('getCurrentTable', tableToGet);
   }
 }
 
-async function getTableItemCounts({ commit, state }: ActionContext<RootState, RootState>) {
-  const { tables } = state;
-  const tableList = [];
-  for (const table of tables) {
-    const data = await state.dbInstance.scan({TableName: table.name}).promise();
-    const newTable = {
-      name: table.name,
-      ItemCount: data.Count,
-    };
-    tableList.push(newTable);
-  }
-  commit('setTablesWithItemCount', tableList);
-}
-
-function getNewTable({ commit, state, dispatch }: ActionContext<RootState, RootState>, tableName: string) {
+function deleteTableFromStore({ commit }: ActionContext<RootState, RootState>, tableName: string) {
   commit('deleteFromList', tableName);
   commit('records/initialState');
   commit('table/setTableMeta', '');
-  if (state.tables.length) {
-    const newTable: any = state.tables[0];
-    dispatch('getCurrentTable', newTable.name);
-  }
 }
 
 function getCurrentTable({ commit, dispatch }: ActionContext<RootState, RootState>, tableName: string) {
@@ -61,9 +41,8 @@ function getCurrentTable({ commit, dispatch }: ActionContext<RootState, RootStat
 
 const actions: ActionTree<RootState, RootState> = {
   getCurrentDb,
-  getTableItemCounts,
-  getNewTable,
   getCurrentTable,
+  deleteTableFromStore,
   getDbTables,
 };
 

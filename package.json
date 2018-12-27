@@ -1,6 +1,6 @@
 {
   "name": "dynamodb-gui-client",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "author": {
     "name": "Misak Poghosyan",
     "url": "https://github.com/Arattian"
@@ -25,9 +25,10 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "aws-sdk": "^2.377.0",
+    "aws-sdk": "^2.382.0",
     "element-ui": "^2.4.11",
     "vue": "^2.5.21",
+    "vue-awesome": "^3.2.0",
     "vue-class-component": "^6.3.2",
     "vue-json-editor": "^1.2.3",
     "vue-property-decorator": "^7.2.0",
@@ -41,8 +42,8 @@
     "@vue/cli-plugin-unit-jest": "^3.2.0",
     "@vue/cli-service": "^3.2.0",
     "@vue/test-utils": "^1.0.0-beta.27",
-    "babel-core": "7.0.0-bridge.0",
-    "electron": "^3.0.12",
+    "babel-core": "6.26.3",
+    "electron": "^4.0.0",
     "element-theme-dark": "^1.0.2",
     "pug": "^2.0.3",
     "pug-plain-loader": "^1.0.0",
@@ -50,7 +51,7 @@
     "stylus-loader": "^3.0.2",
     "ts-jest": "^23.10.5",
     "typescript": "^3.2.2",
-    "vue-cli-plugin-electron-builder": "^1.0.0-rc.9",
+    "vue-cli-plugin-electron-builder": "^1.0.0-rc.10",
     "vue-cli-plugin-element": "^1.0.0",
     "vue-template-compiler": "^2.5.21"
   },

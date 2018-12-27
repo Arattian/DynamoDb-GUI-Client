@@ -3,6 +3,7 @@ import App from './App.vue';
 import store from './store';
 import './plugins/element.js';
 import './plugins/jsonEditor.js';
+import './plugins/vue-awesome.js';
 Vue.config.productionTip = false;
 
 new Vue({

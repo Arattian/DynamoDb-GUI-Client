@@ -2,6 +2,21 @@ import { MutationTree } from 'vuex';
 import { RootState } from './types';
 import DynamoDB from 'aws-sdk/clients/dynamodb';
 
+function initialState(state: RootState) {
+  state.dbInstance = {};
+  state.dbClient = {};
+  state.currentTable = '';
+  state.currentDb = '';
+  state.tables = [];
+  state.filterText = '';
+  state.loading = false;
+  state.response = {
+    title: '',
+    type: '',
+    message: '',
+  };
+}
+
 function showResponse(state: RootState, response: any) {
   if (typeof response === 'object') {
     state.response.title = 'Error';
@@ -22,41 +37,40 @@ function notified(state: RootState) {
   };
 }
 
-function setDBInstances(state: RootState, configs: any) {
-  configs.maxRetries = 5;
-  state.dbInstance = new DynamoDB(configs);
-  state.dbClient = new DynamoDB.DocumentClient(configs);
-  state.endpoint = configs.endpoint;
-  state.currentDb = configs.name;
+function setDBInstances(state: RootState, name: any) {
+  const databaseJson: any = localStorage.getItem(`${name}-db`);
+  const database = JSON.parse(databaseJson);
+  state.dbInstance = new DynamoDB(database.configs);
+  state.dbClient = new DynamoDB.DocumentClient(database.configs);
+  state.currentDb = database.name;
   state.tables = [];
   state.currentTable = '';
 }
 
 function removeDbFromState(state: RootState) {
   state.tables = [];
-  state.endpoint = '';
 }
 
 function setTableNames(state: RootState, tableNames: any[]) {
-  state.tables = [];
-  for (const name of tableNames) {
-    state.tables.push({
-      name,
-      ItemCount: 0,
-    });
-  }
-}
-
-function setTablesWithItemCount(state: RootState, tables: Array<{name: string, ItemCount: number}>) {
-  state.tables = tables;
+  state.tables = tableNames;
 }
 
 function deleteFromList(state: RootState, tableName: string) {
-  state.tables = state.tables.filter((table: any) => table.name !== tableName);
+  state.tables = state.tables.filter((table: any) => table !== tableName);
   state.currentTable = '';
 }
 
 function loading(state: RootState, isLoading: boolean) {
+  if (isLoading) {
+    setTimeout(() => {
+      if (!state.loading) {
+        state.loading = true;
+        setTimeout(() => {
+          state.loading = false;
+        }, 500);
+      }
+    }, 500);
+  }
   state.loading = isLoading;
 }
 
@@ -64,16 +78,21 @@ function setCurrentTable(state: RootState, tableName: string) {
   state.currentTable = tableName;
 }
 
+function filterTextChange(state: RootState, filterField: any) {
+  state.filterText = filterField.target.value;
+}
+
 const mutations: MutationTree<RootState> = {
+  initialState,
   showResponse,
   setDBInstances,
   removeDbFromState,
   setTableNames,
-  setTablesWithItemCount,
   deleteFromList,
   loading,
   setCurrentTable,
   notified,
+  filterTextChange,
 };
 
 export default mutations;

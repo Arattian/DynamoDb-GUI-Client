@@ -1,6 +1,6 @@
 <template lang="pug">
   el-row(class="table")
-    el-table(:data="list" border v-if="keys.hashKey" @row-dblclick="getItem" size="mini")
+    el-table(:data="list" border v-if="keys.hashKey" size="mini" @row-dblclick="editItem")
       el-table-column(type="index" :index="paginationIndex")
       el-table-column(:prop="keys.hashKey" :label="keys.hashKeyLabel" :render-header="renderHash")
       el-table-column(:prop="keys.rangeKey" :label="keys.rangeKeyLabel" :render-header="renderRange" v-if="keys.rangeKey")
@@ -18,12 +18,11 @@ import { Vue, Component, Prop} from 'vue-property-decorator';
 export default class RecordList extends Vue {
   @Prop() private list!: any[];
   @Prop() private keys: any;
-  @Prop() private getItem: any;
+  @Prop() private editItem: any;
   @Prop() private paginationIndex: any;
   @Prop() private header!: any[];
   @Prop() private hideHashKey: any;
   @Prop() private removeHandler: any;
-  @Prop({default: 'mini'}) private size!: string;
   private renderHash(createElement: any, { column }: any) {
     return createElement(
       'div',
@@ -58,16 +57,13 @@ export default class RecordList extends Vue {
 .delete-column:hover
   color #ff6d6d
   cursor pointer
-.el-col
-  align-items center
-  display flex
-  flex-direction column
 .el-table
   width 100%
   font-size 0.9em
   color #eee
 .table
-  overflow-y auto
-  width 100%
-  height 65vh
+  width 98%
+  overflow auto
+  height 85vh
+  margin auto
 </style>

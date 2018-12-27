@@ -10,7 +10,7 @@ function setNewTableMeta(state: TableState, newTableMeta: string) {
   state.newTableMeta = newTableMeta;
 }
 
-function createTableForm(state: TableState) {
+function toggleCreateModal(state: TableState) {
   const defaultMeta = {
     AttributeDefinitions: [
       {
@@ -61,17 +61,17 @@ function createTableForm(state: TableState) {
     },
   };
   state.newTableMeta = defaultMeta;
-  state.creatingTable = !state.creatingTable;
+  state.showCreateModal = !state.showCreateModal;
 }
 
-function deleteTableForm(state: TableState) {
-  state.deletingTable = !state.deletingTable;
+function toggleDeleteModal(state: TableState) {
+  state.showDeleteModal = !state.showDeleteModal;
 }
 
 const mutations: MutationTree<TableState> = {
   setTableMeta,
-  createTableForm,
-  deleteTableForm,
+  toggleCreateModal,
+  toggleDeleteModal,
   setNewTableMeta,
 };
 

@@ -2,12 +2,22 @@
 import { MutationTree } from 'vuex';
 import { RecordState } from './types';
 
-function toggleActionForm(state: RecordState) {
-  state.visible = !state.visible;
+function toggleCreateModal(state: RecordState) {
+  state.showCreateModal = !state.showCreateModal;
 }
+
+function toggleDeleteModal(state: RecordState) {
+  state.showDeleteModal = !state.showDeleteModal;
+}
+
 function setMeta(state: RecordState, meta: string) {
   state.recordMeta = meta;
 }
+
+function setLastEvaluatedKey(state: RecordState, lastEvaluatedKey: any) {
+  state.lastEvaluatedKey = lastEvaluatedKey;
+}
+
 function extractKeys(state: RecordState, schema: any) {
   state.hashKey = '';
   state.hashKeyLabel = '';
@@ -17,10 +27,10 @@ function extractKeys(state: RecordState, schema: any) {
     for (const key in item) {
       if (item[key] === 'HASH') {
         state.hashKey = item.AttributeName;
-        state.hashKeyLabel = item.AttributeName.toUpperCase();
+        state.hashKeyLabel = item.AttributeName;
       } else if (item[key] === 'RANGE') {
         state.rangeKey = item.AttributeName;
-        state.rangeKeyLabel = item.AttributeName.toUpperCase();
+        state.rangeKeyLabel = item.AttributeName;
       }
     }
   }
@@ -35,7 +45,7 @@ function setHeader(state: RecordState) {
     // tslint:disable-next-line:forin
     for (const key in row) {
       if (!keyArray.includes(key)) {
-        state.header.push({label: key.toUpperCase(), prop: `${key}`});
+        state.header.push({label: key, prop: `${key}`});
         keyArray.push(key);
       }
       if (typeof row[key] === 'object') {
@@ -53,12 +63,23 @@ function filterTextChange(state: RecordState, filterText: any) {
   state.filterText = filterText.target.value;
 }
 
-function changeCurrentPage(state: RecordState, val: number) {
-  state.pageNumber = val;
+function setLimit(state: RecordState, limit: any) {
+  if (!isNaN(limit)) {
+    state.limit = limit;
+  }
 }
 
-function changePageSize(state: RecordState, val: number) {
-  state.pageSize = val;
+function addItemToList(state: RecordState, newItem: any) {
+  let edited = false;
+  state.data = state.data.map((item) => {
+    if (item[state.rangeKey] === newItem[state.rangeKey] &&
+        item[state.hashKey] === newItem[state.hashKey]) {
+      edited = true;
+      return newItem;
+    }
+    return item;
+  });
+  !edited && state.data.push(newItem);
 }
 
 function initialState(state: RecordState) {
@@ -70,21 +91,21 @@ function initialState(state: RecordState) {
   state.attributes = [];
   state.data = [];
   state.header = [];
-  state.pageSize = 15;
-  state.pageNumber = 1;
   state.filterText = '';
 }
 
 const mutations: MutationTree<RecordState> = {
-  toggleActionForm,
+  toggleCreateModal,
+  toggleDeleteModal,
   setData,
+  setLastEvaluatedKey,
   setHeader,
   extractKeys,
   setMeta,
   filterTextChange,
-  changeCurrentPage,
-  changePageSize,
+  addItemToList,
   initialState,
+  setLimit,
 };
 
 export default mutations;

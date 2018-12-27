@@ -2,7 +2,7 @@
   el-dialog(:visible="isVisible" :show-close="false" width="500px")
     el-row(class="header")
       i(class="el-icon-warning")
-      p This will permanently delete table and all its items. Continue?
+      p {{ alertText }}
     ActionButtons(
       :cancelHandler="cancelHandler"
       :confirmHandler="confirmHandler"
@@ -20,10 +20,11 @@ import ActionButtons from './ActionButtons.vue';
     ActionButtons,
   },
 })
-export default class DeleteTable extends Vue {
+export default class DeleteModal extends Vue {
   @Prop() private isVisible!: boolean;
   @Prop() private confirmHandler: any;
   @Prop() private cancelHandler: any;
+  @Prop() private alertText: any;
 }
 </script>
 
@@ -32,12 +33,6 @@ export default class DeleteTable extends Vue {
   display flex
   flex-direction column
   align-items center
-.actions
-  display flex
-  justify-content center
-.el-button
-  width 100px
-  margin-top 20px
 .el-icon-warning
   color #fdb416
   font-size 5em

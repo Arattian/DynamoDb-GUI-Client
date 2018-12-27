@@ -9,12 +9,15 @@ function removeDbFromStorage({ commit, dispatch }: ActionContext<DbState, RootSt
   dispatch('getDbList');
 }
 
-async function setCredentials({ commit, state, dispatch }: ActionContext<DbState, RootState>) {
-  if (localStorage.getItem(`${state.configs.name}-db`)) {
+async function setCredentials({ commit, dispatch, getters, state }: ActionContext<DbState, RootState>) {
+  const database = state.submitForm;
+  if (!getters.validateForm) {
+    return;
+  } else if (localStorage.getItem(`${database.name}-db`)) {
     commit('showResponse', {message: 'Database with that name already exists'}, {root: true});
     return;
   }
-  const DB = new DynamoDB({...state.configs});
+  const DB = new DynamoDB({...database.configs});
   try {
     await DB.listTables().promise();
   } catch (err) {
@@ -22,20 +25,24 @@ async function setCredentials({ commit, state, dispatch }: ActionContext<DbState
     commit('setToDefault');
     return;
   }
-  localStorage.setItem(`${state.configs.name}-db`, JSON.stringify(state.configs));
+  database.createdAt =  + new Date();
+  localStorage.setItem(`${database.name}-db`, JSON.stringify(database));
   dispatch('getDbList');
-  dispatch('getCurrentDb', state.configs, {root: true});
+  dispatch('getCurrentDb', database.name, {root: true});
   commit('setToDefault');
 }
 
-function submitForm({ dispatch, getters }: ActionContext<DbState, RootState>) {
-  if (!getters.validate) {
-    return;
-  }
+function submitRemoteForm({ dispatch, commit }: ActionContext<DbState, RootState>) {
+  commit('correctInputs', 'remote');
   dispatch('setCredentials');
 }
 
-function getDbList({ commit, dispatch }: ActionContext<DbState, RootState>) {
+function submitLocalForm({ dispatch, commit }: ActionContext<DbState, RootState>) {
+  commit('correctInputs', 'local');
+  dispatch('setCredentials');
+}
+
+function getDbList({ commit }: ActionContext<DbState, RootState>) {
   const newDbList = [];
   for (let i = 0; i < localStorage.length; i++) {
     try {
@@ -45,14 +52,15 @@ function getDbList({ commit, dispatch }: ActionContext<DbState, RootState>) {
     }
     newDbList.push(JSON.parse(Object.values(localStorage)[i]));
   }
+  newDbList.sort((a, b) => a.createdAt - b.createdAt);
   commit('setDbList', newDbList);
-  newDbList.length && dispatch('getCurrentDb', newDbList[0], {root: true});
 }
 
 const actions: ActionTree<DbState, RootState> = {
   removeDbFromStorage,
   setCredentials,
-  submitForm,
+  submitRemoteForm,
+  submitLocalForm,
   getDbList,
 };
 

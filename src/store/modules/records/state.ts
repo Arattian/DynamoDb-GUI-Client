@@ -1,7 +1,8 @@
 import { RecordState } from './types';
 
 const state: RecordState = {
-  visible: false,
+  showCreateModal: false,
+  showDeleteModal: false,
   recordMeta: '',
   hashKey: '',
   hashKeyLabel: '',
@@ -10,9 +11,9 @@ const state: RecordState = {
   attributes: [],
   data: [],
   header: [],
-  pageSize: 15,
-  pageNumber: 1,
   filterText: '',
+  limit: null,
+  lastEvaluatedKey: null,
 };
 
 export default state;

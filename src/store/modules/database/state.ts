@@ -2,9 +2,7 @@ import { DbState } from './types';
 
 const state: DbState = {
   list: [],
-  formVisible: false,
   regionList: [
-    'localhost',
     'us-east-1',
     'us-east-2',
     'us-west-1',
@@ -24,14 +22,18 @@ const state: DbState = {
     'eu-west-3',
     'sa-east-1',
   ],
-  configs: {
+  submitForm: {
+    configs: {
+      accessKeyId: '',
+      secretAccessKey: '',
+      region: '',
+      endpoint: '',
+    },
+    port: '',
     name: '',
-    accessKeyId: '',
-    secretAccessKey: '',
-    region: '',
-    endpoint: '',
+    color: '#00f97c',
+    createdAt: + new Date(),
   },
-  isRemote: true,
 };
 
 export default state;

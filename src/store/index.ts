@@ -15,8 +15,8 @@ const state = {
   dbClient: {},
   currentTable: '',
   currentDb: '',
-  endpoint: '',
   tables: [],
+  filterText: '',
   loading: false,
   response: {
     title: '',
