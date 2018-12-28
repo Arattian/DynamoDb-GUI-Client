@@ -9,7 +9,7 @@
       :submitLocalForm="submitLocalForm"
       :setToDefault="setToDefault"
     )
-    el-col(:span="24")
+    el-col(:span="24" v-if="currentTable")
       el-tabs(v-if="currentTable" v-model="activeTab" type="card")
         el-tab-pane(label="Records" name="records")
           TableRecords
