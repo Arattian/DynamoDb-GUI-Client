@@ -1,5 +1,5 @@
 <template lang="pug">
-  el-col
+  el-col(:span="24")
     el-tabs(type="border-card" @tab-click="setToDefault")
       el-tab-pane(label="Remote")
         el-form(:model="configs")
@@ -64,12 +64,12 @@ export default class ConnectDatabase extends Vue {
 
 <style lang="stylus" scoped>
 .el-col
-  height 100vh
   display flex
   justify-content center
   align-items center
 .el-tabs
   width 80%
+  margin 0 auto
   max-width 700px
 .el-form
   width 100%
