@@ -12,8 +12,9 @@ const state: RecordState = {
   data: [],
   header: [],
   filterText: '',
-  limit: null,
-  lastEvaluatedKey: null,
+  limit: 15,
+  lastEvaluatedKeyIndex: 0,
+  evaluatedKeys: [],
 };
 
 export default state;

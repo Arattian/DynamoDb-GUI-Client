@@ -17,11 +17,15 @@
     )
     RecordFooter(
       :generateMeta="generateMeta"
-      :getRecords="getRecords"
+      :refreshTable="refreshTable"
       :currentTable="currentTable"
       :itemCount="itemCount"
       :getLimitedRows="getLimitedRows"
       :limit="limit"
+      :getPreviousRecords="getPreviousRecords"
+      :getNextRecords="getNextRecords"
+      :evaluatedKeys="evaluatedKeys"
+      :lastEvaluatedKeyIndex="lastEvaluatedKeyIndex"
     )
 </template>
 
@@ -51,10 +55,15 @@ export default class TableRecords extends Vue {
   @Getter('tableDataPage', { namespace }) private tableDataPage: any;
   @Getter('limit', { namespace }) private limit: any;
   @Getter('hideHashKey', { namespace }) private hideHashKey: any;
+  @Getter('lastEvaluatedKeyIndex', { namespace }) private lastEvaluatedKeyIndex: any;
+  @Getter('evaluatedKeys', { namespace }) private evaluatedKeys: any;
   @Action('generateMeta', { namespace }) private generateMeta: any;
   @Action('getRecords', { namespace }) private getRecords: any;
   @Action('getItem', { namespace }) private getItem: any;
   @Action('getLimitedRows', { namespace }) private getLimitedRows: any;
+  @Action('getPreviousRecords', { namespace }) private getPreviousRecords: any;
+  @Action('getNextRecords', { namespace }) private getNextRecords: any;
+  @Action('refreshTable', { namespace }) private refreshTable: any;
   @Mutation('filterTextChange', { namespace }) private filterTextChange: any;
   @Mutation('toggleDeleteModal', { namespace }) private toggleDeleteModal: any;
   @Mutation('toggleCreateModal', { namespace }) private toggleCreateModal: any;

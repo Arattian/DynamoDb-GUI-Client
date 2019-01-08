@@ -35,6 +35,8 @@ function deleteTableFromStore({ commit }: ActionContext<RootState, RootState>, t
 
 function getCurrentTable({ commit, dispatch }: ActionContext<RootState, RootState>, tableName: string) {
   commit('setCurrentTable', tableName);
+  commit('records/initialState');
+  commit('table/setTableMeta', '');
   dispatch('records/getRecords');
   dispatch('table/getMeta');
 }

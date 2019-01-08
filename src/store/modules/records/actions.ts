@@ -20,6 +20,7 @@ async function putItem({ dispatch, commit, rootState, state }: ActionContext<Rec
   commit('setHeader');
   commit('toggleCreateModal');
   commit('showResponse', ' ', {root: true});
+  dispatch('table/getMeta', null, {root: true});
 }
 
 async function getItem({state, commit, rootState}: ActionContext<RecordState, RootState>, row: any) {
@@ -45,12 +46,13 @@ async function removeItem({ commit, rootState, dispatch, state }: ActionContext<
   const { dbClient } = rootState;
   const { currentTable } = rootState;
   const row: any = state.recordMeta;
+  const Key: any = {
+    [state.hashKey]: row[state.hashKey],
+    [state.rangeKey]: row[state.rangeKey],
+  };
   const params = {
     TableName: currentTable,
-    Key: {
-      [state.hashKey]: row[state.hashKey],
-      [state.rangeKey]: row[state.rangeKey],
-    },
+    Key,
   };
   try {
     await dbClient.delete(params).promise();
@@ -58,9 +60,11 @@ async function removeItem({ commit, rootState, dispatch, state }: ActionContext<
     commit('showResponse', err, {root: true});
     return;
   }
+  commit('deleteItemFromList', Key);
   commit('toggleDeleteModal');
+  commit('setHeader');
   commit('showResponse', ' ', {root: true});
-  dispatch('getRecords');
+  dispatch('table/getMeta', null, {root: true});
 }
 
 function generateMeta({commit, state}: ActionContext<RecordState, RootState>) {
@@ -76,7 +80,7 @@ function generateMeta({commit, state}: ActionContext<RecordState, RootState>) {
   commit('toggleCreateModal');
 }
 
-async function getRecords({ commit, rootState, state }: ActionContext<RecordState, RootState>) {
+async function getRecords({ dispatch, commit, rootState, state }: ActionContext<RecordState, RootState>) {
   const { dbClient } = rootState;
   const { currentTable } = rootState;
   commit('loading', true, {root: true});
@@ -85,7 +89,7 @@ async function getRecords({ commit, rootState, state }: ActionContext<RecordStat
     data = await dbClient.scan({
       TableName: currentTable,
       Limit: state.limit,
-      // ExclusiveStartKey: state.limit && state.lastEvaluatedKey,
+      ExclusiveStartKey: state.evaluatedKeys[state.lastEvaluatedKeyIndex - 1],
     }).promise();
   } catch (err) {
     commit('showResponse', err, {root: true});
@@ -94,23 +98,11 @@ async function getRecords({ commit, rootState, state }: ActionContext<RecordStat
   }
   commit('setData', data.Items);
   commit('setHeader');
-  // commit('setLastEvaluatedKey', data.LastEvaluatedKey);
   commit('loading', false, {root: true});
+  dispatch('table/getMeta', null, {root: true});
+  data.LastEvaluatedKey && commit('addEvaluatedKey', data.LastEvaluatedKey);
 }
 /*TODO
-Vue - show prev, next button with pagenumber in center,
-  which is one digit bigger from index of lastevaluated key.
-
-TODO
-  if evaluatedKey array exists, then next page button displayed,
-  on click next page it gets next elements and
-  lastevaluated key pushed to evaluatedKeys array.
-  on click previouspage it gets all items with evaluatedkey,
-  which i get from evaluatedkeys array page minus one position.
-  On click prev i am not pushing new evaluated key in my array.
-  On row count change, i get all rows and reset the evaluatedkey array
-
-  TODO
   Implement new filter logic, which works with dynamodb filterexpr.
 */
 async function getLimitedRows({ commit, dispatch }: ActionContext<RecordState, RootState>, limit: any) {
@@ -122,6 +114,21 @@ async function getLimitedRows({ commit, dispatch }: ActionContext<RecordState, R
   }
 }
 
+async function getPreviousRecords({ commit, dispatch }: ActionContext<RecordState, RootState>) {
+  commit('lastEvaluatedKeyIndexDec');
+  dispatch('getRecords');
+}
+
+async function getNextRecords({ commit, dispatch }: ActionContext<RecordState, RootState>) {
+  commit('lastEvaluatedKeyIndexInc');
+  dispatch('getRecords');
+}
+
+async function refreshTable({ commit, dispatch }: ActionContext<RecordState, RootState>) {
+  commit('initialState');
+  dispatch('getRecords');
+}
+
 const actions: ActionTree<RecordState, RootState> = {
   getRecords,
   putItem,
@@ -129,6 +136,9 @@ const actions: ActionTree<RecordState, RootState> = {
   removeItem,
   generateMeta,
   getLimitedRows,
+  getPreviousRecords,
+  getNextRecords,
+  refreshTable,
 };
 
 export default actions;

@@ -11,5 +11,6 @@ export interface RecordState {
   attributes: string[];
   filterText: string;
   limit: number | null;
-  lastEvaluatedKey: any;
+  lastEvaluatedKeyIndex: number;
+  evaluatedKeys: any[];
 }

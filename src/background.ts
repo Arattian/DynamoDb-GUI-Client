@@ -18,7 +18,13 @@ function createWindow() {
   win = new BrowserWindow({
     width: 1400,
     height: 900,
+    minWidth: 1281,
+    minHeight: 600,
     center: true,
+    show: false,
+  });
+  win.once('ready-to-show', () => {
+    win.show();
   });
   if (isDevelopment) {
     // Load the url of the dev server if in development mode
@@ -31,7 +37,6 @@ function createWindow() {
     // Load the index.html when not in development
     win.loadFile('index.html');
   }
-
   win.on('closed', () => {
     win = null;
   });
@@ -53,6 +58,7 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
