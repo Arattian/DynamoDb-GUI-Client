@@ -13,7 +13,7 @@
 ![Logo](src/assets/git-logo.png)
 
 :eyes:
-![Logo](src/assets/App-View.png)
+![Logo](https://i.imgur.com/24jcqzs.png)
 
 ## Run
 
