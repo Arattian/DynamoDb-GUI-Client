@@ -2,7 +2,7 @@
   el-col(:span="24" class="container")
     el-col(:span="6")
       i(class="el-icon-circle-plus-outline add" @click="generateMeta" title="Add Record")
-      i(class="el-icon-refresh refresh" @click="getRecords" title="Refresh Table")
+      i(class="el-icon-refresh refresh" @click="refreshTable" title="Refresh Table")
       el-popover(
         placement="top"
         width="200"
@@ -17,8 +17,18 @@
         el-row(class="popover-close")
           el-button(size="mini" plain type="primary" @click="visible = false") Close
         i(class="el-icon-setting settings" slot="reference" title="Table Settings")
-    el-col(:span="12")
-    el-col(:span="6" class="itemCount") {{itemCount}} rows in {{currentTable}}
+      i(
+        class="el-icon-arrow-left"
+        :class="{disabled: lastEvaluatedKeyIndex < 1}"
+        @click="lastEvaluatedKeyIndex >= 1 && getPreviousRecords()"
+        )
+      .pageIndex {{ lastEvaluatedKeyIndex + 1 }}
+      i(
+        class="el-icon-arrow-right"
+        :class="{disabled: (lastEvaluatedKeyIndex + 1) * limit > itemCount }"
+        @click="(lastEvaluatedKeyIndex + 1) * limit < itemCount && getNextRecords()"
+        )
+    el-col(:span="14" class="itemCount") {{itemCount}} rows in {{currentTable}}
 </template>
 
 <script lang="ts">
@@ -30,13 +40,17 @@ const namespace = 'records';
 @Component
 export default class RecordFooter extends Vue {
   private visible = false;
-  private checked = true;
+  private checked = false;
   @Prop() private generateMeta: any;
-  @Prop() private getRecords: any;
+  @Prop() private refreshTable: any;
+  @Prop() private getNextRecords: any;
   @Prop() private currentTable: any;
   @Prop() private itemCount: any;
   @Prop() private limit: any;
   @Prop() private getLimitedRows: any;
+  @Prop() private getPreviousRecords: any;
+  @Prop() private lastEvaluatedKeyIndex: any;
+  @Prop() private evaluatedKeys: any;
 }
 </script>
 
@@ -56,7 +70,6 @@ export default class RecordFooter extends Vue {
   border-left 2px solid #121820
   position fixed
   height 35px
-
   bottom 0px
   background #121820
   z-index 1000
@@ -82,4 +95,7 @@ export default class RecordFooter extends Vue {
   color #fcffe4
 .itemCount
   justify-content flex-end
+.disabled
+  color #aaaaaa
+  cursor not-allowed !important
 </style>

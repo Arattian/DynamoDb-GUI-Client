@@ -1,6 +1,7 @@
 
 import { MutationTree } from 'vuex';
 import { RecordState } from './types';
+import { stat } from 'fs';
 
 function toggleCreateModal(state: RecordState) {
   state.showCreateModal = !state.showCreateModal;
@@ -12,10 +13,6 @@ function toggleDeleteModal(state: RecordState) {
 
 function setMeta(state: RecordState, meta: string) {
   state.recordMeta = meta;
-}
-
-function setLastEvaluatedKey(state: RecordState, lastEvaluatedKey: any) {
-  state.lastEvaluatedKey = lastEvaluatedKey;
 }
 
 function extractKeys(state: RecordState, schema: any) {
@@ -66,6 +63,8 @@ function filterTextChange(state: RecordState, filterText: any) {
 function setLimit(state: RecordState, limit: any) {
   if (!isNaN(limit)) {
     state.limit = limit;
+    state.lastEvaluatedKeyIndex = 0;
+    state.evaluatedKeys = [];
   }
 }
 
@@ -82,6 +81,16 @@ function addItemToList(state: RecordState, newItem: any) {
   !edited && state.data.push(newItem);
 }
 
+function deleteItemFromList(state: RecordState, deletedItem: any) {
+  state.data = state.data.filter((item) => {
+    if (item[state.hashKey] !== deletedItem[state.hashKey]) {
+      return item;
+    } else if (state.rangeKey) {
+      return item[state.rangeKey] !== deletedItem[state.rangeKey];
+    }
+  });
+}
+
 function initialState(state: RecordState) {
   state.recordMeta = '';
   state.hashKey = '';
@@ -92,19 +101,38 @@ function initialState(state: RecordState) {
   state.data = [];
   state.header = [];
   state.filterText = '';
+  state.evaluatedKeys = [];
+  state.lastEvaluatedKeyIndex = 0;
+}
+
+function addEvaluatedKey(state: RecordState, lastEvaluatedKey: any) {
+  !state.evaluatedKeys.some((item: any) => {
+   return item === lastEvaluatedKey;
+  }) && state.evaluatedKeys.push(lastEvaluatedKey || {});
+}
+
+function lastEvaluatedKeyIndexInc(state: RecordState) {
+  state.lastEvaluatedKeyIndex++;
+}
+
+function lastEvaluatedKeyIndexDec(state: RecordState) {
+  state.lastEvaluatedKeyIndex--;
 }
 
 const mutations: MutationTree<RecordState> = {
   toggleCreateModal,
   toggleDeleteModal,
   setData,
-  setLastEvaluatedKey,
+  addEvaluatedKey,
   setHeader,
   extractKeys,
   setMeta,
   filterTextChange,
   addItemToList,
   initialState,
+  deleteItemFromList,
+  lastEvaluatedKeyIndexInc,
+  lastEvaluatedKeyIndexDec,
   setLimit,
 };
 

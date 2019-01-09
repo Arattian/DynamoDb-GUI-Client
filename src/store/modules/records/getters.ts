@@ -53,6 +53,8 @@ const filterText = (state: RecordState) => state.filterText;
 const limit = (state: RecordState) => state.limit;
 const showCreateModal = (state: RecordState) => state.showCreateModal;
 const showDeleteModal = (state: RecordState) => state.showDeleteModal;
+const lastEvaluatedKeyIndex = (state: RecordState) => state.lastEvaluatedKeyIndex;
+const evaluatedKeys = (state: RecordState) => state.evaluatedKeys;
 
 const getters: GetterTree<RecordState, RootState> = {
   keys,
@@ -67,5 +69,7 @@ const getters: GetterTree<RecordState, RootState> = {
   hideHashKey,
   showCreateModal,
   showDeleteModal,
+  lastEvaluatedKeyIndex,
+  evaluatedKeys,
 };
 export default getters;
