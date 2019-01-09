@@ -25,7 +25,7 @@
       .pageIndex {{ lastEvaluatedKeyIndex + 1 }}
       i(
         class="el-icon-arrow-right"
-        :class="{disabled: (lastEvaluatedKeyIndex + 1) * limit > itemCount }"
+        :class="{disabled: (lastEvaluatedKeyIndex + 1) * limit >= itemCount }"
         @click="(lastEvaluatedKeyIndex + 1) * limit < itemCount && getNextRecords()"
         )
     el-col(:span="14" class="itemCount") {{itemCount}} rows in {{currentTable}}
