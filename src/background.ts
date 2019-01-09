@@ -1,6 +1,7 @@
 'use strict';
 
-import { app, protocol, BrowserWindow } from 'electron';
+import { app, protocol, BrowserWindow, shell, Menu } from 'electron';
+import defaultMenu from 'electron-default-menu';
 import {
   createProtocol,
   installVueDevtools,
@@ -18,8 +19,6 @@ function createWindow() {
   win = new BrowserWindow({
     width: 1400,
     height: 900,
-    minWidth: 1281,
-    minHeight: 600,
     center: true,
     show: false,
   });
@@ -37,6 +36,7 @@ function createWindow() {
     // Load the index.html when not in development
     win.loadFile('index.html');
   }
+
   win.on('closed', () => {
     win = null;
   });
@@ -59,11 +59,12 @@ app.on('activate', () => {
   }
 });
 
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
+  const menu = defaultMenu(app, shell);
+  Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     await installVueDevtools();
