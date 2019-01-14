@@ -1,32 +1,22 @@
 {
   "name": "dynamodb-gui-client",
   "version": "3.1.0",
+  "description": "DynamoDb-GUI-Client",
   "author": {
     "name": "Misak Poghosyan",
     "url": "https://github.com/Arattian"
   },
-  "description": "DynamoDb-GUI-Client",
-  "license": "MIT",
-  "repository": "Arattian/DynamoDb-GUI-Client",
-  "keywords": [
-    "element-ui",
-    "npm",
-    "package",
-    "dark",
-    "theme",
-    "dynamodb",
-    "gui"
-  ],
   "scripts": {
-    "start": "vue-cli-service serve --port 5000 --open",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
+    "postinstall": "electron-builder install-app-deps",
+    "start": "vue-cli-service serve --port 5000 --open",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "aws-sdk": "^2.384.0",
+    "aws-sdk": "^2.385.0",
     "electron-default-menu": "^1.0.1",
     "element-ui": "^2.4.11",
     "vue": "^2.5.21",
@@ -39,10 +29,10 @@
   },
   "devDependencies": {
     "@types/jest": "^23.3.12",
-    "@vue/cli-plugin-babel": "3.2.0",
-    "@vue/cli-plugin-typescript": "3.2.0",
-    "@vue/cli-plugin-unit-jest": "3.2.0",
-    "@vue/cli-service": "3.2.0",
+    "@vue/cli-plugin-babel": "3.3.0",
+    "@vue/cli-plugin-typescript": "3.3.0",
+    "@vue/cli-plugin-unit-jest": "3.3.0",
+    "@vue/cli-service": "3.3.0",
     "@vue/test-utils": "^1.0.0-beta.28",
     "babel-core": "^6.26.3",
     "electron": "^4.0.1",
@@ -53,9 +43,20 @@
     "stylus-loader": "^3.0.2",
     "ts-jest": "^23.10.5",
     "typescript": "^3.2.2",
-    "vue-cli-plugin-electron-builder": "^1.0.0-rc.10",
-    "vue-cli-plugin-element": "^1.0.0",
+    "vue-cli-plugin-electron-builder": "github:nklayman/vue-cli-plugin-electron-builder",
+    "vue-cli-plugin-element": "^1.0.1",
     "vue-template-compiler": "^2.5.21"
   },
-  "main": "background.js"
+  "keywords": [
+    "element-ui",
+    "npm",
+    "package",
+    "dark",
+    "theme",
+    "dynamodb",
+    "gui"
+  ],
+  "license": "MIT",
+  "main": "background.js",
+  "repository": "Arattian/DynamoDb-GUI-Client"
 }

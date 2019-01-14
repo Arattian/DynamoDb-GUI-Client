@@ -8,9 +8,19 @@ export interface RecordState {
   rangeKeyLabel: string;
   header: any[];
   data: any[];
-  attributes: string[];
+  filtered: boolean;
   filterText: string;
   limit: number | null;
   lastEvaluatedKeyIndex: number;
   evaluatedKeys: any[];
+  sortBy: string;
+  sortDesc: boolean;
+  filterParams: {
+    filterColumn: string;
+    filterExpr: string;
+    filterValue: string | number | null;
+    valueType: string;
+    types: string[];
+    expressions: string[];
+  };
 }

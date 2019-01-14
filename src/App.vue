@@ -83,6 +83,8 @@ input[type="text"]:disabled {
   user-select none !important
 td
   cursor pointer
+.el-input__inner, .el-input
+  border-radius 0px !important
 .jsoneditor
   border none !important
   height 100% !important

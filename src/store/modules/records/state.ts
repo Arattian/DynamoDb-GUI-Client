@@ -8,13 +8,23 @@ const state: RecordState = {
   hashKeyLabel: '',
   rangeKey: '',
   rangeKeyLabel: '',
-  attributes: [],
+  filtered: false,
   data: [],
   header: [],
   filterText: '',
   limit: 15,
   lastEvaluatedKeyIndex: 0,
   evaluatedKeys: [],
+  sortBy: '',
+  sortDesc: true,
+  filterParams: {
+    filterColumn: '',
+    filterExpr: '=',
+    filterValue: '',
+    valueType: '',
+    types: ['number', 'string', 'isNull'],
+    expressions: ['=', '!=', '<', '>', '<=', '>='],
+  },
 };
 
 export default state;

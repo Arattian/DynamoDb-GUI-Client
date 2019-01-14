@@ -1,7 +1,6 @@
 
 import { MutationTree } from 'vuex';
 import { RecordState } from './types';
-import { stat } from 'fs';
 
 function toggleCreateModal(state: RecordState) {
   state.showCreateModal = !state.showCreateModal;
@@ -13,6 +12,10 @@ function toggleDeleteModal(state: RecordState) {
 
 function setMeta(state: RecordState, meta: string) {
   state.recordMeta = meta;
+}
+
+function setFilterStatus(state: RecordState) {
+  state.filtered = true;
 }
 
 function extractKeys(state: RecordState, schema: any) {
@@ -35,14 +38,13 @@ function extractKeys(state: RecordState, schema: any) {
 
 function setHeader(state: RecordState) {
   const extractData = state.data;
-  state.attributes = [];
   state.header = [];
   const keyArray: any = [];
   for (const row of extractData) {
     // tslint:disable-next-line:forin
     for (const key in row) {
       if (!keyArray.includes(key)) {
-        state.header.push({label: key, prop: `${key}`});
+        state.header.push(key);
         keyArray.push(key);
       }
       if (typeof row[key] === 'object') {
@@ -65,6 +67,44 @@ function setLimit(state: RecordState, limit: any) {
     state.limit = limit;
     state.lastEvaluatedKeyIndex = 0;
     state.evaluatedKeys = [];
+  }
+}
+
+function changeFilterValueType(state: RecordState) {
+  switch (state.filterParams.valueType) {
+    case 'string':
+      state.filterParams.filterValue = state.filterParams.filterValue && state.filterParams.filterValue.toString();
+      break;
+    case 'number':
+      state.filterParams.filterValue = Number(state.filterParams.filterValue);
+      break;
+    case 'null':
+      state.filterParams.filterValue = null;
+      break;
+  }
+}
+
+function setFilterValueType(state: RecordState, valueType: string) {
+  switch (valueType) {
+    case 'string':
+      state.filterParams.expressions = ['=', '!=', '<', '>', '<=', '>='];
+      break;
+    case 'number':
+      state.filterParams.expressions = ['=', '!=', '<', '>', '<=', '>='];
+      break;
+    case 'null':
+      if (state.filterParams.filterExpr !== '<>') {
+        state.filterParams.filterExpr = '=';
+      }
+      state.filterParams.expressions = ['=', '!='];
+      state.filterParams.filterValue = null;
+      break;
+  }
+}
+
+function setNotEqualExpr(state: RecordState, expr: string) {
+  if (expr === '!=') {
+      state.filterParams.filterExpr = '<>';
   }
 }
 
@@ -92,23 +132,41 @@ function deleteItemFromList(state: RecordState, deletedItem: any) {
 }
 
 function initialState(state: RecordState) {
+  if (state.filterParams.filterColumn) {
+    state.limit = 15;
+  }
   state.recordMeta = '';
   state.hashKey = '';
   state.hashKeyLabel = '';
   state.rangeKey = '';
   state.rangeKeyLabel = '';
-  state.attributes = [];
+  state.filtered = false;
   state.data = [];
   state.header = [];
   state.filterText = '';
   state.evaluatedKeys = [];
   state.lastEvaluatedKeyIndex = 0;
+  state.sortBy = '';
+  state.sortDesc = true;
+  state.filterParams = {
+    filterColumn: '',
+    filterExpr: '=',
+    filterValue: '',
+    valueType: '',
+    types: ['number', 'string', 'null'],
+    expressions: ['=', '!=', '<', '>', '<=', '>='],
+  };
 }
 
 function addEvaluatedKey(state: RecordState, lastEvaluatedKey: any) {
   !state.evaluatedKeys.some((item: any) => {
    return item === lastEvaluatedKey;
   }) && state.evaluatedKeys.push(lastEvaluatedKey || {});
+}
+
+function clearEvaluatedKeys(state: RecordState) {
+  state.evaluatedKeys = [];
+  state.lastEvaluatedKeyIndex = 0;
 }
 
 function lastEvaluatedKeyIndexInc(state: RecordState) {
@@ -133,7 +191,12 @@ const mutations: MutationTree<RecordState> = {
   deleteItemFromList,
   lastEvaluatedKeyIndexInc,
   lastEvaluatedKeyIndexDec,
+  clearEvaluatedKeys,
   setLimit,
+  setFilterValueType,
+  changeFilterValueType,
+  setNotEqualExpr,
+  setFilterStatus,
 };
 
 export default mutations;

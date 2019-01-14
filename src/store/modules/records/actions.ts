@@ -1,6 +1,7 @@
 import { ActionTree, ActionContext } from 'vuex';
 import { RecordState } from './types';
 import { RootState } from '@/store/types';
+import { ScanInput } from 'aws-sdk/clients/dynamodb';
 
 async function putItem({ dispatch, commit, rootState, state }: ActionContext<RecordState, RootState>) {
   const { dbClient } = rootState;
@@ -80,17 +81,30 @@ function generateMeta({commit, state}: ActionContext<RecordState, RootState>) {
   commit('toggleCreateModal');
 }
 
-async function getRecords({ dispatch, commit, rootState, state }: ActionContext<RecordState, RootState>) {
+// tslint:disable-next-line:max-line-length
+async function getRecords({ dispatch, commit, rootState, state }: ActionContext<RecordState, RootState>, params: ScanInput) {
   const { dbClient } = rootState;
   const { currentTable } = rootState;
   commit('loading', true, {root: true});
   let data;
   try {
+
     data = await dbClient.scan({
       TableName: currentTable,
       Limit: state.limit,
       ExclusiveStartKey: state.evaluatedKeys[state.lastEvaluatedKeyIndex - 1],
-    }).promise();
+      ...params,
+    },
+      /*
+      //TODO
+      Find better way to task bellow.
+       //Ask to Gev
+       Row limitation will be disabled when scanning table.
+       When limit attribute used i cant scan whole table and find all results from
+       filterExpression, so i need to disable it to get all matches.
+       Disabling limit can cause read capacity problem.
+       */
+    ).promise();
   } catch (err) {
     commit('showResponse', err, {root: true});
     commit('loading', false, {root: true});
@@ -102,24 +116,45 @@ async function getRecords({ dispatch, commit, rootState, state }: ActionContext<
   dispatch('table/getMeta', null, {root: true});
   data.LastEvaluatedKey && commit('addEvaluatedKey', data.LastEvaluatedKey);
 }
-/*TODO
-  Implement new filter logic, which works with dynamodb filterexpr.
-*/
+
+async function filterRecords({ dispatch, getters, commit, state }: ActionContext<RecordState, RootState>) {
+  if (!getters.scanIsValid) {
+    commit('showResponse', {message: 'Please fill all scan fields.'}, {root: true});
+    return;
+  }
+  /*
+    Limit and FilterExpression not returning the items that match the filter requirements in right way.
+  */
+  commit('setLimit', null);
+  commit('clearEvaluatedKeys');
+  commit('changeFilterValueType');
+  commit('setFilterStatus');
+  const params = {
+    FilterExpression:
+      `${state.filterParams.filterColumn} ${state.filterParams.filterExpr} :${state.filterParams.filterColumn}1`,
+    ExpressionAttributeValues:
+      {
+        [':' + state.filterParams.filterColumn + '1']: state.filterParams.filterValue,
+      },
+  };
+  dispatch('getRecords', params);
+}
 async function getLimitedRows({ commit, dispatch }: ActionContext<RecordState, RootState>, limit: any) {
   if (isNaN(limit)) {
     commit('showResponse', {message: 'Limit must be a number'}, {root: true});
   } else {
     commit('setLimit', limit);
+    commit('clearEvaluatedKeys');
     dispatch('getRecords');
   }
 }
 
-async function getPreviousRecords({ commit, dispatch }: ActionContext<RecordState, RootState>) {
+async function getPreviousRecords({ state, commit, dispatch }: ActionContext<RecordState, RootState>) {
   commit('lastEvaluatedKeyIndexDec');
   dispatch('getRecords');
 }
 
-async function getNextRecords({ commit, dispatch }: ActionContext<RecordState, RootState>) {
+async function getNextRecords({ state, commit, dispatch }: ActionContext<RecordState, RootState>) {
   commit('lastEvaluatedKeyIndexInc');
   dispatch('getRecords');
 }
@@ -139,6 +174,7 @@ const actions: ActionTree<RecordState, RootState> = {
   getPreviousRecords,
   getNextRecords,
   refreshTable,
+  filterRecords,
 };
 
 export default actions;

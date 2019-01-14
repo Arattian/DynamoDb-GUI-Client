@@ -4,7 +4,10 @@
       :filterText="filterText"
       :filterTextChange="filterTextChange"
       :header="header"
-      :hasAttribute="hasAttribute"
+      :getKeys="getKeys"
+      :filterRecords="filterRecords"
+      :setFilterValueType="setFilterValueType"
+      :setNotEqualExpr="setNotEqualExpr"
     )
     RecordList(
       :list="tableDataPage"
@@ -26,6 +29,7 @@
       :getNextRecords="getNextRecords"
       :evaluatedKeys="evaluatedKeys"
       :lastEvaluatedKeyIndex="lastEvaluatedKeyIndex"
+      :filtered="filtered"
     )
 </template>
 
@@ -51,14 +55,16 @@ export default class TableRecords extends Vue {
   @Getter('header', { namespace }) private header: any;
   @Getter('keys', { namespace }) private keys!: {hashKey: string; rangeKey: string};
   @Getter('filterText', { namespace }) private filterText: any;
-  @Getter('hasAttribute', { namespace }) private hasAttribute: any;
+  @Getter('getKeys', { namespace }) private getKeys: any;
   @Getter('tableDataPage', { namespace }) private tableDataPage: any;
   @Getter('limit', { namespace }) private limit: any;
   @Getter('hideHashKey', { namespace }) private hideHashKey: any;
   @Getter('lastEvaluatedKeyIndex', { namespace }) private lastEvaluatedKeyIndex: any;
   @Getter('evaluatedKeys', { namespace }) private evaluatedKeys: any;
+  @Getter('filtered', { namespace }) private filtered: any;
   @Action('generateMeta', { namespace }) private generateMeta: any;
   @Action('getRecords', { namespace }) private getRecords: any;
+  @Action('filterRecords', { namespace }) private filterRecords: any;
   @Action('getItem', { namespace }) private getItem: any;
   @Action('getLimitedRows', { namespace }) private getLimitedRows: any;
   @Action('getPreviousRecords', { namespace }) private getPreviousRecords: any;
@@ -67,6 +73,8 @@ export default class TableRecords extends Vue {
   @Mutation('filterTextChange', { namespace }) private filterTextChange: any;
   @Mutation('toggleDeleteModal', { namespace }) private toggleDeleteModal: any;
   @Mutation('toggleCreateModal', { namespace }) private toggleCreateModal: any;
+  @Mutation('setFilterValueType', { namespace }) private setFilterValueType: any;
+  @Mutation('setNotEqualExpr', { namespace }) private setNotEqualExpr: any;
 
   private removeHandler(row: any) {
     this.getItem(row);

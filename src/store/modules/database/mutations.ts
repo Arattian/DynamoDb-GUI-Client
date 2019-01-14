@@ -8,6 +8,7 @@ function setToDefault(state: DbState) {
     secretAccessKey: '',
     region: '',
     endpoint: '',
+    maxRetries: 2,
   };
   state.submitForm.port = '';
   state.submitForm.name = 'Database ' + (state.list.length + 1);
