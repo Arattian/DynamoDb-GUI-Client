@@ -23,16 +23,13 @@
         class="el-icon-arrow-left"
         :class="{disabled: lastEvaluatedKeyIndex < 1}"
         @click="lastEvaluatedKeyIndex >= 1 && getPreviousRecords()"
-        v-if="!filtered"
         )
       .pageIndex(
-        v-if="!filtered"
       ) {{ lastEvaluatedKeyIndex + 1 }}
       i(
         class="el-icon-arrow-right"
         :class="{disabled: (lastEvaluatedKeyIndex + 1) * limit >= itemCount || evaluatedKeys.length < 1}"
         @click="(lastEvaluatedKeyIndex + 1) * limit < itemCount && evaluatedKeys.length > 0 && getNextRecords()"
-        v-if="!filtered"
         )
     el-col(:span="14" class="itemCount") {{itemCount}} rows in {{currentTable}}
 </template>
@@ -73,10 +70,8 @@ export default class RecordFooter extends Vue {
   display flex
   justify-content flex-end
 .container
-  border-top 1px solid #121820
-  border-left 2px solid #121820
   position fixed
-  height 35px
+  height 30px
   bottom 0px
   background #121820
   z-index 1000

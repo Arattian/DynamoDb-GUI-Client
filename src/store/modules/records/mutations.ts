@@ -20,17 +20,13 @@ function setFilterStatus(state: RecordState) {
 
 function extractKeys(state: RecordState, schema: any) {
   state.hashKey = '';
-  state.hashKeyLabel = '';
   state.rangeKey = '';
-  state.rangeKeyLabel = '';
   for (const item of schema.KeySchema) {
     for (const key in item) {
       if (item[key] === 'HASH') {
         state.hashKey = item.AttributeName;
-        state.hashKeyLabel = item.AttributeName;
       } else if (item[key] === 'RANGE') {
         state.rangeKey = item.AttributeName;
-        state.rangeKeyLabel = item.AttributeName;
       }
     }
   }
@@ -56,10 +52,6 @@ function setHeader(state: RecordState) {
 
 function setData(state: RecordState, data: any[]) {
   state.data = data;
-}
-
-function filterTextChange(state: RecordState, filterText: any) {
-  state.filterText = filterText.target.value;
 }
 
 function setLimit(state: RecordState, limit: any) {
@@ -137,13 +129,10 @@ function initialState(state: RecordState) {
   }
   state.recordMeta = '';
   state.hashKey = '';
-  state.hashKeyLabel = '';
   state.rangeKey = '';
-  state.rangeKeyLabel = '';
   state.filtered = false;
   state.data = [];
   state.header = [];
-  state.filterText = '';
   state.evaluatedKeys = [];
   state.lastEvaluatedKeyIndex = 0;
   state.sortBy = '';
@@ -185,7 +174,6 @@ const mutations: MutationTree<RecordState> = {
   setHeader,
   extractKeys,
   setMeta,
-  filterTextChange,
   addItemToList,
   initialState,
   deleteItemFromList,

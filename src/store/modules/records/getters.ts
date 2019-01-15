@@ -5,20 +5,12 @@ import { RootState } from '@/store/types';
 const keys = (state: RecordState) => {
   return {
     hashKey: state.hashKey,
-    hashKeyLabel: state.hashKeyLabel,
     rangeKey: state.rangeKey,
-    rangeKeyLabel: state.rangeKeyLabel,
   };
 };
 
 const tableDataPage = (state: RecordState) => {
-  const data = state.data.filter((record: any) => {
-    for (const key in record) {
-      if ((record[key] + '').includes(state.filterText)) {
-        return record;
-      }
-    }
-  });
+  const data = state.data;
   if (state.sortBy) {
     data.sort((a, b) => {
       if (!a[state.sortBy] || a[state.sortBy] === 'null') {
@@ -63,7 +55,6 @@ const filtered = (state: RecordState) => state.filtered;
 const recordMeta = (state: RecordState) => state.recordMeta;
 const data = (state: RecordState) => state.data;
 const header = (state: RecordState) => state.header;
-const filterText = (state: RecordState) => state.filterText;
 const limit = (state: RecordState) => state.limit;
 const showCreateModal = (state: RecordState) => state.showCreateModal;
 const showDeleteModal = (state: RecordState) => state.showDeleteModal;
@@ -77,7 +68,6 @@ const getters: GetterTree<RecordState, RootState> = {
   data,
   header,
   tableDataPage,
-  filterText,
   limit,
   getKeys,
   scanIsValid,

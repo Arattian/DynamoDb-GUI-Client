@@ -1,13 +1,13 @@
 <template lang="pug">
   el-col(:span="24")
     RecordListFilter(
-      :filterText="filterText"
-      :filterTextChange="filterTextChange"
       :header="header"
       :getKeys="getKeys"
       :filterRecords="filterRecords"
       :setFilterValueType="setFilterValueType"
       :setNotEqualExpr="setNotEqualExpr"
+      :filtered="filtered"
+      :refreshTable="refreshTable"
     )
     RecordList(
       :list="tableDataPage"
@@ -54,7 +54,6 @@ export default class TableRecords extends Vue {
   @Getter('itemCount', { namespace: 'table' }) private itemCount: any;
   @Getter('header', { namespace }) private header: any;
   @Getter('keys', { namespace }) private keys!: {hashKey: string; rangeKey: string};
-  @Getter('filterText', { namespace }) private filterText: any;
   @Getter('getKeys', { namespace }) private getKeys: any;
   @Getter('tableDataPage', { namespace }) private tableDataPage: any;
   @Getter('limit', { namespace }) private limit: any;
@@ -63,14 +62,12 @@ export default class TableRecords extends Vue {
   @Getter('evaluatedKeys', { namespace }) private evaluatedKeys: any;
   @Getter('filtered', { namespace }) private filtered: any;
   @Action('generateMeta', { namespace }) private generateMeta: any;
-  @Action('getRecords', { namespace }) private getRecords: any;
   @Action('filterRecords', { namespace }) private filterRecords: any;
   @Action('getItem', { namespace }) private getItem: any;
   @Action('getLimitedRows', { namespace }) private getLimitedRows: any;
   @Action('getPreviousRecords', { namespace }) private getPreviousRecords: any;
   @Action('getNextRecords', { namespace }) private getNextRecords: any;
   @Action('refreshTable', { namespace }) private refreshTable: any;
-  @Mutation('filterTextChange', { namespace }) private filterTextChange: any;
   @Mutation('toggleDeleteModal', { namespace }) private toggleDeleteModal: any;
   @Mutation('toggleCreateModal', { namespace }) private toggleCreateModal: any;
   @Mutation('setFilterValueType', { namespace }) private setFilterValueType: any;

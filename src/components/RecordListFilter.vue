@@ -1,8 +1,9 @@
 <template lang="pug">
-  el-row(class="filters" type="flex" v-if="records.data")
+  el-row(class="filters" type="flex")
     .scan-container
       .scan
         el-autocomplete(:fetch-suggestions="getKeys" v-model="records.filterParams.filterColumn" placeholder="Key")
+          el-button(v-if="filtered" type="danger" slot="prepend" plain icon="el-icon-close" title="Disable Filter" @click="refreshTable")
         el-select(v-model="records.filterParams.filterExpr" class="select" collapse-tags placeholder="Expression" @change="setNotEqualExpr")
           el-option(v-for="expression in records.filterParams.expressions" :key="expression" :label="expression" :value="expression") {{expression}}
         el-select(v-model="records.filterParams.valueType" class="select" collapse-tags placeholder="Type" @change="setFilterValueType")
@@ -24,14 +25,13 @@ import { State } from 'vuex-class';
 
 @Component
 export default class RecordListFilter extends Vue {
-  private key: any = '';
-  @Prop() private filterText!: string;
-  @Prop() private filterTextChange: any;
   @Prop() private header: any;
   @Prop() private getKeys: any;
   @Prop() private filterRecords: any;
   @Prop() private setFilterValueType: any;
   @Prop() private setNotEqualExpr: any;
+  @Prop() private refreshTable: any;
+  @Prop() private filtered: any;
   @State('records') private records: any;
 }
 </script>
@@ -46,8 +46,6 @@ export default class RecordListFilter extends Vue {
   margin-left -1.5px
 .select
   max-width 125px
-.heading
-  margin-bottom 5px
 .scan
   display flex
   justify-content flex-start
@@ -60,16 +58,10 @@ export default class RecordListFilter extends Vue {
   display flex
   justify-content flex-end
   align-items center
-.sort
-  display flex
 .sort-order
   width 25px
   cursor pointer
 .wrapper
-  display flex
-  justify-content space-between
-  align-items center
-.el-badge
   display flex
   justify-content space-between
   align-items center

@@ -3,13 +3,10 @@ export interface RecordState {
   showDeleteModal: boolean;
   recordMeta: string;
   hashKey: string;
-  hashKeyLabel: string;
   rangeKey: string;
-  rangeKeyLabel: string;
   header: any[];
   data: any[];
   filtered: boolean;
-  filterText: string;
   limit: number | null;
   lastEvaluatedKeyIndex: number;
   evaluatedKeys: any[];
