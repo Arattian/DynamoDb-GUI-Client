@@ -1,10 +1,16 @@
 <template lang="pug">
   el-row(class="table")
     el-table(:data="list" border v-if="keys.hashKey" size="mini" @row-dblclick="editItem")
-      el-table-column(type="index" :index="paginationIndex")
-      el-table-column(:prop="keys.hashKey" :label="keys.hashKeyLabel" :render-header="renderHash")
-      el-table-column(:prop="keys.rangeKey" :label="keys.rangeKeyLabel" :render-header="renderRange" v-if="keys.rangeKey")
-      el-table-column(v-for="(header, index) of header" :prop="header.prop" :label="header.label" :key="index" v-if="hideHashKey(header)")
+      el-table-column(type="index")
+      el-table-column(:prop="keys.hashKey")
+        template(slot="header" slot-scope="slot")
+          span {{keys.hashKey}}
+          i(class="el-icon-warning key")
+      el-table-column(:prop="keys.rangeKey" :label="keys.rangeKey" v-if="keys.rangeKey")
+        template(slot="header" slot-scope="slot")
+          span {{keys.rangeKey}}
+          i(class="el-icon-warning key")
+      el-table-column(v-for="(header, index) of header" :prop="header" :label="header" title="Something" :key="index" v-if="hideHashKey(header)")
       el-table-column(fixed="right" width="50")
         template(slot-scope="scope")
           span(class="delete-column")
@@ -19,36 +25,15 @@ export default class RecordList extends Vue {
   @Prop() private list!: any[];
   @Prop() private keys: any;
   @Prop() private editItem: any;
-  @Prop() private paginationIndex: any;
   @Prop() private header!: any[];
   @Prop() private hideHashKey: any;
   @Prop() private removeHandler: any;
-  private renderHash(createElement: any, { column }: any) {
-    return createElement(
-      'div',
-      [
-        createElement('a', [column.label + ' ']),
-        createElement('i', {
-          class: 'el-icon-warning',
-        }),
-      ],
-    );
-  }
-  private renderRange(createElement: any, { column }: any) {
-    return createElement(
-      'div',
-      [
-        createElement('a', [column.label + ' ']),
-        createElement('i', {
-          class: 'el-icon-warning',
-        }),
-      ],
-    );
-  }
 }
 </script>
 
 <style lang="stylus" scoped>
+.key
+  margin-left 5px
 .delete-column
   width 100%
   text-align center

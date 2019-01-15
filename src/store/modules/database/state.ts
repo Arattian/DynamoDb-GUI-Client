@@ -28,6 +28,7 @@ const state: DbState = {
       secretAccessKey: '',
       region: '',
       endpoint: '',
+      maxRetries: 2,
     },
     port: '',
     name: '',

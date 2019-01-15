@@ -8,12 +8,14 @@
         width="200"
         v-model="visible")
         .popover-content
-          el-row
+          el-row(v-if="!filtered")
             el-row(class="popover-row") Maximum rows in table
             el-row(class="popover-row")
               el-input(placeholder="Row Count" @change="getLimitedRows" :disabled="checked" :value="limit" spellcheck="false") rows
             el-row(class="popover-row")
               el-checkbox(v-model="checked" @change="getLimitedRows(null)") No Limit
+          el-row(v-if="filtered")
+            el-row(class="popover-row") Filtered rows can't be limited according to AWS DynamoDb Docs. Please refresh table to reset filter.
         el-row(class="popover-close")
           el-button(size="mini" plain type="primary" @click="visible = false") Close
         i(class="el-icon-setting settings" slot="reference" title="Table Settings")
@@ -22,11 +24,12 @@
         :class="{disabled: lastEvaluatedKeyIndex < 1}"
         @click="lastEvaluatedKeyIndex >= 1 && getPreviousRecords()"
         )
-      .pageIndex {{ lastEvaluatedKeyIndex + 1 }}
+      .pageIndex(
+      ) {{ lastEvaluatedKeyIndex + 1 }}
       i(
         class="el-icon-arrow-right"
-        :class="{disabled: (lastEvaluatedKeyIndex + 1) * limit >= itemCount }"
-        @click="(lastEvaluatedKeyIndex + 1) * limit < itemCount && getNextRecords()"
+        :class="{disabled: (lastEvaluatedKeyIndex + 1) * limit >= itemCount || evaluatedKeys.length < 1}"
+        @click="(lastEvaluatedKeyIndex + 1) * limit < itemCount && evaluatedKeys.length > 0 && getNextRecords()"
         )
     el-col(:span="14" class="itemCount") {{itemCount}} rows in {{currentTable}}
 </template>
@@ -51,6 +54,7 @@ export default class RecordFooter extends Vue {
   @Prop() private getPreviousRecords: any;
   @Prop() private lastEvaluatedKeyIndex: any;
   @Prop() private evaluatedKeys: any;
+  @Prop() private filtered: any;
 }
 </script>
 
@@ -66,10 +70,8 @@ export default class RecordFooter extends Vue {
   display flex
   justify-content flex-end
 .container
-  border-top 1px solid #121820
-  border-left 2px solid #121820
   position fixed
-  height 35px
+  height 30px
   bottom 0px
   background #121820
   z-index 1000

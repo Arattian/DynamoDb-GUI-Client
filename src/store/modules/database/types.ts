@@ -4,6 +4,7 @@ export interface SingleDbState {
   accessKeyId: string;
   secretAccessKey: string;
   region: string;
+  maxRetries: number;
 }
 
 
@@ -25,4 +26,5 @@ export interface DbConfigs {
   secretAccessKey: string;
   region: string;
   endpoint: string;
+  maxRetries: number;
 }

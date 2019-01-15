@@ -7,23 +7,9 @@ import table from './modules/table/index';
 import actions from './actions';
 import mutations from './mutations';
 import getters from './getters';
+import state from './state';
 
 Vue.use(Vuex);
-
-const state = {
-  dbInstance: {},
-  dbClient: {},
-  currentTable: '',
-  currentDb: '',
-  tables: [],
-  filterText: '',
-  loading: false,
-  response: {
-    title: '',
-    type: '',
-    message: '',
-  },
-};
 
 const modules: ModuleTree<RootState> = {
   database,
