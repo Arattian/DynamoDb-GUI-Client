@@ -17,9 +17,9 @@
 import { Vue, Component, Prop } from 'vue-property-decorator';
 @Component
 export default class SidebarDatabases extends Vue {
-  @Prop() private databaseList!: any[];
-  @Prop() private removeHandler: any;
-  @Prop() private elementHandler: any;
+  @Prop(Function) private removeHandler: any;
+  @Prop(Function) private elementHandler: any;
+  @Prop(Array) private databaseList!: any[];
 }
 </script>
 

@@ -2,9 +2,9 @@
   el-col(:span="24" class="main" v-loading="loading")
     ConnectDatabase(
       v-if="!currentDb"
-      :configs="configs"
-      :regionList="regionList"
-      :submitForm="submitForm"
+      :configs="database.submitForm.configs"
+      :regionList="database.regionList"
+      :submitForm="database.submitForm"
       :submitRemoteForm="submitRemoteForm"
       :submitLocalForm="submitLocalForm"
       :setToDefault="setToDefault"
@@ -20,7 +20,8 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { Getter, Action, Mutation } from 'vuex-class';
+import { Getter, Action, Mutation, State } from 'vuex-class';
+import { RootState } from '../store/types';
 import ConnectDatabase from '../components/ConnectDatabase.vue';
 import TableRecords from './TableRecords.vue';
 import TableMeta from './TableMeta.vue';
@@ -36,14 +37,12 @@ const namespace: string = 'database';
 export default class Main extends Vue {
   public $notify: any = this.$notify;
   private activeTab: string = 'records';
-  @Getter private currentDb: any;
-  @Getter private currentTable: any;
-  @Getter private response: any;
-  @Getter private loading: any;
+  @Getter private currentDb!: string;
+  @Getter private currentTable!: string;
+  @Getter private response!: {message: string; title: string; type: string};
+  @Getter private loading!: boolean;
   @Mutation private notified: any;
-  @Getter('configs', { namespace }) private configs: any;
-  @Getter('regionList', { namespace }) private regionList: any;
-  @Getter('submitForm', { namespace }) private submitForm: any;
+  @State(namespace) private database!: RootState;
   @Action('submitRemoteForm', { namespace }) private submitRemoteForm: any;
   @Action('submitLocalForm', { namespace }) private submitLocalForm: any;
   @Mutation('setToDefault', { namespace }) private setToDefault: any;

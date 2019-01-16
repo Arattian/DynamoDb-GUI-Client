@@ -1,8 +1,8 @@
 import { ActionTree, ActionContext } from 'vuex';
-import { TableState } from './types';
+import { TableModuleState } from './types';
 import { RootState } from '@/store/types';
 
-async function createTable({ commit, rootState, state, dispatch }: ActionContext<TableState, RootState>) {
+async function createTable({ commit, rootState, state, dispatch }: ActionContext<TableModuleState, RootState>) {
   const { dbInstance } = rootState;
   const params = state.newTableMeta;
   commit('loading', true, {root: true});
@@ -21,7 +21,7 @@ async function createTable({ commit, rootState, state, dispatch }: ActionContext
   }, 12000);
 }
 
-async function getMeta({ commit, rootState }: ActionContext<TableState, RootState>) {
+async function getMeta({ commit, rootState }: ActionContext<TableModuleState, RootState>) {
   const { dbInstance, currentTable } = rootState;
   commit('loading', true, {root: true});
   let data;
@@ -37,7 +37,7 @@ async function getMeta({ commit, rootState }: ActionContext<TableState, RootStat
   commit('loading', false, {root: true});
 }
 
-async function updateTable({ commit, rootState, state }: ActionContext<TableState, RootState>) {
+async function updateTable({ commit, rootState, state }: ActionContext<TableModuleState, RootState>) {
   const { dbInstance } = rootState;
   const { tableMeta } = state;
   commit('loading', true, {root: true});
@@ -62,7 +62,7 @@ async function updateTable({ commit, rootState, state }: ActionContext<TableStat
   commit('loading', false, {root: true});
   commit('showResponse', 'It will take a while before the change takes an effect', {root: true});
 }
-async function deleteTable({ commit, rootState, dispatch }: ActionContext<TableState, RootState>) {
+async function deleteTable({ commit, rootState, dispatch }: ActionContext<TableModuleState, RootState>) {
   const { dbInstance, currentTable } = rootState;
   commit('loading', true, {root: true});
   try {
@@ -78,7 +78,7 @@ async function deleteTable({ commit, rootState, dispatch }: ActionContext<TableS
   commit('showResponse', ' ', {root: true});
 }
 
-const actions: ActionTree<TableState, RootState> = {
+const actions: ActionTree<TableModuleState, RootState> = {
   createTable,
   getMeta,
   updateTable,

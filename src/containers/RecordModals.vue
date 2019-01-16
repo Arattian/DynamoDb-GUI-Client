@@ -1,17 +1,17 @@
 <template lang="pug">
   el-row
     CreateModal(
-      v-if="showCreateModal"
-      :isVisible="showCreateModal"
-      :metaValue="recordMeta"
+      v-if="records.showCreateModal"
+      :isVisible="records.showCreateModal"
+      :metaValue="records.recordMeta"
       :metaChange="setMeta"
       :confirmHandler="putItem"
       :cancelHandler="toggleCreateModal"
       hintText="Confirmation creates a new item, or replaces an old item with a new item by delegating to AWS.DynamoDB.putItem()"
     )
     DeleteModal(
-      v-if="showDeleteModal"
-      :isVisible="showDeleteModal"
+      v-if="records.showDeleteModal"
+      :isVisible="records.showDeleteModal"
       :cancelHandler="toggleDeleteModal"
       :confirmHandler="removeItem"
       alertText="Are you sure to delete this?"
@@ -21,6 +21,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
 import { Action, Mutation, Getter, State } from 'vuex-class';
+import { RecordModuleState } from '../store/modules/records/types';
 import CreateModal from '../components/CreateModal.vue';
 import DeleteModal from '../components/DeleteModal.vue';
 const namespace: string = 'records';
@@ -31,9 +32,7 @@ const namespace: string = 'records';
   },
 })
 export default class RecordModals extends Vue {
-  @Getter('showCreateModal', { namespace }) private showCreateModal: any;
-  @Getter('showDeleteModal', { namespace }) private showDeleteModal: any;
-  @Getter('recordMeta', { namespace }) private recordMeta: any;
+  @State(namespace) private records!: RecordModuleState;
   @Action('putItem', { namespace }) private putItem: any;
   @Action('removeItem', { namespace }) private removeItem: any;
   @Mutation('setMeta', { namespace }) private setMeta: any;

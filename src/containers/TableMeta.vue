@@ -4,18 +4,19 @@
       i(class="el-icon-circle-check-outline upload" @click="updateTable" title="Save")
       i(class="el-icon-refresh refresh" @click="getMeta" title="Refresh")
     el-row(class="editor")
-      vue-json-editor(:value="tableMeta" @json-change="setTableMeta" :showBtns="false" ref="editorInstance")
+      vue-json-editor(:value="table.tableMeta" @json-change="setTableMeta" :showBtns="false" ref="editorInstance")
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
-import { Getter, Action, Mutation } from 'vuex-class';
+import { Getter, Action, Mutation, State } from 'vuex-class';
+import { TableModuleState } from '../store/modules/table/types';
 const namespace = 'table';
 
 @Component
 export default class TableMeta extends Vue {
-  @Getter private currentTable: any;
-  @Getter('tableMeta', { namespace }) private tableMeta: any;
+  @Getter private currentTable!: string;
+  @State(namespace) private table!: TableModuleState;
   @Action('getMeta', { namespace }) private getMeta: any;
   @Action('updateTable', { namespace }) private updateTable: any;
   @Mutation('setTableMeta', { namespace }) private setTableMeta: any;

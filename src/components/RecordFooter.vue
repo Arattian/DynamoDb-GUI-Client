@@ -42,19 +42,19 @@ const namespace = 'records';
 
 @Component
 export default class RecordFooter extends Vue {
-  private visible = false;
-  private checked = false;
-  @Prop() private generateMeta: any;
-  @Prop() private refreshTable: any;
-  @Prop() private getNextRecords: any;
-  @Prop() private currentTable: any;
-  @Prop() private itemCount: any;
-  @Prop() private limit: any;
-  @Prop() private getLimitedRows: any;
-  @Prop() private getPreviousRecords: any;
-  @Prop() private lastEvaluatedKeyIndex: any;
-  @Prop() private evaluatedKeys: any;
-  @Prop() private filtered: any;
+  private visible: boolean = false;
+  private checked: boolean = false;
+  @Prop(Function) private generateMeta: any;
+  @Prop(Function) private refreshTable: any;
+  @Prop(Function) private getNextRecords: any;
+  @Prop(Function) private getPreviousRecords: any;
+  @Prop(Function) private getLimitedRows: any;
+  @Prop(String) private currentTable!: string;
+  @Prop(Number) private itemCount!: number;
+  @Prop(Number) private limit!: number;
+  @Prop(Number) private lastEvaluatedKeyIndex!: number;
+  @Prop(Array) private evaluatedKeys!: any[];
+  @Prop(Boolean) private filtered!: boolean;
 }
 </script>
 

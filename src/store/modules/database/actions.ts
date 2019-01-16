@@ -1,15 +1,15 @@
 import { ActionTree, ActionContext } from 'vuex';
-import { DbState } from './types';
+import { DatabaseModuleState } from './types';
 import { RootState } from '@/store/types';
 import DynamoDB from 'aws-sdk/clients/dynamodb';
 
-function removeDbFromStorage({ commit, dispatch }: ActionContext<DbState, RootState>, db: any) {
+function removeDbFromStorage({ commit, dispatch }: ActionContext<DatabaseModuleState, RootState>, db: any) {
   localStorage.removeItem(`${db.name}-db`);
   commit('removeDbFromState', null, {root: true});
   dispatch('getDbList');
 }
 
-async function setCredentials({ commit, dispatch, getters, state }: ActionContext<DbState, RootState>) {
+async function setCredentials({ commit, dispatch, getters, state }: ActionContext<DatabaseModuleState, RootState>) {
   const database = state.submitForm;
   if (!getters.validateForm) {
     return;
@@ -32,17 +32,17 @@ async function setCredentials({ commit, dispatch, getters, state }: ActionContex
   commit('setToDefault');
 }
 
-function submitRemoteForm({ dispatch, commit }: ActionContext<DbState, RootState>) {
+function submitRemoteForm({ dispatch, commit }: ActionContext<DatabaseModuleState, RootState>) {
   commit('correctInputs', 'remote');
   dispatch('setCredentials');
 }
 
-function submitLocalForm({ dispatch, commit }: ActionContext<DbState, RootState>) {
+function submitLocalForm({ dispatch, commit }: ActionContext<DatabaseModuleState, RootState>) {
   commit('correctInputs', 'local');
   dispatch('setCredentials');
 }
 
-function getDbList({ commit }: ActionContext<DbState, RootState>) {
+function getDbList({ commit }: ActionContext<DatabaseModuleState, RootState>) {
   const newDbList = [];
   for (let i = 0; i < localStorage.length; i++) {
     try {
@@ -56,7 +56,7 @@ function getDbList({ commit }: ActionContext<DbState, RootState>) {
   commit('setDbList', newDbList);
 }
 
-const actions: ActionTree<DbState, RootState> = {
+const actions: ActionTree<DatabaseModuleState, RootState> = {
   removeDbFromStorage,
   setCredentials,
   submitRemoteForm,

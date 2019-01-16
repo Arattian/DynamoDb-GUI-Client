@@ -1,6 +1,6 @@
-import { TableState } from './types';
+import { TableModuleState } from './types';
 
-export const state: TableState = {
+export const state: TableModuleState = {
   newTableMeta: {
     AttributeDefinitions: [
       {

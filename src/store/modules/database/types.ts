@@ -1,5 +1,5 @@
 
-export interface SingleDbState {
+export interface SingleDatabaseModuleState {
   name: string;
   accessKeyId: string;
   secretAccessKey: string;
@@ -9,16 +9,18 @@ export interface SingleDbState {
 
 
 
-export interface DbState {
-  list: SingleDbState[];
-  submitForm: {
-    configs: DbConfigs;
-    name: string;
-    color: string;
-    port: string;
-    createdAt: number;
-  };
+export interface DatabaseModuleState {
+  list: SingleDatabaseModuleState[];
+  submitForm: SubmitForm;
   regionList: string[];
+}
+
+export interface SubmitForm {
+  configs: DbConfigs;
+  name: string;
+  color: string;
+  port: string;
+  createdAt: number;
 }
 
 export interface DbConfigs {

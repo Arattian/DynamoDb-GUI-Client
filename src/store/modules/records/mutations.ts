@@ -1,24 +1,32 @@
 
 import { MutationTree } from 'vuex';
-import { RecordState } from './types';
+import { RecordModuleState } from './types';
 
-function toggleCreateModal(state: RecordState) {
+function toggleCreateModal(state: RecordModuleState) {
   state.showCreateModal = !state.showCreateModal;
 }
 
-function toggleDeleteModal(state: RecordState) {
+function toggleDeleteModal(state: RecordModuleState) {
   state.showDeleteModal = !state.showDeleteModal;
 }
 
-function setMeta(state: RecordState, meta: string) {
+function setMeta(state: RecordModuleState, meta: string) {
   state.recordMeta = meta;
 }
 
-function setFilterStatus(state: RecordState) {
+function setFilterStatus(state: RecordModuleState) {
   state.filtered = true;
 }
 
-function extractKeys(state: RecordState, schema: any) {
+function setSortBy(state: RecordModuleState, val: string) {
+  state.sortBy = val;
+}
+
+function setSortOrder(state: RecordModuleState, val: boolean) {
+  state.sortOrder = val;
+}
+
+function extractKeys(state: RecordModuleState, schema: any) {
   state.hashKey = '';
   state.rangeKey = '';
   for (const item of schema.KeySchema) {
@@ -32,7 +40,7 @@ function extractKeys(state: RecordState, schema: any) {
   }
 }
 
-function setHeader(state: RecordState) {
+function setHeader(state: RecordModuleState) {
   const extractData = state.data;
   state.header = [];
   const keyArray: any = [];
@@ -50,11 +58,11 @@ function setHeader(state: RecordState) {
   }
 }
 
-function setData(state: RecordState, data: any[]) {
+function setData(state: RecordModuleState, data: any[]) {
   state.data = data;
 }
 
-function setLimit(state: RecordState, limit: any) {
+function setLimit(state: RecordModuleState, limit: any) {
   if (!isNaN(limit)) {
     state.limit = limit;
     state.lastEvaluatedKeyIndex = 0;
@@ -62,7 +70,7 @@ function setLimit(state: RecordState, limit: any) {
   }
 }
 
-function changeFilterValueType(state: RecordState) {
+function changeFilterValueType(state: RecordModuleState) {
   switch (state.filterParams.valueType) {
     case 'string':
       state.filterParams.filterValue = state.filterParams.filterValue && state.filterParams.filterValue.toString();
@@ -76,7 +84,7 @@ function changeFilterValueType(state: RecordState) {
   }
 }
 
-function setFilterValueType(state: RecordState, valueType: string) {
+function setFilterValueType(state: RecordModuleState, valueType: string) {
   switch (valueType) {
     case 'string':
       state.filterParams.expressions = ['=', '!=', '<', '>', '<=', '>='];
@@ -94,13 +102,13 @@ function setFilterValueType(state: RecordState, valueType: string) {
   }
 }
 
-function setNotEqualExpr(state: RecordState, expr: string) {
+function setNotEqualExpr(state: RecordModuleState, expr: string) {
   if (expr === '!=') {
       state.filterParams.filterExpr = '<>';
   }
 }
 
-function addItemToList(state: RecordState, newItem: any) {
+function addItemToList(state: RecordModuleState, newItem: any) {
   let edited = false;
   state.data = state.data.map((item) => {
     if (item[state.rangeKey] === newItem[state.rangeKey] &&
@@ -113,7 +121,7 @@ function addItemToList(state: RecordState, newItem: any) {
   !edited && state.data.push(newItem);
 }
 
-function deleteItemFromList(state: RecordState, deletedItem: any) {
+function deleteItemFromList(state: RecordModuleState, deletedItem: any) {
   state.data = state.data.filter((item) => {
     if (item[state.hashKey] !== deletedItem[state.hashKey]) {
       return item;
@@ -123,7 +131,7 @@ function deleteItemFromList(state: RecordState, deletedItem: any) {
   });
 }
 
-function initialState(state: RecordState) {
+function initialState(state: RecordModuleState) {
   if (state.filterParams.filterColumn) {
     state.limit = 15;
   }
@@ -136,7 +144,7 @@ function initialState(state: RecordState) {
   state.evaluatedKeys = [];
   state.lastEvaluatedKeyIndex = 0;
   state.sortBy = '';
-  state.sortDesc = true;
+  state.sortOrder = true;
   state.filterParams = {
     filterColumn: '',
     filterExpr: '=',
@@ -147,26 +155,26 @@ function initialState(state: RecordState) {
   };
 }
 
-function addEvaluatedKey(state: RecordState, lastEvaluatedKey: any) {
+function addEvaluatedKey(state: RecordModuleState, lastEvaluatedKey: any) {
   !state.evaluatedKeys.some((item: any) => {
    return item === lastEvaluatedKey;
   }) && state.evaluatedKeys.push(lastEvaluatedKey || {});
 }
 
-function clearEvaluatedKeys(state: RecordState) {
+function clearEvaluatedKeys(state: RecordModuleState) {
   state.evaluatedKeys = [];
   state.lastEvaluatedKeyIndex = 0;
 }
 
-function lastEvaluatedKeyIndexInc(state: RecordState) {
+function lastEvaluatedKeyIndexInc(state: RecordModuleState) {
   state.lastEvaluatedKeyIndex++;
 }
 
-function lastEvaluatedKeyIndexDec(state: RecordState) {
+function lastEvaluatedKeyIndexDec(state: RecordModuleState) {
   state.lastEvaluatedKeyIndex--;
 }
 
-const mutations: MutationTree<RecordState> = {
+const mutations: MutationTree<RecordModuleState> = {
   toggleCreateModal,
   toggleDeleteModal,
   setData,
@@ -185,6 +193,8 @@ const mutations: MutationTree<RecordState> = {
   changeFilterValueType,
   setNotEqualExpr,
   setFilterStatus,
+  setSortBy,
+  setSortOrder,
 };
 
 export default mutations;

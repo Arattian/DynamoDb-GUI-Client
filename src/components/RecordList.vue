@@ -22,12 +22,12 @@ import { Vue, Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class RecordList extends Vue {
-  @Prop() private list!: any[];
-  @Prop() private keys: any;
-  @Prop() private editItem: any;
-  @Prop() private header!: any[];
-  @Prop() private hideHashKey: any;
-  @Prop() private removeHandler: any;
+  @Prop(Function) private editItem: any;
+  @Prop(Function) private hideHashKey: any;
+  @Prop(Function) private removeHandler: any;
+  @Prop(Array) private list!: any[];
+  @Prop(Array) private header!: any[];
+  @Prop(Object) private keys!: {hashKey: string; rangeKey: string};
 }
 </script>
 

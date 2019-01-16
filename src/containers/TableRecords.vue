@@ -1,19 +1,24 @@
 <template lang="pug">
   el-col(:span="24")
     RecordListFilter(
-      :header="header"
+      :header="records.header"
       :getKeys="getKeys"
       :filterRecords="filterRecords"
       :setFilterValueType="setFilterValueType"
       :setNotEqualExpr="setNotEqualExpr"
-      :filtered="filtered"
+      :filtered="records.filtered"
       :refreshTable="refreshTable"
+      :filterParams="records.filterParams"
+      :setSortBy="setSortBy"
+      :setSortOrder="setSortOrder"
+      :sortBy="records.sortBy"
+      :sortOrder="records.sortOrder"
     )
     RecordList(
       :list="tableDataPage"
       :keys="keys"
       :editItem="editHandler"
-      :header="header"
+      :header="records.header"
       :hideHashKey="hideHashKey"
       :removeHandler="removeHandler"
       size="mini"
@@ -24,18 +29,19 @@
       :currentTable="currentTable"
       :itemCount="itemCount"
       :getLimitedRows="getLimitedRows"
-      :limit="limit"
+      :limit="records.limit"
       :getPreviousRecords="getPreviousRecords"
       :getNextRecords="getNextRecords"
-      :evaluatedKeys="evaluatedKeys"
-      :lastEvaluatedKeyIndex="lastEvaluatedKeyIndex"
-      :filtered="filtered"
+      :evaluatedKeys="records.evaluatedKeys"
+      :lastEvaluatedKeyIndex="records.lastEvaluatedKeyIndex"
+      :filtered="records.filtered"
     )
 </template>
 
 <script lang="ts">
 import { Vue, Component} from 'vue-property-decorator';
 import { Getter, Action, Mutation, State } from 'vuex-class';
+import { RecordModuleState } from '../store/modules/records/types';
 import RecordList from '../components/RecordList.vue';
 import RecordListFilter from '../components/RecordListFilter.vue';
 import RecordFooter from '../components/RecordFooter.vue';
@@ -51,16 +57,12 @@ const namespace: string = 'records';
 })
 export default class TableRecords extends Vue {
   @Getter private currentTable: any;
-  @Getter('itemCount', { namespace: 'table' }) private itemCount: any;
-  @Getter('header', { namespace }) private header: any;
+  @State(namespace) private records!: RecordModuleState;
+  @Getter('itemCount', { namespace }) private itemCount!: number;
   @Getter('keys', { namespace }) private keys!: {hashKey: string; rangeKey: string};
-  @Getter('getKeys', { namespace }) private getKeys: any;
-  @Getter('tableDataPage', { namespace }) private tableDataPage: any;
-  @Getter('limit', { namespace }) private limit: any;
-  @Getter('hideHashKey', { namespace }) private hideHashKey: any;
-  @Getter('lastEvaluatedKeyIndex', { namespace }) private lastEvaluatedKeyIndex: any;
-  @Getter('evaluatedKeys', { namespace }) private evaluatedKeys: any;
-  @Getter('filtered', { namespace }) private filtered: any;
+  @Getter('getKeys', { namespace }) private getKeys!: Array<{value: string}>;
+  @Getter('tableDataPage', { namespace }) private tableDataPage!: any[];
+  @Getter('hideHashKey', { namespace }) private hideHashKey!: boolean;
   @Action('generateMeta', { namespace }) private generateMeta: any;
   @Action('filterRecords', { namespace }) private filterRecords: any;
   @Action('getItem', { namespace }) private getItem: any;
@@ -68,6 +70,8 @@ export default class TableRecords extends Vue {
   @Action('getPreviousRecords', { namespace }) private getPreviousRecords: any;
   @Action('getNextRecords', { namespace }) private getNextRecords: any;
   @Action('refreshTable', { namespace }) private refreshTable: any;
+  @Mutation('setSortBy', { namespace }) private setSortBy: any;
+  @Mutation('setSortOrder', { namespace }) private setSortOrder: any;
   @Mutation('toggleDeleteModal', { namespace }) private toggleDeleteModal: any;
   @Mutation('toggleCreateModal', { namespace }) private toggleCreateModal: any;
   @Mutation('setFilterValueType', { namespace }) private setFilterValueType: any;
