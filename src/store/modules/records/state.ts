@@ -1,6 +1,6 @@
-import { RecordState } from './types';
+import { RecordModuleState } from './types';
 
-const state: RecordState = {
+const state: RecordModuleState = {
   showCreateModal: false,
   showDeleteModal: false,
   recordMeta: '',
@@ -13,7 +13,7 @@ const state: RecordState = {
   lastEvaluatedKeyIndex: 0,
   evaluatedKeys: [],
   sortBy: '',
-  sortDesc: true,
+  sortOrder: true,
   filterParams: {
     filterColumn: '',
     filterExpr: '=',

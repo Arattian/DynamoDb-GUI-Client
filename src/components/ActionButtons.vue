@@ -8,10 +8,10 @@
 import { Vue, Component, Prop } from 'vue-property-decorator';
 @Component
 export default class ActionButtons extends Vue {
-  @Prop() private cancelHandler: any;
+  @Prop(Function) private cancelHandler: any;
+  @Prop(Function) private confirmHandler: any;
   @Prop({default: 'Cancel'}) private cancelText!: string;
   @Prop({default: 'primary'}) private cancelType!: string;
-  @Prop() private confirmHandler: any;
   @Prop({default: 'Confirm'}) private confirmText!: string;
   @Prop({default: 'success'}) private confirmType!: string;
 }

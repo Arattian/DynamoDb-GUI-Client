@@ -27,12 +27,12 @@ import ActionButtons from './ActionButtons.vue';
   },
 })
 export default class CreateModal extends Vue {
-  @Prop() private confirmHandler: any;
-  @Prop() private cancelHandler: any;
-  @Prop() private metaValue: any;
-  @Prop() private metaChange: any;
-  @Prop() private isVisible!: boolean;
-  @Prop() private hintText: any;
+  @Prop(Function) private confirmHandler: any;
+  @Prop(Function) private cancelHandler: any;
+  @Prop(Function) private metaChange: any;
+  @Prop(Object) private metaValue: any;
+  @Prop(Boolean) private isVisible!: boolean;
+  @Prop(String) private hintText!: string;
   private mounted() {
     setTimeout(() => {
       const { editor }: any = this.$refs.editorInstance;

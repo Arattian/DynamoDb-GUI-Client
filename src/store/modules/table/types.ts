@@ -1,4 +1,4 @@
-export interface TableState {
+export interface TableModuleState {
   newTableMeta: any;
   tableMeta: any;
   showCreateModal: boolean;

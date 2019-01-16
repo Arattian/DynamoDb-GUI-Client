@@ -1,4 +1,4 @@
-export interface RecordState {
+export interface RecordModuleState {
   showCreateModal: boolean;
   showDeleteModal: boolean;
   recordMeta: string;
@@ -11,13 +11,15 @@ export interface RecordState {
   lastEvaluatedKeyIndex: number;
   evaluatedKeys: any[];
   sortBy: string;
-  sortDesc: boolean;
-  filterParams: {
-    filterColumn: string;
-    filterExpr: string;
-    filterValue: string | number | null;
-    valueType: string;
-    types: string[];
-    expressions: string[];
-  };
+  sortOrder: boolean;
+  filterParams: FilterParams;
+}
+
+export interface FilterParams {
+  filterColumn: string;
+  filterExpr: string;
+  filterValue: string | number | null;
+  valueType: string;
+  types: string[];
+  expressions: string[];
 }

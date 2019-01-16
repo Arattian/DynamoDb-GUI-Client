@@ -1,8 +1,8 @@
 
 import { MutationTree } from 'vuex';
-import { DbState } from './types';
+import { DatabaseModuleState } from './types';
 
-function setToDefault(state: DbState) {
+function setToDefault(state: DatabaseModuleState) {
   state.submitForm.configs = {
     accessKeyId: '',
     secretAccessKey: '',
@@ -14,11 +14,11 @@ function setToDefault(state: DbState) {
   state.submitForm.name = 'Database ' + (state.list.length + 1);
 }
 
-function setDbList(state: DbState, newDbList: any) {
+function setDbList(state: DatabaseModuleState, newDbList: any) {
   state.list = newDbList;
 }
 
-function correctInputs(state: DbState, serviceType: string) {
+function correctInputs(state: DatabaseModuleState, serviceType: string) {
   switch (serviceType) {
     case 'remote':
       state.submitForm.configs.endpoint = `https://dynamodb.${state.submitForm.configs.region}.amazonaws.com`;
@@ -34,7 +34,7 @@ function correctInputs(state: DbState, serviceType: string) {
   }
 }
 
-const mutations: MutationTree<DbState> = {
+const mutations: MutationTree<DatabaseModuleState> = {
   correctInputs,
   setToDefault,
   setDbList,

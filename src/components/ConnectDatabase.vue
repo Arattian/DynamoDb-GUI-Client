@@ -39,6 +39,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
+import { DbConfigs, SubmitForm } from '../store/modules/database/types';
 import ActionButtons from './ActionButtons.vue';
 
 const namespace: string = 'database';
@@ -49,12 +50,12 @@ const namespace: string = 'database';
   },
 })
 export default class ConnectDatabase extends Vue {
-  @Prop() private configs: any;
-  @Prop() private regionList: any;
-  @Prop() private submitForm: any;
-  @Prop() private submitRemoteForm: any;
-  @Prop() private submitLocalForm: any;
-  @Prop() private setToDefault: any;
+  @Prop(Function) private submitRemoteForm: any;
+  @Prop(Function) private submitLocalForm: any;
+  @Prop(Function) private setToDefault: any;
+  @Prop(Object) private submitForm!: SubmitForm;
+  @Prop(Array) private regionList!: string[];
+  @Prop(Object) private configs!: DbConfigs;
 
   private mounted() {
     this.setToDefault();

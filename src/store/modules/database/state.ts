@@ -1,6 +1,6 @@
-import { DbState } from './types';
+import { DatabaseModuleState } from './types';
 
-const state: DbState = {
+const state: DatabaseModuleState = {
   list: [],
   regionList: [
     'us-east-1',

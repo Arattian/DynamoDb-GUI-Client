@@ -1,16 +1,16 @@
 
 import { MutationTree } from 'vuex';
-import { TableState } from './types';
+import { TableModuleState } from './types';
 
-function setTableMeta(state: TableState, tableMeta: string) {
+function setTableMeta(state: TableModuleState, tableMeta: string) {
   state.tableMeta = tableMeta;
 }
 
-function setNewTableMeta(state: TableState, newTableMeta: string) {
+function setNewTableMeta(state: TableModuleState, newTableMeta: string) {
   state.newTableMeta = newTableMeta;
 }
 
-function toggleCreateModal(state: TableState) {
+function toggleCreateModal(state: TableModuleState) {
   const defaultMeta = {
     AttributeDefinitions: [
       {
@@ -64,11 +64,11 @@ function toggleCreateModal(state: TableState) {
   state.showCreateModal = !state.showCreateModal;
 }
 
-function toggleDeleteModal(state: TableState) {
+function toggleDeleteModal(state: TableModuleState) {
   state.showDeleteModal = !state.showDeleteModal;
 }
 
-const mutations: MutationTree<TableState> = {
+const mutations: MutationTree<TableModuleState> = {
   setTableMeta,
   toggleCreateModal,
   toggleDeleteModal,

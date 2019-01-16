@@ -21,10 +21,10 @@ import ActionButtons from './ActionButtons.vue';
   },
 })
 export default class DeleteModal extends Vue {
-  @Prop() private isVisible!: boolean;
-  @Prop() private confirmHandler: any;
-  @Prop() private cancelHandler: any;
-  @Prop() private alertText: any;
+  @Prop(Function) private confirmHandler: any;
+  @Prop(Function) private cancelHandler: any;
+  @Prop(String) private alertText!: string;
+  @Prop(Boolean) private isVisible!: boolean;
 }
 </script>
 

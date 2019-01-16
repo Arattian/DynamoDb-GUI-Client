@@ -1,9 +1,9 @@
 import { ActionTree, ActionContext } from 'vuex';
-import { RecordState } from './types';
+import { RecordModuleState } from './types';
 import { RootState } from '@/store/types';
 import { ScanInput } from 'aws-sdk/clients/dynamodb';
 
-async function putItem({ dispatch, commit, rootState, state }: ActionContext<RecordState, RootState>) {
+async function putItem({ dispatch, commit, rootState, state }: ActionContext<RecordModuleState, RootState>) {
   const { dbClient } = rootState;
   const { currentTable } = rootState;
   const Item = state.recordMeta;
@@ -24,7 +24,7 @@ async function putItem({ dispatch, commit, rootState, state }: ActionContext<Rec
   dispatch('table/getMeta', null, {root: true});
 }
 
-async function getItem({state, commit, rootState}: ActionContext<RecordState, RootState>, row: any) {
+async function getItem({state, commit, rootState}: ActionContext<RecordModuleState, RootState>, row: any) {
   const { dbClient } = rootState;
   const { currentTable } = rootState;
   const params: any = {
@@ -43,7 +43,7 @@ async function getItem({state, commit, rootState}: ActionContext<RecordState, Ro
   }
   commit('setMeta', data.Item);
 }
-async function removeItem({ commit, rootState, dispatch, state }: ActionContext<RecordState, RootState>) {
+async function removeItem({ commit, rootState, dispatch, state }: ActionContext<RecordModuleState, RootState>) {
   const { dbClient } = rootState;
   const { currentTable } = rootState;
   const row: any = state.recordMeta;
@@ -68,7 +68,7 @@ async function removeItem({ commit, rootState, dispatch, state }: ActionContext<
   dispatch('table/getMeta', null, {root: true});
 }
 
-function generateMeta({commit, state}: ActionContext<RecordState, RootState>) {
+function generateMeta({commit, state}: ActionContext<RecordModuleState, RootState>) {
   const { hashKey, rangeKey } = state;
   let meta;
   rangeKey ? meta = {
@@ -82,7 +82,7 @@ function generateMeta({commit, state}: ActionContext<RecordState, RootState>) {
 }
 
 // tslint:disable-next-line:max-line-length
-async function getRecords({ dispatch, commit, rootState, state }: ActionContext<RecordState, RootState>, params: ScanInput) {
+async function getRecords({ dispatch, commit, rootState, state }: ActionContext<RecordModuleState, RootState>, params: ScanInput) {
   const { dbClient } = rootState;
   const { currentTable } = rootState;
   commit('loading', true, {root: true});
@@ -117,7 +117,7 @@ async function getRecords({ dispatch, commit, rootState, state }: ActionContext<
   data.LastEvaluatedKey && commit('addEvaluatedKey', data.LastEvaluatedKey);
 }
 
-async function filterRecords({ dispatch, getters, commit, state }: ActionContext<RecordState, RootState>) {
+async function filterRecords({ dispatch, getters, commit, state }: ActionContext<RecordModuleState, RootState>) {
   if (!getters.scanIsValid) {
     commit('showResponse', {message: 'Please fill all scan fields.'}, {root: true});
     return;
@@ -139,7 +139,7 @@ async function filterRecords({ dispatch, getters, commit, state }: ActionContext
   };
   dispatch('getRecords', params);
 }
-async function getLimitedRows({ commit, dispatch }: ActionContext<RecordState, RootState>, limit: any) {
+async function getLimitedRows({ commit, dispatch }: ActionContext<RecordModuleState, RootState>, limit: any) {
   if (isNaN(limit)) {
     commit('showResponse', {message: 'Limit must be a number'}, {root: true});
   } else {
@@ -149,22 +149,22 @@ async function getLimitedRows({ commit, dispatch }: ActionContext<RecordState, R
   }
 }
 
-async function getPreviousRecords({ state, commit, dispatch }: ActionContext<RecordState, RootState>) {
+async function getPreviousRecords({ state, commit, dispatch }: ActionContext<RecordModuleState, RootState>) {
   commit('lastEvaluatedKeyIndexDec');
   dispatch('getRecords');
 }
 
-async function getNextRecords({ state, commit, dispatch }: ActionContext<RecordState, RootState>) {
+async function getNextRecords({ state, commit, dispatch }: ActionContext<RecordModuleState, RootState>) {
   commit('lastEvaluatedKeyIndexInc');
   dispatch('getRecords');
 }
 
-async function refreshTable({ commit, dispatch }: ActionContext<RecordState, RootState>) {
+async function refreshTable({ commit, dispatch }: ActionContext<RecordModuleState, RootState>) {
   commit('initialState');
   dispatch('getRecords');
 }
 
-const actions: ActionTree<RecordState, RootState> = {
+const actions: ActionTree<RecordModuleState, RootState> = {
   getRecords,
   putItem,
   getItem,

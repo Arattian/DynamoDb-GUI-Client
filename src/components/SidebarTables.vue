@@ -27,17 +27,17 @@ import { Vue, Component, Prop } from 'vue-property-decorator';
 
 @Component
 export default class SidebarTables extends Vue {
-  @Prop() private currentDb: any;
-  @Prop() private getCurrentDb: any;
-  @Prop() private databaseList: any;
-  @Prop() private tableList!: any[];
-  @Prop() private switchTable: any;
-  @Prop() private currentTable: any;
-  @Prop() private filterTextChange: any;
-  @Prop() private filterText: any;
-  @Prop() private initialState: any;
-  @Prop() private toggleCreateModal: any;
-  @Prop() private toggleDeleteModal: any;
+  @Prop(Function) private getCurrentDb: any;
+  @Prop(Function) private switchTable: any;
+  @Prop(Function) private filterTextChange: any;
+  @Prop(Function) private initialState: any;
+  @Prop(Function) private toggleCreateModal: any;
+  @Prop(Function) private toggleDeleteModal: any;
+  @Prop(Array) private databaseList!: string[];
+  @Prop(Array) private tableList!: string[];
+  @Prop(String) private currentTable!: string;
+  @Prop(String) private currentDb!: string;
+  @Prop(String) private filterText!: string;
 
   private isActive(table: any) {
     return table === this.currentTable;
