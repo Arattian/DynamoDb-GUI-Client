@@ -5,7 +5,7 @@ element-variables.scss
 # local env files
 .env.local
 .env.*.local
-
+coverage
 # Log files
 npm-debug.log*
 yarn-debug.log*

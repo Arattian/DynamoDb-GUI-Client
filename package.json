@@ -13,7 +13,7 @@
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "start": "vue-cli-service serve --port 5000 --open",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit --coverage"
   },
   "dependencies": {
     "aws-sdk": "^2.385.0",
@@ -29,12 +29,13 @@
   },
   "devDependencies": {
     "@types/jest": "^23.3.12",
+    "@types/lodash": "^4.14.119",
     "@vue/cli-plugin-babel": "3.3.0",
     "@vue/cli-plugin-typescript": "3.3.0",
     "@vue/cli-plugin-unit-jest": "3.3.0",
     "@vue/cli-service": "3.3.0",
     "@vue/test-utils": "^1.0.0-beta.28",
-    "babel-core": "^6.26.3",
+    "babel-core": "^7.0.0-bridge.0",
     "electron": "^4.0.1",
     "element-theme-dark": "^1.0.2",
     "pug": "^2.0.3",

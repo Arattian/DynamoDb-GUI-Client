@@ -122,6 +122,14 @@ async function filterRecords({ dispatch, getters, commit, state }: ActionContext
     commit('showResponse', {message: 'Please fill all scan fields.'}, {root: true});
     return;
   }
+
+  /*TODO
+  What if i push all records i get to an array after each time i press next page
+  button and then, each time i press prev page, i get the results from previous page,
+  which i get from an whole array.
+  I need to store only lastEvaluatedKey in state and change it every time i switch page
+  or filter results.
+  PROBLEMS:
   /*
     Limit and FilterExpression not returning the items that match the filter requirements in right way.
   */

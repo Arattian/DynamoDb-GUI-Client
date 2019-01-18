@@ -64,7 +64,7 @@ function setData(state: RecordModuleState, data: any[]) {
 
 function setLimit(state: RecordModuleState, limit: any) {
   if (!isNaN(limit)) {
-    state.limit = limit;
+    state.limit = Number(limit);
     state.lastEvaluatedKeyIndex = 0;
     state.evaluatedKeys = [];
   }
