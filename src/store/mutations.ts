@@ -3,8 +3,8 @@ import { RootState } from './types';
 import DynamoDB from 'aws-sdk/clients/dynamodb';
 
 function initialState(state: RootState) {
-  state.dbInstance = {};
-  state.dbClient = {};
+  state.dbInstance = new DynamoDB();
+  state.dbClient = new DynamoDB.DocumentClient();
   state.currentTable = '';
   state.currentDb = '';
   state.tables = [];
@@ -21,6 +21,10 @@ function showResponse(state: RootState, response: any) {
   if (typeof response === 'object') {
     state.response.title = 'Error';
     state.response.type = 'error';
+    if (response.message && response.message.toLowerCase() === 'network failure') {
+      state.response.message = `Network failure. Can't process your request.`;
+      return;
+    }
     state.response.message = response.message;
   } else {
     state.response.title = 'Success';

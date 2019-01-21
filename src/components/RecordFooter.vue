@@ -8,14 +8,12 @@
         width="200"
         v-model="visible")
         .popover-content
-          el-row(v-if="!filtered")
+          el-row
             el-row(class="popover-row") Maximum rows in table
             el-row(class="popover-row")
               el-input(placeholder="Row Count" @change="getLimitedRows" :disabled="checked" :value="limit" spellcheck="false") rows
             el-row(class="popover-row")
               el-checkbox(v-model="checked" @change="getLimitedRows(null)") No Limit
-          el-row(v-if="filtered")
-            el-row(class="popover-row") Filtered rows can't be limited according to AWS DynamoDb Docs. Please refresh table to reset filter.
         el-row(class="popover-close")
           el-button(size="mini" plain type="primary" @click="visible = false") Close
         i(class="el-icon-setting settings" slot="reference" title="Table Settings")

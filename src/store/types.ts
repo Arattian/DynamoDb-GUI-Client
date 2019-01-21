@@ -1,10 +1,13 @@
+import { DynamoDB } from 'aws-sdk/clients/all';
+import { DocumentClient } from 'aws-sdk/clients/dynamodb';
+
 export interface RootState {
   tables: string[];
   filterText: string;
   currentTable: any;
   currentDb: string;
-  dbInstance: any;
-  dbClient: any;
+  dbInstance: DynamoDB;
+  dbClient: DocumentClient;
   response: {
     title: string,
     type: string,
