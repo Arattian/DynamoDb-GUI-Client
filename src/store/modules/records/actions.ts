@@ -2,6 +2,8 @@ import { ActionTree, ActionContext } from 'vuex';
 import { RecordModuleState } from './types';
 import { RootState } from '@/store/types';
 import { ScanInput } from 'aws-sdk/clients/dynamodb';
+import state from '../database/state';
+import records from '.';
 
 async function putItem({ dispatch, commit, rootState, state }: ActionContext<RecordModuleState, RootState>) {
   const { dbClient } = rootState;
@@ -95,15 +97,6 @@ async function getRecords({ dispatch, commit, rootState, state }: ActionContext<
       ExclusiveStartKey: state.evaluatedKeys[state.lastEvaluatedKeyIndex - 1],
       ...params,
     },
-      /*
-      //TODO
-      Find better way to task bellow.
-       //Ask to Gev
-       Row limitation will be disabled when scanning table.
-       When limit attribute used i cant scan whole table and find all results from
-       filterExpression, so i need to disable it to get all matches.
-       Disabling limit can cause read capacity problem.
-       */
     ).promise();
   } catch (err) {
     commit('showResponse', err, {root: true});
@@ -122,11 +115,17 @@ async function filterRecords({ dispatch, getters, commit, state }: ActionContext
     commit('showResponse', {message: 'Please fill all scan fields.'}, {root: true});
     return;
   }
+
+  /*TODO
+  What if i push all records i get to an array after each time i press next page
+  button and then, each time i press prev page, i get the results from previous page,
+  which i get from an whole array.
+  I need to store only lastEvaluatedKey in state and change it every time i switch page
+  or filter results.
   /*
     Limit and FilterExpression not returning the items that match the filter requirements in right way.
   */
-  commit('setLimit', null);
-  commit('clearEvaluatedKeys');
+  !state.filtered && commit('clearEvaluatedKeys');
   commit('changeFilterValueType');
   commit('setFilterStatus');
   const params = {
@@ -139,24 +138,27 @@ async function filterRecords({ dispatch, getters, commit, state }: ActionContext
   };
   dispatch('getRecords', params);
 }
-async function getLimitedRows({ commit, dispatch }: ActionContext<RecordModuleState, RootState>, limit: any) {
+async function getLimitedRows({ state, commit, dispatch }: ActionContext<RecordModuleState, RootState>, limit: any) {
   if (isNaN(limit)) {
     commit('showResponse', {message: 'Limit must be a number'}, {root: true});
   } else {
     commit('setLimit', limit);
     commit('clearEvaluatedKeys');
-    dispatch('getRecords');
+    !state.filtered && dispatch('getRecords');
+    state.filtered && dispatch('filterRecords');
   }
 }
 
 async function getPreviousRecords({ state, commit, dispatch }: ActionContext<RecordModuleState, RootState>) {
   commit('lastEvaluatedKeyIndexDec');
-  dispatch('getRecords');
+  !state.filtered && dispatch('getRecords');
+  state.filtered && dispatch('filterRecords');
 }
 
 async function getNextRecords({ state, commit, dispatch }: ActionContext<RecordModuleState, RootState>) {
   commit('lastEvaluatedKeyIndexInc');
-  dispatch('getRecords');
+  !state.filtered && dispatch('getRecords');
+  state.filtered && dispatch('filterRecords');
 }
 
 async function refreshTable({ commit, dispatch }: ActionContext<RecordModuleState, RootState>) {

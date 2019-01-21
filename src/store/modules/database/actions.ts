@@ -47,7 +47,7 @@ function getDbList({ commit }: ActionContext<DatabaseModuleState, RootState>) {
   for (let i = 0; i < localStorage.length; i++) {
     try {
       JSON.parse(Object.values(localStorage)[i]);
-    } catch {
+    } catch (err) {
       continue;
     }
     newDbList.push(JSON.parse(Object.values(localStorage)[i]));

@@ -28,7 +28,7 @@ const state: DatabaseModuleState = {
       secretAccessKey: '',
       region: '',
       endpoint: '',
-      maxRetries: 2,
+      maxRetries: 1,
     },
     port: '',
     name: '',

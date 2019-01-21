@@ -63,11 +63,10 @@ function setData(state: RecordModuleState, data: any[]) {
 }
 
 function setLimit(state: RecordModuleState, limit: any) {
-  if (!isNaN(limit)) {
-    state.limit = limit;
-    state.lastEvaluatedKeyIndex = 0;
-    state.evaluatedKeys = [];
+  if (limit < 0) {
+    limit = 1;
   }
+  state.limit = limit && Number(limit);
 }
 
 function changeFilterValueType(state: RecordModuleState) {

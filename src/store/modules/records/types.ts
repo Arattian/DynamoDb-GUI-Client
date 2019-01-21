@@ -7,7 +7,7 @@ export interface RecordModuleState {
   header: any[];
   data: any[];
   filtered: boolean;
-  limit: number | null;
+  limit: number | undefined;
   lastEvaluatedKeyIndex: number;
   evaluatedKeys: any[];
   sortBy: string;
