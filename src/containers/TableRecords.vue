@@ -35,6 +35,7 @@
       :evaluatedKeys="records.evaluatedKeys"
       :lastEvaluatedKeyIndex="records.lastEvaluatedKeyIndex"
       :filtered="records.filtered"
+      :list="tableDataPage"
     )
 </template>
 

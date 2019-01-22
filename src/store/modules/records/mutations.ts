@@ -137,7 +137,7 @@ function initialState(state: RecordModuleState) {
   state.recordMeta = '';
   state.hashKey = '';
   state.rangeKey = '';
-  state.filtered = false;
+  state.filtered = undefined;
   state.data = [];
   state.header = [];
   state.evaluatedKeys = [];

@@ -6,7 +6,7 @@ export interface RecordModuleState {
   rangeKey: string;
   header: any[];
   data: any[];
-  filtered: boolean;
+  filtered: true | undefined;
   limit: number | undefined;
   lastEvaluatedKeyIndex: number;
   evaluatedKeys: any[];

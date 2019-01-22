@@ -6,7 +6,7 @@ const state: RecordModuleState = {
   recordMeta: '',
   hashKey: '',
   rangeKey: '',
-  filtered: false,
+  filtered: undefined,
   data: [],
   header: [],
   limit: 15,

@@ -1,6 +1,6 @@
 <template lang="pug">
   el-col(:span="24" class="container")
-    el-col(:span="6")
+    el-col(:span="14")
       i(class="el-icon-circle-plus-outline add" @click="generateMeta" title="Add Record")
       i(class="el-icon-refresh refresh" @click="refreshTable" title="Refresh Table")
       el-popover(
@@ -29,7 +29,8 @@
         :class="{disabled: (lastEvaluatedKeyIndex + 1) * limit >= itemCount || evaluatedKeys.length < 1}"
         @click="(lastEvaluatedKeyIndex + 1) * limit < itemCount && evaluatedKeys.length > 0 && getNextRecords()"
         )
-    el-col(:span="14" class="itemCount") {{itemCount}} rows in {{currentTable}}
+      .filter-result(v-if="filtered") {{list.length}} matches in {{ limit * lastEvaluatedKeyIndex + 1 }} - {{ (lastEvaluatedKeyIndex + 1) * limit > itemCount ? itemCount : (lastEvaluatedKeyIndex + 1) * limit}} range
+    el-col(:span="6" class="itemCount") {{itemCount}} rows in {{currentTable}}
 </template>
 
 <script lang="ts">
@@ -53,6 +54,7 @@ export default class RecordFooter extends Vue {
   @Prop(Number) private lastEvaluatedKeyIndex!: number;
   @Prop(Array) private evaluatedKeys!: any[];
   @Prop(Boolean) private filtered!: boolean;
+  @Prop(Array) private list!: any[];
 }
 </script>
 
@@ -73,6 +75,8 @@ export default class RecordFooter extends Vue {
   bottom 0px
   background #121820
   z-index 1000
+.filter-result
+  display flex
 .el-col
   display flex
   align-items center
