@@ -2,8 +2,6 @@ import { ActionTree, ActionContext } from 'vuex';
 import { RecordModuleState } from './types';
 import { RootState } from '@/store/types';
 import { ScanInput } from 'aws-sdk/clients/dynamodb';
-import state from '../database/state';
-import records from '.';
 
 async function putItem({ dispatch, commit, rootState, state }: ActionContext<RecordModuleState, RootState>) {
   const { dbClient } = rootState;
@@ -95,6 +93,12 @@ async function getRecords({ dispatch, commit, rootState, state }: ActionContext<
       TableName: currentTable,
       Limit: state.limit,
       ExclusiveStartKey: state.evaluatedKeys[state.lastEvaluatedKeyIndex - 1],
+      FilterExpression: state.filtered &&
+      `${state.filterParams.filterColumn} ${state.filterParams.filterExpr} :${state.filterParams.filterColumn}1`,
+    ExpressionAttributeValues: state.filtered &&
+      {
+        [':' + state.filterParams.filterColumn + '1']: state.filterParams.filterValue,
+      },
       ...params,
     },
     ).promise();
@@ -110,7 +114,7 @@ async function getRecords({ dispatch, commit, rootState, state }: ActionContext<
   data.LastEvaluatedKey && commit('addEvaluatedKey', data.LastEvaluatedKey);
 }
 
-async function filterRecords({ dispatch, getters, commit, state }: ActionContext<RecordModuleState, RootState>) {
+async function filterRecords({ dispatch, getters, commit }: ActionContext<RecordModuleState, RootState>) {
   if (!getters.scanIsValid) {
     commit('showResponse', {message: 'Please fill all scan fields.'}, {root: true});
     return;
@@ -122,21 +126,11 @@ async function filterRecords({ dispatch, getters, commit, state }: ActionContext
   which i get from an whole array.
   I need to store only lastEvaluatedKey in state and change it every time i switch page
   or filter results.
-  /*
-    Limit and FilterExpression not returning the items that match the filter requirements in right way.
   */
-  !state.filtered && commit('clearEvaluatedKeys');
+  commit('clearEvaluatedKeys');
   commit('changeFilterValueType');
   commit('setFilterStatus');
-  const params = {
-    FilterExpression:
-      `${state.filterParams.filterColumn} ${state.filterParams.filterExpr} :${state.filterParams.filterColumn}1`,
-    ExpressionAttributeValues:
-      {
-        [':' + state.filterParams.filterColumn + '1']: state.filterParams.filterValue,
-      },
-  };
-  dispatch('getRecords', params);
+  dispatch('getRecords');
 }
 async function getLimitedRows({ state, commit, dispatch }: ActionContext<RecordModuleState, RootState>, limit: any) {
   if (isNaN(limit)) {
@@ -144,21 +138,18 @@ async function getLimitedRows({ state, commit, dispatch }: ActionContext<RecordM
   } else {
     commit('setLimit', limit);
     commit('clearEvaluatedKeys');
-    !state.filtered && dispatch('getRecords');
-    state.filtered && dispatch('filterRecords');
+    dispatch('getRecords');
   }
 }
 
 async function getPreviousRecords({ state, commit, dispatch }: ActionContext<RecordModuleState, RootState>) {
   commit('lastEvaluatedKeyIndexDec');
-  !state.filtered && dispatch('getRecords');
-  state.filtered && dispatch('filterRecords');
+  dispatch('getRecords');
 }
 
 async function getNextRecords({ state, commit, dispatch }: ActionContext<RecordModuleState, RootState>) {
   commit('lastEvaluatedKeyIndexInc');
-  !state.filtered && dispatch('getRecords');
-  state.filtered && dispatch('filterRecords');
+  dispatch('getRecords');
 }
 
 async function refreshTable({ commit, dispatch }: ActionContext<RecordModuleState, RootState>) {
