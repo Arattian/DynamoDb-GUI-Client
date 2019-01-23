@@ -38,42 +38,44 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
-import { DbConfigs, SubmitForm } from '../store/modules/database/types';
-import ActionButtons from './ActionButtons.vue';
+  import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { DbConfigs, SubmitForm } from '../store/modules/database/types';
+  import ActionButtons from './ActionButtons.vue';
 
-const namespace: string = 'database';
+  const namespace: string = 'database';
 
-@Component({
-  components: {
-    ActionButtons,
-  },
-})
-export default class ConnectDatabase extends Vue {
-  @Prop(Function) private submitRemoteForm: any;
-  @Prop(Function) private submitLocalForm: any;
-  @Prop(Function) private setToDefault: any;
-  @Prop(Object) private submitForm!: SubmitForm;
-  @Prop(Array) private regionList!: string[];
-  @Prop(Object) private configs!: DbConfigs;
+  @Component({
+    components: {
+      ActionButtons,
+    },
+  })
+  export default class ConnectDatabase extends Vue {
+    @Prop(Function) private submitRemoteForm: any;
+    @Prop(Function) private submitLocalForm: any;
+    @Prop(Function) private setToDefault: any;
+    @Prop(Object) private submitForm!: SubmitForm;
+    @Prop(Array) private regionList!: string[];
+    @Prop(Object) private configs!: DbConfigs;
 
-  private mounted() {
-    this.setToDefault();
+    private mounted() {
+      this.setToDefault();
+    }
   }
-}
 </script>
 
 <style lang="stylus" scoped>
-.el-col
-  display flex
-  justify-content center
-  align-items center
-.el-tabs
-  width 80%
-  margin 0 auto
-  max-width 700px
-.el-form
-  width 100%
-  border-radius 2px
-  height 50vh
+  .el-col
+    display flex
+    justify-content center
+    align-items center
+
+  .el-tabs
+    width 80%
+    margin 0 auto
+    max-width 700px
+
+  .el-form
+    width 100%
+    border-radius 2px
+    height 50vh
 </style>

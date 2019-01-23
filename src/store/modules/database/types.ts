@@ -1,4 +1,3 @@
-
 export interface SingleDatabaseModuleState {
   name: string;
   accessKeyId: string;
@@ -6,8 +5,6 @@ export interface SingleDatabaseModuleState {
   region: string;
   maxRetries: number;
 }
-
-
 
 export interface DatabaseModuleState {
   list: SingleDatabaseModuleState[];

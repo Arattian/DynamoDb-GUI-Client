@@ -3,7 +3,8 @@ import { RecordModuleState } from './types';
 const state: RecordModuleState = {
   showCreateModal: false,
   showDeleteModal: false,
-  recordMeta: '',
+  showGroupDeleteModal: false,
+  recordMeta: {},
   hashKey: '',
   rangeKey: '',
   filtered: undefined,
@@ -14,6 +15,9 @@ const state: RecordModuleState = {
   evaluatedKeys: [],
   sortBy: '',
   sortOrder: true,
+  selectedRows: [],
+  groupDelete: [],
+  retry: 0,
   filterParams: {
     filterColumn: '',
     filterExpr: '=',

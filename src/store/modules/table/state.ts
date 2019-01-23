@@ -29,9 +29,7 @@ export const state: TableModuleState = {
           },
         ],
         Projection: {
-          NonKeyAttributes: [
-            '',
-          ],
+          NonKeyAttributes: [''],
           ProjectionType: 'ALL | KEYS_ONLY | INCLUDE',
         },
         ProvisionedThroughput: {

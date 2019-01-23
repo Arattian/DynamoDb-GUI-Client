@@ -21,7 +21,10 @@ function showResponse(state: RootState, response: any) {
   if (typeof response === 'object') {
     state.response.title = 'Error';
     state.response.type = 'error';
-    if (response.message && response.message.toLowerCase() === 'network failure') {
+    if (
+      response.message &&
+      response.message.toLowerCase() === 'network failure'
+    ) {
       state.response.message = `Network failure. Can't process your request.`;
       return;
     }

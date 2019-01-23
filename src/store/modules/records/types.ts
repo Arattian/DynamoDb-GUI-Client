@@ -1,7 +1,8 @@
 export interface RecordModuleState {
   showCreateModal: boolean;
   showDeleteModal: boolean;
-  recordMeta: string;
+  showGroupDeleteModal: boolean;
+  recordMeta: any;
   hashKey: string;
   rangeKey: string;
   header: any[];
@@ -11,6 +12,9 @@ export interface RecordModuleState {
   lastEvaluatedKeyIndex: number;
   evaluatedKeys: any[];
   sortBy: string;
+  selectedRows: any[];
+  groupDelete: any[];
+  retry: number;
   sortOrder: boolean;
   filterParams: FilterParams;
 }
