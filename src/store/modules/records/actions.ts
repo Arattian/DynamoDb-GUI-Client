@@ -124,7 +124,6 @@ async function removeSelected({
       return;
     }
     // If there was unprocessed items, retry deleting.
-    // console.log(response.UnprocessedItems);
     if (state.retry < 5 && response.UnprocessedItems.currentTable) {
       commit('setGroupDeleteItems', response.UnprocessedItems.currentTable);
       dispatch('removeSelected');

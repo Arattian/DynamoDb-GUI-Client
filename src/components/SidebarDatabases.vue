@@ -9,7 +9,7 @@
       .item-content(@click='elementHandler(db.name)')
         v-icon(name="database" class="db-icon")
         span {{db.name}}
-      .item-delete(@click="removeHandler(db)")
+      .item-delete(@click="toggleDeleteModal(db)")
         i(class="el-icon-delete delete")
 </template>
 
@@ -17,9 +17,21 @@
   import { Vue, Component, Prop } from 'vue-property-decorator';
   @Component
   export default class SidebarDatabases extends Vue {
+    public $confirm: any = this.$confirm;
     @Prop(Function) private removeHandler: any;
     @Prop(Function) private elementHandler: any;
     @Prop(Array) private databaseList!: any[];
+    private toggleDeleteModal(db: any) {
+      this.$confirm('Are you sure, you want to delete database from list?', 'Warning', {
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+        confirmButtonClass: 'el-button el-button--danger is-plain',
+        cancelButtonClass: 'el-button el-button--primary is-plain',
+      }).then(() => {
+        this.removeHandler(db);
+      }).catch(() => true);
+    }
   }
 </script>
 

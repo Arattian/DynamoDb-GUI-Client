@@ -12,7 +12,7 @@
               el-option(v-for="(region, index) in regionList" :key="index" :label="region" :value="region")
           el-form-item(label="Access Key Id" required)
             el-input(v-model="configs.accessKeyId" placeholder="AWS access key id")
-          el-form-item(label="Secret Access Key" required)
+          el-form-item(label="Secret Access Key" @keyup.enter.native="submitRemoteForm" required)
             el-input(v-model="configs.secretAccessKey" placeholder="AWS secret access key")
         ActionButtons(
           :cancelHandler="setToDefault"
@@ -27,7 +27,7 @@
               template(slot="append")
                 el-color-picker(v-model="submitForm.color" size="mini")
           el-form-item(label="Localhost Port" required)
-            el-input(placeholder="port" v-model="submitForm.port")
+            el-input(placeholder="port" @keyup.enter.native="submitLocalForm" v-model="submitForm.port")
               template(slot="prepend") http://localhost:
         ActionButtons(
           :cancelHandler="setToDefault"
