@@ -4,11 +4,11 @@
 
 [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/Arattian/DynamoDb-GUI-Client/blob/master/LICENSE)
 
-### [Release v3.2.2](https://github.com/Arattian/DynamoDb-GUI-Client/releases/tag/3.2.2)
+### [Release v3.2.3](https://github.com/Arattian/DynamoDb-GUI-Client/releases/tag/3.2.3)
 
-#### [Download for MacOS (.dmg)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/3.2.2/DynamoDbGUI-mac-3.2.2.dmg)
+#### [Download for MacOS (.dmg)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/3.2.3/DynamoDbGUI-mac-3.2.3.dmg)
 
-#### [Download for MacOS (.zip)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/3.2.2/DynamoDbGUI-mac-3.2.2.zip)
+#### [Download for MacOS (.zip)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/3.2.3/DynamoDbGUI-mac-3.2.3.zip)
 
 ### [Release v2.1.1 || Old UI](https://github.com/Arattian/DynamoDb-GUI-Client/releases/tag/v2.1.1)
 
