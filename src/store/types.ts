@@ -9,9 +9,9 @@ export interface RootState {
   dbInstance: DynamoDB;
   dbClient: DocumentClient;
   response: {
-    title: string,
-    type: string,
-    message: string,
+    title: string;
+    type: string;
+    message: string;
   };
   loading: boolean;
 }

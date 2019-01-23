@@ -1,4 +1,3 @@
-
 import { MutationTree } from 'vuex';
 import { RecordModuleState } from './types';
 
@@ -8,6 +7,10 @@ function toggleCreateModal(state: RecordModuleState) {
 
 function toggleDeleteModal(state: RecordModuleState) {
   state.showDeleteModal = !state.showDeleteModal;
+}
+
+function toggleGroupDeleteModal(state: RecordModuleState) {
+  state.showGroupDeleteModal = !state.showGroupDeleteModal;
 }
 
 function setMeta(state: RecordModuleState, meta: string) {
@@ -26,6 +29,39 @@ function setSortOrder(state: RecordModuleState, val: boolean) {
   state.sortOrder = val;
 }
 
+function setGroupDeleteItems(state: RecordModuleState, val: any) {
+  state.groupDelete = val;
+  state.retry++;
+}
+
+async function selectRows(state: RecordModuleState, val: any) {
+  const newSelection = [];
+  state.groupDelete = [];
+  for (const item of val) {
+    const requestItem: {
+      DeleteRequest: {
+        Key: any;
+      };
+    } = {
+      DeleteRequest: {
+        Key: {},
+      },
+    };
+    for (const key in item) {
+      if (key !== state.hashKey && key !== state.rangeKey) {
+        continue;
+      } else {
+        requestItem.DeleteRequest.Key[key] = item[key];
+      }
+    }
+    newSelection.push(requestItem);
+  }
+  const chunk = 25;
+  for (let i = 0; i < newSelection.length; i += chunk) {
+    state.groupDelete.push(newSelection.slice(i, i + chunk));
+  }
+  state.selectedRows = val;
+}
 function extractKeys(state: RecordModuleState, schema: any) {
   state.hashKey = '';
   state.rangeKey = '';
@@ -72,7 +108,9 @@ function setLimit(state: RecordModuleState, limit: any) {
 function changeFilterValueType(state: RecordModuleState) {
   switch (state.filterParams.valueType) {
     case 'string':
-      state.filterParams.filterValue = state.filterParams.filterValue && state.filterParams.filterValue.toString();
+      state.filterParams.filterValue =
+        state.filterParams.filterValue &&
+        state.filterParams.filterValue.toString();
       break;
     case 'number':
       state.filterParams.filterValue = Number(state.filterParams.filterValue);
@@ -103,15 +141,17 @@ function setFilterValueType(state: RecordModuleState, valueType: string) {
 
 function setNotEqualExpr(state: RecordModuleState, expr: string) {
   if (expr === '!=') {
-      state.filterParams.filterExpr = '<>';
+    state.filterParams.filterExpr = '<>';
   }
 }
 
 function addItemToList(state: RecordModuleState, newItem: any) {
   let edited = false;
   state.data = state.data.map((item) => {
-    if (item[state.rangeKey] === newItem[state.rangeKey] &&
-        item[state.hashKey] === newItem[state.hashKey]) {
+    if (
+      item[state.rangeKey] === newItem[state.rangeKey] &&
+      item[state.hashKey] === newItem[state.hashKey]
+    ) {
       edited = true;
       return newItem;
     }
@@ -134,7 +174,8 @@ function initialState(state: RecordModuleState) {
   if (state.filterParams.filterColumn) {
     state.limit = 15;
   }
-  state.recordMeta = '';
+  state.retry = 0;
+  state.recordMeta = {};
   state.hashKey = '';
   state.rangeKey = '';
   state.filtered = undefined;
@@ -144,6 +185,7 @@ function initialState(state: RecordModuleState) {
   state.lastEvaluatedKeyIndex = 0;
   state.sortBy = '';
   state.sortOrder = true;
+  state.selectedRows = [];
   state.filterParams = {
     filterColumn: '',
     filterExpr: '=',
@@ -156,7 +198,7 @@ function initialState(state: RecordModuleState) {
 
 function addEvaluatedKey(state: RecordModuleState, lastEvaluatedKey: any) {
   !state.evaluatedKeys.some((item: any) => {
-   return item === lastEvaluatedKey;
+    return item === lastEvaluatedKey;
   }) && state.evaluatedKeys.push(lastEvaluatedKey || {});
 }
 
@@ -176,6 +218,8 @@ function lastEvaluatedKeyIndexDec(state: RecordModuleState) {
 const mutations: MutationTree<RecordModuleState> = {
   toggleCreateModal,
   toggleDeleteModal,
+  toggleGroupDeleteModal,
+  setGroupDeleteItems,
   setData,
   addEvaluatedKey,
   setHeader,
@@ -194,6 +238,7 @@ const mutations: MutationTree<RecordModuleState> = {
   setFilterStatus,
   setSortBy,
   setSortOrder,
+  selectRows,
 };
 
 export default mutations;

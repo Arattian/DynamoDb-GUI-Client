@@ -64,6 +64,7 @@ app.on('activate', () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
   const menu = defaultMenu(app, shell);
+  delete menu[2];
   Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools

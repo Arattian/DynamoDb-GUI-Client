@@ -4,6 +4,7 @@ import store from './store';
 import './plugins/element.js';
 import './plugins/jsonEditor.js';
 import './plugins/vue-awesome.js';
+import './plugins/vue-resize.js';
 Vue.config.productionTip = false;
 
 new Vue({

@@ -1,15 +1,15 @@
 export const fakeSubmitForm = {
-    configs: {
-      accessKeyId: 'testKey',
-      secretAccessKey: 'testSecretKey',
-      region: 'localhost',
-      endpoint: 'http://localhost:8000',
-      maxRetries: 2,
-    },
-    port: '8000',
-    name: 'Database 1',
-    color: '#00f97c',
-    createdAt: + new Date(),
+  configs: {
+    accessKeyId: 'testKey',
+    secretAccessKey: 'testSecretKey',
+    region: 'localhost',
+    endpoint: 'http://localhost:8000',
+    maxRetries: 2,
+  },
+  port: '8000',
+  name: 'Database 1',
+  color: '#00f97c',
+  createdAt: +new Date(),
 };
 
 export const duplicateDbName = {
@@ -23,7 +23,7 @@ export const duplicateDbName = {
   port: '8000',
   name: 'Database 1',
   color: '#00f97c',
-  createdAt: + new Date(),
+  createdAt: +new Date(),
 };
 
 export const wrongSubmitForm = {
@@ -37,7 +37,7 @@ export const wrongSubmitForm = {
   port: '1010',
   name: 'Database 1',
   color: '#00f97c',
-  createdAt: + new Date(),
+  createdAt: +new Date(),
 };
 
 export const emptySubmitForm = {
@@ -51,5 +51,5 @@ export const emptySubmitForm = {
   port: '',
   name: 'Database 1',
   color: '#00f97c',
-  createdAt: + new Date(),
+  createdAt: +new Date(),
 };

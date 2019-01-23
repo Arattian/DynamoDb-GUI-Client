@@ -3,13 +3,11 @@ import { GetterTree } from 'vuex';
 
 const filteredTables = (state: RootState) => {
   return state.tables.filter((table: any) => {
-      if (table.includes(state.filterText)) {
-        return table;
-      }
-    },
-  );
+    if (table.includes(state.filterText)) {
+      return table;
+    }
+  });
 };
-
 
 const loading = (state: RootState) => state.loading;
 const tables = (state: RootState) => state.tables;

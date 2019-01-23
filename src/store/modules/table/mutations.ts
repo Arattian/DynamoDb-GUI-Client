@@ -1,4 +1,3 @@
-
 import { MutationTree } from 'vuex';
 import { TableModuleState } from './types';
 
@@ -39,9 +38,7 @@ function toggleCreateModal(state: TableModuleState) {
           },
         ],
         Projection: {
-          NonKeyAttributes: [
-            '',
-          ],
+          NonKeyAttributes: [''],
           ProjectionType: 'ALL | KEYS_ONLY | INCLUDE',
         },
         ProvisionedThroughput: {
