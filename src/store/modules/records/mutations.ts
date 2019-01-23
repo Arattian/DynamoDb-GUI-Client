@@ -56,6 +56,10 @@ async function selectRows(state: RecordModuleState, val: any) {
     }
     newSelection.push(requestItem);
   }
+  /*
+    Splitting selected rows, into arrays of maximum 25 rows, for sending them
+    with batchWrite function.
+  */
   const chunk = 25;
   for (let i = 0; i < newSelection.length; i += chunk) {
     state.groupDelete.push(newSelection.slice(i, i + chunk));
@@ -89,6 +93,11 @@ function setHeader(state: RecordModuleState) {
       }
       if (typeof row[key] === 'object') {
         row[key] = JSON.stringify(row[key]);
+      } else if (
+        typeof row[key] === 'boolean' ||
+        typeof row[key] === 'undefined'
+      ) {
+        row[key] += '';
       }
     }
   }

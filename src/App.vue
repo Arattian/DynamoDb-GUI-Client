@@ -171,11 +171,17 @@
     background #2c323a !important
     color #fff !important
 
+  .jsoneditor-tree input[type='checkbox']
+    display none !important
+
   .jsoneditor-search div.jsoneditor-frame
     background #2c323a !important
     color #fff !important
     border-radius 2px !important
     border 1px solid #121820 !important
+
+  .el-table__fixed::before, .el-table__fixed-right::before
+    background-color #222932 !important
 
   .jsoneditor-next
     display none !important
