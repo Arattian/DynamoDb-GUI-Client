@@ -29,6 +29,7 @@ const state: DatabaseModuleState = {
       region: '',
       endpoint: '',
       maxRetries: 1,
+      dynamoDbCrc32: false,
     },
     port: '',
     name: '',

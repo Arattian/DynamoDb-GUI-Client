@@ -8,6 +8,7 @@ function setToDefault(state: DatabaseModuleState) {
     region: '',
     endpoint: '',
     maxRetries: 1,
+    dynamoDbCrc32: false,
   };
   state.submitForm.port = '';
   state.submitForm.name = 'Database ' + (state.list.length + 1);

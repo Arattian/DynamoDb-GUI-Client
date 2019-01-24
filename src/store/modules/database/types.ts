@@ -26,4 +26,5 @@ export interface DbConfigs {
   region: string;
   endpoint: string;
   maxRetries: number;
+  dynamoDbCrc32: boolean;
 }
