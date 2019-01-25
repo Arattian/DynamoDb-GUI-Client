@@ -16,8 +16,6 @@
 
 #### [Download for Linux (.AppImage)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/v2.1.1/DynamoDbGUI-linux-x86_64-2.1.1.AppImage)
 
-<a href="https://www.buymeacoffee.com/tQSoDLK" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
-
 ![Logo](src/assets/git-logo.png)
 
 :eyes:
