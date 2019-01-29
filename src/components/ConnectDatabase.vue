@@ -12,8 +12,10 @@
               el-option(v-for="(region, index) in regionList" :key="index" :label="region" :value="region")
           el-form-item(label="Access Key Id" required)
             el-input(v-model="configs.accessKeyId" placeholder="AWS access key id")
-          el-form-item(label="Secret Access Key" @keyup.enter.native="submitRemoteForm" required)
-            el-input(v-model="configs.secretAccessKey" placeholder="AWS secret access key")
+          el-form-item(label="Secret Access Key"  @keyup.enter.native="submitRemoteForm" required)
+            el-input(v-model="configs.secretAccessKey" :type="inputType" placeholder="AWS secret access key")
+              template(slot="append")
+                el-button(icon="el-icon-view" @click="showSecretKey")
         ActionButtons(
           :cancelHandler="setToDefault"
           :confirmHandler="submitRemoteForm"
@@ -50,6 +52,7 @@
     },
   })
   export default class ConnectDatabase extends Vue {
+    private inputType: string = 'password';
     @Prop(Function) private submitRemoteForm: any;
     @Prop(Function) private submitLocalForm: any;
     @Prop(Function) private setToDefault: any;
@@ -59,6 +62,13 @@
 
     private mounted() {
       this.setToDefault();
+    }
+    private showSecretKey() {
+      if (this.inputType === 'password') {
+        this.inputType = 'text';
+      } else {
+        this.inputType = 'password';
+      }
     }
   }
 </script>

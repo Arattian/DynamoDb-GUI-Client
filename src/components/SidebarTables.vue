@@ -20,7 +20,6 @@
     el-row(class="container")
       .list-item(v-for="(table, index) in tableList" :key="index" @click="switchTable(table)" :class="{active: isActive(table)}")
         .info
-          v-icon(name="list-alt" class="icon")
           span {{ table }}
       span(v-if="!tableList.length") Empty database
 </template>

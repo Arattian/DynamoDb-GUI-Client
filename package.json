@@ -16,9 +16,9 @@
     "test:unit": "vue-cli-service test:unit --coverage"
   },
   "dependencies": {
-    "aws-sdk": "^2.392.0",
+    "aws-sdk": "^2.395.0",
     "electron-default-menu": "^1.0.1",
-    "element-ui": "^2.4.11",
+    "element-ui": "^2.5.2",
     "lodash": "^4.17.11",
     "vue": "^2.5.22",
     "vue-awesome": "^3.3.1",
