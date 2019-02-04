@@ -65,6 +65,7 @@
   #app
     display flex
     width 100%
+    height 100%
 
   // customizing some imported components and theme selectors
   input[type='text']:disabled

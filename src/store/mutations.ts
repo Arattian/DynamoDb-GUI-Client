@@ -86,7 +86,7 @@ function setCurrentTable(state: RootState, tableName: string) {
 }
 
 function filterTextChange(state: RootState, filterField: any) {
-  state.filterText = filterField.target.value;
+  state.filterText = filterField;
 }
 
 const mutations: MutationTree<RootState> = {
