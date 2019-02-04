@@ -1,23 +1,24 @@
 <template lang="pug">
-  el-row
-    el-button(type="primary" plain @click="initialState")
-      span Quick Connect
-    el-row(class="change-title") Change Database
-    el-select(:value="currentDb" @change="getCurrentDb" placeholder="Select Database" spellcheck="false" :title="currentDb" class="input-field")
-      el-option(
-        v-for="db in databaseList"
-        :key="db.name"
-        :value="db.name"
-      )
-    el-row(class="input-field")
-      el-input(placeholder="Search Table" @input="filterTextChange" :value="filterText" suffix-icon="el-icon-search" spellcheck="false")
-    el-row(class="table-actions")
-      el-col(:span="12" class="title") TABLES
-      el-col(:span="12" class="actions")
-        i(:class="[loading ? 'el-icon-loading' : '', 'el-icon-refresh refresh']" @click="getDbTables() && toggleLoading()" title="Refresh Table List")
-        i(class="el-icon-circle-plus-outline add" @click="toggleCreateModal" title="Create Table")
-        i(class="el-icon-delete remove" v-if="currentTable" @click="toggleDeleteModal" title="Delete Table" :disabled="true")
-    el-row(class="container")
+  .outer
+    .inner-fixed
+      el-button(type="primary" plain @click="initialState")
+        span Quick Connect
+      el-row(class="change-title") Change Database
+      el-select(:value="currentDb" @change="getCurrentDb" placeholder="Select Database" spellcheck="false" :title="currentDb" class="input-field")
+        el-option(
+          v-for="db in databaseList"
+          :key="db.name"
+          :value="db.name"
+        )
+      el-row(class="input-field")
+        el-input(placeholder="Search Table" @input="filterTextChange" :value="filterText" suffix-icon="el-icon-search" spellcheck="false")
+      el-row(class="table-actions")
+        el-col(:span="12" class="title") TABLES
+        el-col(:span="12" class="actions")
+          i(:class="[loading ? 'el-icon-loading' : '', 'el-icon-refresh refresh']" @click="getDbTables() && toggleLoading()" title="Refresh Table List")
+          i(class="el-icon-circle-plus-outline add" @click="toggleCreateModal" title="Create Table")
+          i(class="el-icon-delete remove" v-if="currentTable" @click="toggleDeleteModal" title="Delete Table" :disabled="true")
+    .inner-remaining
       .list-item(v-for="(table, index) in tableList" :key="index" @click="switchTable(table)" :class="{active: isActive(table)}")
         .info
           span {{ table }}
@@ -99,7 +100,6 @@
     align-items center
     display flex
     border-radius 5px
-    transition .1s linear
 
   .list-item:hover
     cursor pointer
@@ -124,9 +124,13 @@
   .refresh:hover
     color #52ceff
 
-  .container
-    height 100vh
+  .outer
+    display flex
+    flex-flow column
+    height 100%
+
+  .inner-remaining
+    flex-grow 1
     overflow-y auto
-    transition .5s linear
     font-size 1em
 </style>
