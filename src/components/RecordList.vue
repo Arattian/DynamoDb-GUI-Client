@@ -84,6 +84,6 @@
   .table
     width 98%
     overflow auto
-    height 85vh
+    height 80vh
     margin auto
 </style>
