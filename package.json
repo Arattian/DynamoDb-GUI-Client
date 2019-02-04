@@ -1,6 +1,6 @@
 {
   "name": "dynamodb-gui-client",
-  "version": "3.2.4",
+  "version": "3.2.5",
   "description": "DynamoDb-GUI-Client",
   "author": {
     "name": "Misak Poghosyan",

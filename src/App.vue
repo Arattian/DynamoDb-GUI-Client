@@ -189,4 +189,11 @@
 
   .jsoneditor-previous
     display none !important
+
+  @media screen and (max-height: 600px)
+    .table
+      height 65vh !important
+  @media screen and (max-height: 900)
+    .table
+      height 80vh !important
 </style>

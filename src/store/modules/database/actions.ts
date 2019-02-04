@@ -34,7 +34,6 @@ async function setCredentials({
     await DB.listTables().promise();
   } catch (err) {
     commit('showResponse', err, { root: true });
-    commit('setToDefault');
     return;
   }
   database.createdAt = +new Date();
