@@ -10,7 +10,7 @@
         :value="db.name"
       )
     el-row(class="input-field")
-      el-input(placeholder="Search Table" @keyup.native="filterTextChange" :value="filterText" suffix-icon="el-icon-search" spellcheck="false")
+      el-input(placeholder="Search Table" @input="filterTextChange" :value="filterText" suffix-icon="el-icon-search" spellcheck="false")
     el-row(class="table-actions")
       el-col(:span="12" class="title") TABLES
       el-col(:span="12" class="actions")

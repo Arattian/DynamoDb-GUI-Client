@@ -11,7 +11,7 @@
           el-row
             el-row(class="popover-row") Maximum rows in table
             el-row(class="popover-row")
-              el-input(placeholder="Row Count" @change="getLimitedRows" :disabled="checked" :value="limit" spellcheck="false") rows
+              el-input(placeholder="Row Count" @change="getLimitedRows" :disabled="checked" v-model="records.limit" spellcheck="false") rows
             el-row(class="popover-row")
               el-checkbox(v-model="checked" @change="getLimitedRows(null)") No Limit
         el-row(class="popover-close")
@@ -19,17 +19,17 @@
         i(class="el-icon-setting settings" slot="reference" title="Table Settings")
       i(
         class="el-icon-arrow-left"
-        :class="{disabled: lastEvaluatedKeyIndex < 1}"
-        @click="lastEvaluatedKeyIndex >= 1 && getPreviousRecords()"
+        :class="{disabled: records.lastEvaluatedKeyIndex < 1}"
+        @click="records.lastEvaluatedKeyIndex >= 1 && getPreviousRecords()"
         )
       .pageIndex(
-      ) {{ lastEvaluatedKeyIndex + 1 }}
+      ) {{ records.lastEvaluatedKeyIndex + 1 }}
       i(
         class="el-icon-arrow-right"
-        :class="{disabled: (lastEvaluatedKeyIndex + 1) * limit >= itemCount || evaluatedKeys.length < 1}"
-        @click="(lastEvaluatedKeyIndex + 1) * limit < itemCount && evaluatedKeys.length > 0 && getNextRecords()"
+        :class="{disabled: (records.lastEvaluatedKeyIndex + 1) * records.limit >= itemCount || records.evaluatedKeys.length < 1}"
+        @click="(records.lastEvaluatedKeyIndex + 1) * records.limit < itemCount && records.evaluatedKeys.length > 0 && getNextRecords()"
         )
-      .filter-result(v-if="filtered") {{list.length}} matches in {{ limit * lastEvaluatedKeyIndex + 1 }} - {{ (lastEvaluatedKeyIndex + 1) * limit > itemCount ? itemCount : (lastEvaluatedKeyIndex + 1) * limit}} range
+      .filter-result(v-if="records.filtered") {{list.length}} matches in {{ records.limit * records.lastEvaluatedKeyIndex + 1 }} - {{ (records.lastEvaluatedKeyIndex + 1) * records.limit > itemCount ? itemCount : (records.lastEvaluatedKeyIndex + 1) * records.limit}} range
     el-col(:span="6" class="itemCount") {{itemCount ? itemCount : 0}} rows in {{currentTable}}
 </template>
 
@@ -46,14 +46,11 @@
     @Prop(Function) private generateMeta: any;
     @Prop(Function) private refreshTable: any;
     @Prop(Function) private getNextRecords: any;
+    @Prop(Object) private records!: any;
     @Prop(Function) private getPreviousRecords: any;
     @Prop(Function) private getLimitedRows: any;
     @Prop(String) private currentTable!: string;
     @Prop(Number) private itemCount!: number;
-    @Prop(Number) private limit!: number;
-    @Prop(Number) private lastEvaluatedKeyIndex!: number;
-    @Prop(Array) private evaluatedKeys!: any[];
-    @Prop(Boolean) private filtered!: boolean;
     @Prop(Array) private list!: any[];
   }
 </script>

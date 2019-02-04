@@ -32,12 +32,9 @@
       :currentTable="currentTable"
       :itemCount="itemCount"
       :getLimitedRows="getLimitedRows"
-      :limit="records.limit"
+      :records="records"
       :getPreviousRecords="getPreviousRecords"
       :getNextRecords="getNextRecords"
-      :evaluatedKeys="records.evaluatedKeys"
-      :lastEvaluatedKeyIndex="records.lastEvaluatedKeyIndex"
-      :filtered="records.filtered"
       :list="tableDataPage"
     )
 </template>
