@@ -48,10 +48,14 @@
   *::-webkit-scrollbar
     width 5px
     background transparent
-
+    height 8px
+    z-index 1000
   *::-webkit-scrollbar-thumb
     background #484d54
     border-radius 2px
+  *::-webkit-scrollbar-corner
+    height 0px
+    background transparent
 
   html, body
     height 100%

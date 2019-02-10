@@ -8,6 +8,7 @@
       @row-dblclick="showEditModal"
       tooltip-effect="light"
       @selection-change="handleRowSelection"
+      :height="'100%'"
       )
       el-table-column(type="selection" width="50")
       el-table-column(type="index")
@@ -15,11 +16,18 @@
         template(slot="header" slot-scope="slot" )
           span {{keys.hashKey}}
           i(class="el-icon-warning key")
-      el-table-column(:prop="keys.rangeKey" :show-overflow-tooltip="true" :label="keys.rangeKey" v-if="keys.rangeKey")
+      el-table-column(:prop="keys.rangeKey" :show-overflow-tooltip="true" v-if="keys.rangeKey")
         template(slot="header" slot-scope="slot")
           span {{keys.rangeKey}}
           i(class="el-icon-warning key")
-      el-table-column(v-for="(header, index) of header" :show-overflow-tooltip="true" :prop="header" :label="header" title="Something" :key="index" v-if="hideHashKey(header)")
+      el-table-column(
+        v-for="(header, index) of header"
+        :show-overflow-tooltip="true"
+        :prop="header"
+        :label="header"
+        :key="index"
+        v-if="hideHashKey(header)"
+      )
       el-table-column(fixed="right" width="50")
         template(slot="header" slot-scope="slot")
           .delete-selected
@@ -74,12 +82,13 @@
     cursor pointer
 
   .delete-selected i
-    font-size 1.8em
+    font-size 1.6em
 
   .el-table
     width 100%
     font-size .9em
     color #eee
+    padding-bottom 50px
 
   .table
     width 98%

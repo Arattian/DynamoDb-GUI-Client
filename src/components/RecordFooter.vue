@@ -75,6 +75,7 @@
     bottom 0
     background #121820
     z-index 1000
+    margin-left 2px
 
   .filter-result
     display flex
