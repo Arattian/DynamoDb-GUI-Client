@@ -16,7 +16,6 @@
 
 #### [Download for Linux (.AppImage)](https://github.com/Arattian/DynamoDb-GUI-Client/releases/download/v2.1.1/DynamoDbGUI-linux-x86_64-2.1.1.AppImage)
 
-
 ![Logo](src/assets/git-logo.png)
 
 :eyes:
