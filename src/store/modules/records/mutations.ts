@@ -83,13 +83,11 @@ function extractKeys(state: RecordModuleState, schema: any) {
 function setHeader(state: RecordModuleState) {
   const extractData = state.data;
   state.header = [];
-  const keyArray: any = [];
   for (const row of extractData) {
     // tslint:disable-next-line:forin
     for (const key in row) {
-      if (!keyArray.includes(key)) {
+      if (!state.header.includes(key)) {
         state.header.push(key);
-        keyArray.push(key);
       }
       if (typeof row[key] === 'object') {
         row[key] = JSON.stringify(row[key]);
