@@ -7,86 +7,71 @@
         el-select(v-model="filterParams.filterExpr" class="select" collapse-tags placeholder="Expression" @change="setNotEqualExpr")
           el-option(v-for="expression in filterParams.expressions" :key="expression" :label="expression" :value="expression") {{expression}}
         el-select(v-model="filterParams.valueType" class="select" collapse-tags placeholder="Type" @change="setFilterValueType")
-          el-option(v-for="type in filterParams.types" :key="type" :label="type" :value="type") {{type}}
-        el-input(:placeholder="filterParams.valueType !== 'null' ? 'Value' : 'Not Available'" v-model="filterParams.filterValue" :disabled="filterParams.valueType === 'null'" spellcheck="false" class="filter-text")
-          el-button(type="success" slot="append" plain icon="el-icon-search" title="Scan Table" @click="filterRecords") 
-            span(class="hidden-xs-only") Scan
-    .sort-container
-      i(v-if="sortBy" class="el-icon-circle-close-outline sort-order" @click="setSortBy('')")
-      i(v-if="sortBy" :class="[sortOrder ? 'el-icon-caret-bottom': 'el-icon-caret-top active', 'sort-order']" @click="setSortOrder(!sortOrder)")
-      el-select(@change="setSortBy" collapse-tags placeholder="Sort By" :value="sortBy")
-        el-option(v-for="headerText in header" :key="headerText" :label="headerText" :value="headerText")
-          .wrapper
-            span {{headerText}}
+          el-option(v-for="attributeType in filterParams.types" :key="attributeType" :label="attributeType" :value="attributeType") {{attributeType}}
+        el-select(v-if="filterParams.valueType === 'boolean'" v-model="filterParams.filterValue" class="select" placeholder="Boolean")
+          el-option(:value="true") {{'true'}}
+          el-option(:value="false") {{'false'}}
+        el-input(v-if="filterParams.valueType !== 'boolean'" :placeholder="filterParams.valueType !== 'null' ? 'Value' : 'Not Available'" v-model="filterParams.filterValue" :disabled="filterParams.valueType === 'null'" spellcheck="false" class="filter-text")
+        el-button(type="success" plain icon="el-icon-search" class="scan-button" title="Scan Table" @click="filterRecords")
+          span(class="hidden-xs-only") Scan
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
-  import { FilterParams } from '../store/modules/records/types';
-  import { State } from 'vuex-class';
+import { Vue, Component, Prop } from 'vue-property-decorator';
+import { FilterParams } from '../store/modules/records/types';
+import { State } from 'vuex-class';
 
-  @Component
-  export default class RecordListFilter extends Vue {
-    @Prop(Function) private getKeys: any;
-    @Prop(Function) private filterRecords: any;
-    @Prop(Function) private setFilterValueType: any;
-    @Prop(Function) private setNotEqualExpr: any;
-    @Prop(Function) private refreshTable: any;
-    @Prop(Function) private setSortBy: any;
-    @Prop(Function) private setSortOrder: any;
-    @Prop(Boolean) private filtered!: boolean;
-    @Prop(Boolean) private sortOrder!: boolean;
-    @Prop(Array) private header!: string[];
-    @Prop(Object) private filterParams!: FilterParams;
-    @Prop(String) private sortBy!: string;
-  }
+@Component
+export default class RecordListFilter extends Vue {
+  @Prop(Function) private getKeys: any;
+  @Prop(Function) private filterRecords: any;
+  @Prop(Function) private setFilterValueType: any;
+  @Prop(Function) private setNotEqualExpr: any;
+  @Prop(Function) private refreshTable: any;
+  @Prop(Boolean) private filtered!: boolean;
+  @Prop(Object) private filterParams!: FilterParams;
+}
 </script>
 
 <style lang="stylus" scoped>
-  .filters
-    width 98%
-    margin auto
-    margin-bottom 5px
+.filters
+  width 98%
+  margin auto
+  margin-bottom 5px
 
-  .scan-container
-    width 60%
-    margin-left -1.5px
+.scan-container
+  width 60%
+  margin-left -1.5px
 
-  .select
-    max-width 125px
+.select
+  max-width 125px
 
-  .scan
-    display flex
-    justify-content flex-start
+.scan
+  display flex
+  justify-content flex-start
 
-  .scan > *
-    margin 0 1.5px
+.scan > *
+  margin 0 1.5px
 
-  .filter-text
-    width 50%
+.filter-text
+  width 50%
 
-  .sort-container
-    width 40%
-    min-width 250px
-    display flex
-    justify-content flex-end
-    align-items center
+.el-select
+  min-width 56px
 
-  .sort-order
-    width 25px
-    cursor pointer
+.el-input
+  min-width 115px
 
-  .el-select
-    min-width 56px
+.el-autocomplete
+  min-width 56px
 
-  .el-input
-    min-width 115px
+.wrapper
+  display flex
+  justify-content space-between
+  align-items center
 
-  .el-autocomplete
-    min-width 56px
-
-  .wrapper
-    display flex
-    justify-content space-between
-    align-items center
+.scan-button
+  border 1px solid #191d25 !important
+  border-radius 0
+  margin-left -10px
 </style>

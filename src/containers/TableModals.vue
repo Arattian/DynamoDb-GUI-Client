@@ -19,26 +19,26 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
-  import { Action, Mutation, Getter, State } from 'vuex-class';
-  import { TableModuleState } from '../store/modules/table/types';
-  import CreateModal from '../components/CreateModal.vue';
-  import DeleteModal from '../components/DeleteModal.vue';
-  const namespace: string = 'table';
-  @Component({
-    components: {
-      CreateModal,
-      DeleteModal,
-    },
-  })
-  export default class TableModals extends Vue {
-    @State(namespace) private table!: TableModuleState;
-    @Action('deleteTable', { namespace }) private deleteTable: any;
-    @Action('createTable', { namespace }) private createTable: any;
-    @Mutation('toggleCreateModal', { namespace }) private toggleCreateModal: any;
-    @Mutation('toggleDeleteModal', { namespace }) private toggleDeleteModal: any;
-    @Mutation('setNewTableMeta', { namespace }) private setNewTableMeta: any;
-  }
+import { Vue, Component, Prop } from 'vue-property-decorator';
+import { Action, Mutation, Getter, State } from 'vuex-class';
+import { TableModuleState } from '../store/modules/table/types';
+import CreateModal from '../components/CreateModal.vue';
+import DeleteModal from '../components/DeleteModal.vue';
+const namespace: string = 'table';
+@Component({
+  components: {
+    CreateModal,
+    DeleteModal,
+  },
+})
+export default class TableModals extends Vue {
+  @State(namespace) private table!: TableModuleState;
+  @Action('deleteTable', { namespace }) private deleteTable: any;
+  @Action('createTable', { namespace }) private createTable: any;
+  @Mutation('toggleCreateModal', { namespace }) private toggleCreateModal: any;
+  @Mutation('toggleDeleteModal', { namespace }) private toggleDeleteModal: any;
+  @Mutation('setNewTableMeta', { namespace }) private setNewTableMeta: any;
+}
 </script>
 
 <style lang="stylus" scoped>

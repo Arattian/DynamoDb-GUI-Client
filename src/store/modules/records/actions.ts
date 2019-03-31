@@ -1,7 +1,7 @@
 import { ActionTree, ActionContext } from 'vuex';
 import { RecordModuleState } from './types';
 import { RootState } from '@/store/types';
-import { ScanInput } from 'aws-sdk/clients/dynamodb';
+import { ScanInput, PutItemInput, GetItemInput, DeleteItemInput } from 'aws-sdk/clients/dynamodb';
 
 /* Format to create 50 rows */
 // let Item;
@@ -27,7 +27,7 @@ async function putItem({
   const { dbClient } = rootState;
   const { currentTable } = rootState;
   const Item = state.recordMeta;
-  const params: any = {
+  const params: PutItemInput = {
     TableName: currentTable,
     Item,
   };
@@ -50,7 +50,7 @@ async function getItem(
 ) {
   const { dbClient } = rootState;
   const { currentTable } = rootState;
-  const params: any = {
+  const params: GetItemInput = {
     TableName: currentTable,
     Key: {
       [state.hashKey]: row[state.hashKey],
@@ -74,12 +74,12 @@ async function removeItem({
 }: ActionContext<RecordModuleState, RootState>) {
   const { dbClient } = rootState;
   const { currentTable } = rootState;
-  const row: any = state.recordMeta;
-  const Key: any = {
+  const row = state.recordMeta;
+  const Key = {
     [state.hashKey]: row[state.hashKey],
     [state.rangeKey]: row[state.rangeKey],
   };
-  const params = {
+  const params: DeleteItemInput = {
     TableName: currentTable,
     Key,
   };

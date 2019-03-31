@@ -11,18 +11,16 @@ export interface RecordModuleState {
   limit: number | undefined;
   lastEvaluatedKeyIndex: number;
   evaluatedKeys: any[];
-  sortBy: string;
   selectedRows: any[];
   groupDelete: any[];
   retry: number;
-  sortOrder: boolean;
   filterParams: FilterParams;
 }
 
 export interface FilterParams {
   filterColumn: string;
   filterExpr: string;
-  filterValue: string | number | null;
+  filterValue: string | boolean | number | null;
   valueType: string;
   types: string[];
   expressions: string[];

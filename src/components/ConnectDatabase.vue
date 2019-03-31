@@ -28,9 +28,8 @@
             el-input(placeholder="Database display name" v-model="submitForm.name")
               template(slot="append")
                 el-color-picker(v-model="submitForm.color" size="mini")
-          el-form-item(label="Localhost Port" required)
-            el-input(placeholder="port" @keyup.enter.native="submitLocalForm" v-model="submitForm.port")
-              template(slot="prepend") http://localhost:
+          el-form-item(label="Local Database Endpoint" required)
+            el-input(placeholder="Enter Endpoint" @keyup.enter.native="submitLocalForm" v-model="submitForm.configs.endpoint")
         ActionButtons(
           :cancelHandler="setToDefault"
           :confirmHandler="submitLocalForm"
@@ -40,52 +39,52 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
-  import { DbConfigs, SubmitForm } from '../store/modules/database/types';
-  import ActionButtons from './ActionButtons.vue';
+import { Vue, Component, Prop } from 'vue-property-decorator';
+import { DbConfigs, SubmitForm } from '../store/modules/database/types';
+import ActionButtons from './ActionButtons.vue';
 
-  const namespace: string = 'database';
+const namespace: string = 'database';
 
-  @Component({
-    components: {
-      ActionButtons,
-    },
-  })
-  export default class ConnectDatabase extends Vue {
-    private inputType: string = 'password';
-    @Prop(Function) private submitRemoteForm: any;
-    @Prop(Function) private submitLocalForm: any;
-    @Prop(Function) private setToDefault: any;
-    @Prop(Object) private submitForm!: SubmitForm;
-    @Prop(Array) private regionList!: string[];
-    @Prop(Object) private configs!: DbConfigs;
+@Component({
+  components: {
+    ActionButtons,
+  },
+})
+export default class ConnectDatabase extends Vue {
+  private inputType: string = 'password';
+  @Prop(Function) private submitRemoteForm: any;
+  @Prop(Function) private submitLocalForm: any;
+  @Prop(Function) private setToDefault: any;
+  @Prop(Object) private submitForm!: SubmitForm;
+  @Prop(Array) private regionList!: string[];
+  @Prop(Object) private configs!: DbConfigs;
 
-    private mounted() {
-      this.setToDefault();
-    }
-    private showSecretKey() {
-      if (this.inputType === 'password') {
-        this.inputType = 'text';
-      } else {
-        this.inputType = 'password';
-      }
+  private mounted() {
+    this.setToDefault();
+  }
+  private showSecretKey() {
+    if (this.inputType === 'password') {
+      this.inputType = 'text';
+    } else {
+      this.inputType = 'password';
     }
   }
+}
 </script>
 
 <style lang="stylus" scoped>
-  .el-col
-    display flex
-    justify-content center
-    align-items center
+.el-col
+  display flex
+  justify-content center
+  align-items center
 
-  .el-tabs
-    width 80%
-    margin 0 auto
-    max-width 700px
+.el-tabs
+  width 80%
+  margin 0 auto
+  max-width 700px
 
-  .el-form
-    width 100%
-    border-radius 2px
-    height 50vh
+.el-form
+  width 100%
+  border-radius 2px
+  height 50vh
 </style>

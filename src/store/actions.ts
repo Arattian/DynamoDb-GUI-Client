@@ -3,7 +3,7 @@ import { RootState } from './types';
 
 async function getCurrentDb(
   { commit, dispatch }: ActionContext<RootState, RootState>,
-  name: any,
+  name: string,
 ) {
   commit('setDBInstances', name);
   dispatch('getDbTables');
