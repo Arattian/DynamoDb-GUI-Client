@@ -20,6 +20,7 @@
       :initialState="initialState"
       :toggleCreateModal="toggleCreateModal"
       :toggleDeleteModal="toggleDeleteModal"
+      :toggleEditModal="toggleEditModal"
     )
 </template>
 
@@ -52,6 +53,7 @@ export default class Sidebar extends Vue {
   @Action('removeDbFromStorage', { namespace })
   private removeDbFromStorage: any;
   @Action('getDbList', { namespace }) private getDbList: any;
+  @Mutation('toggleEditModal', { namespace }) private toggleEditModal: any;
   @Mutation('toggleCreateModal', { namespace: 'table' })
   private toggleCreateModal: any;
   @Mutation('toggleDeleteModal', { namespace: 'table' })

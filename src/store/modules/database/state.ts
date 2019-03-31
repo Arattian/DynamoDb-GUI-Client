@@ -35,6 +35,7 @@ const state: DatabaseModuleState = {
     color: '#00f97c',
     createdAt: +new Date(),
   },
+  showEditModal: false,
 };
 
 export default state;

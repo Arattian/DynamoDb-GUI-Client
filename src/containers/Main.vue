@@ -1,5 +1,5 @@
 <template lang="pug">
-  el-col(:span="24" class="main" v-if="currentTable || !currentDb" v-loading="loading" element-loading-background="rgba(0, 0, 0, 0)")
+  el-col(:span="24" class="main" v-loading="loading" element-loading-background="rgba(0, 0, 0, 0)")
     ConnectDatabase(
       v-if="!currentDb"
       :configs="database.submitForm.configs"
@@ -15,6 +15,7 @@
           TableRecords
         el-tab-pane(label="Meta" name="meta")
           TableMeta
+    DatabaseModals(v-if="database.showEditModal")
     span(v-if="response.message")
 </template>
 
@@ -23,6 +24,7 @@ import { Vue, Component } from 'vue-property-decorator';
 import { Getter, Action, Mutation, State } from 'vuex-class';
 import { RootState } from '../store/types';
 import ConnectDatabase from '../components/ConnectDatabase.vue';
+import DatabaseModals from './DatabaseModals.vue';
 import TableRecords from './TableRecords.vue';
 import TableMeta from './TableMeta.vue';
 const namespace: string = 'database';
@@ -32,6 +34,7 @@ const namespace: string = 'database';
     ConnectDatabase,
     TableRecords,
     TableMeta,
+    DatabaseModals,
   },
 })
 export default class Main extends Vue {

@@ -17,11 +17,15 @@ async function setCredentials({
   dispatch,
   getters,
   state,
+  rootState,
 }: ActionContext<DatabaseModuleState, RootState>) {
   const database = state.submitForm;
   if (!getters.validateForm) {
     return;
-  } else if (localStorage.getItem(`${database.name}-db`)) {
+  }
+  // In case of editing remove existing db first
+  localStorage.removeItem(`${rootState.currentDb}-db`);
+  if (localStorage.getItem(`${database.name}-db`)) {
     commit(
       'showResponse',
       { message: 'Database with that name already exists' },

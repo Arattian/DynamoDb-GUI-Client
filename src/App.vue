@@ -41,7 +41,6 @@ export default class App extends Vue {}
 *
   padding 0
   margin 0
-  font-family 'Roboto', sans-serif
   box-sizing border-box
 
 *::-webkit-scrollbar
@@ -66,6 +65,9 @@ html, body
 
 ::placeholder
   opacity .5
+
+[class^="el-"],.el-col,.el-row
+  font-family 'Roboto', sans-serif
 
 #app
   display flex
@@ -194,6 +196,46 @@ td
 
 .jsoneditor-previous
   display none !important
+
+.jsoneditor-contextmenu .jsoneditor-menu
+  background-color #222933 !important
+  border 1px solid #191d25 !important
+  box-shadow none !important
+
+div.jsoneditor-contextmenu ul li button
+  color #fff !important
+
+div.jsoneditor-contextmenu ul li button:hover
+  background-color #191d25 !important
+
+.ace-jsoneditor .ace_scroller
+  background-color #2c323a !important
+  border 1px solid #191d25 !important
+
+.jsoneditor-poweredBy
+  display none !important
+
+.ace_gutter
+  background #2c323f !important
+  border 1px solid #191d25 !important
+
+.ace-jsoneditor .ace_marker-layer .ace_active-line
+  background #2f3f3f !important
+
+.ace-jsoneditor .ace_text-layer
+  color #fff !important
+
+.ace_variable
+  color #FF007F !important
+
+.ace_string
+  color #52E3F6 !important
+
+.ace-jsoneditor .ace_indent-guide
+  background none !important
+
+.ace-jsoneditor.ace_editor
+  height 50vh !important
 
 @media screen and (max-height: 600px)
   .table

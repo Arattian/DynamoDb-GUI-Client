@@ -10,6 +10,7 @@ export interface DatabaseModuleState {
   list: SingleDatabaseModuleState[];
   submitForm: SubmitForm;
   regionList: string[];
+  showEditModal: boolean;
 }
 
 export interface SubmitForm {

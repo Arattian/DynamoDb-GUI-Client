@@ -11,6 +11,7 @@ function setToDefault(state: DatabaseModuleState) {
     dynamoDbCrc32: false,
   };
   state.submitForm.name = 'Database ' + (state.list.length + 1);
+  state.showEditModal = false;
 }
 
 function setDbList(
@@ -43,9 +44,21 @@ function correctInputs(state: DatabaseModuleState, serviceType: string) {
   }
 }
 
+function toggleEditModal(state: DatabaseModuleState) {
+  state.showEditModal = !state.showEditModal;
+}
+
+function fillEditForm(state: DatabaseModuleState, name: string) {
+  const databaseJson: any = localStorage.getItem(`${name}-db`);
+  const database = JSON.parse(databaseJson);
+  state.submitForm = Object.assign({}, state.submitForm, database);
+}
+
 const mutations: MutationTree<DatabaseModuleState> = {
   correctInputs,
   setToDefault,
   setDbList,
+  toggleEditModal,
+  fillEditForm,
 };
 export default mutations;

@@ -3,13 +3,17 @@
     .inner-fixed
       el-button(type="primary" plain @click="initialState")
         span Quick Connect
-      el-row(class="change-title") Change Database
-      el-select(:value="currentDb" @change="getCurrentDb" placeholder="Select Database" spellcheck="false" :title="currentDb" class="input-field")
-        el-option(
-          v-for="db in databaseList"
-          :key="db.name"
-          :value="db.name"
-        )
+      .input-field
+        el-select(:value="currentDb" @change="getCurrentDb" placeholder="Select Database" spellcheck="false" :title="currentDb")
+          el-option(
+            v-for="db in databaseList"
+            :key="db.name"
+            :value="db.name"
+          )
+      el-row(class="change-title")
+        el-col(:span="22") Edit Database
+        el-col(:span="2" class="edit")
+          i(class="el-icon-edit" @click="toggleEditModal")
       el-row(class="input-field")
         el-input(placeholder="Search Table" @input="filterTextChange" :value="filterText" suffix-icon="el-icon-search" spellcheck="false")
       el-row(class="table-actions")
@@ -38,6 +42,7 @@ export default class SidebarTables extends Vue {
   @Prop(Function) private initialState: any;
   @Prop(Function) private toggleCreateModal: any;
   @Prop(Function) private toggleDeleteModal: any;
+  @Prop(Function) private toggleEditModal: any;
   @Prop(Array) private databaseList!: string[];
   @Prop(Array) private tableList!: string[];
   @Prop(String) private currentTable!: string;
@@ -92,6 +97,16 @@ export default class SidebarTables extends Vue {
 
 .el-select
   width 100%
+
+.edit
+  margin-left 10px
+  display flex
+  justify-content flex-end
+  align-items center
+
+.edit:hover
+  color #00d986
+  cursor pointer
 
 .list-item
   background #121820
