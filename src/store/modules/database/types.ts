@@ -16,7 +16,6 @@ export interface SubmitForm {
   configs: DbConfigs;
   name: string;
   color: string;
-  port: string;
   createdAt: number;
 }
 

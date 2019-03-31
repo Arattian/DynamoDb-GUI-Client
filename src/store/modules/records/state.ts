@@ -13,8 +13,6 @@ const state: RecordModuleState = {
   limit: 15,
   lastEvaluatedKeyIndex: 0,
   evaluatedKeys: [],
-  sortBy: '',
-  sortOrder: true,
   selectedRows: [],
   groupDelete: [],
   retry: 0,
@@ -23,7 +21,7 @@ const state: RecordModuleState = {
     filterExpr: '=',
     filterValue: '',
     valueType: '',
-    types: ['number', 'string', 'isNull'],
+    types: ['number', 'string', 'isNull', 'boolean'],
     expressions: ['=', '!=', '<', '>', '<=', '>='],
   },
 };

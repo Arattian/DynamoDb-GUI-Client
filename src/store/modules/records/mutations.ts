@@ -21,14 +21,6 @@ function setFilterStatus(state: RecordModuleState) {
   state.filtered = true;
 }
 
-function setSortBy(state: RecordModuleState, val: string) {
-  state.sortBy = val;
-}
-
-function setSortOrder(state: RecordModuleState, val: boolean) {
-  state.sortOrder = val;
-}
-
 function setGroupDeleteItems(state: RecordModuleState, val: any) {
   state.groupDelete = val;
   state.retry++;
@@ -125,6 +117,10 @@ function changeFilterValueType(state: RecordModuleState) {
     case 'null':
       state.filterParams.filterValue = null;
       break;
+    case 'boolean':
+      state.filterParams.filterValue =
+        state.filterParams.filterValue === state.filterParams.filterValue;
+      break;
   }
 }
 
@@ -142,6 +138,13 @@ function setFilterValueType(state: RecordModuleState, valueType: string) {
       }
       state.filterParams.expressions = ['=', '!='];
       state.filterParams.filterValue = null;
+      break;
+    case 'boolean':
+      if (state.filterParams.filterExpr !== '<>') {
+        state.filterParams.filterExpr = '=';
+      }
+      state.filterParams.expressions = ['=', '!='];
+      state.filterParams.filterValue = true;
       break;
   }
 }
@@ -190,15 +193,13 @@ function initialState(state: RecordModuleState) {
   state.header = [];
   state.evaluatedKeys = [];
   state.lastEvaluatedKeyIndex = 0;
-  state.sortBy = '';
-  state.sortOrder = true;
   state.selectedRows = [];
   state.filterParams = {
     filterColumn: '',
     filterExpr: '=',
     filterValue: '',
     valueType: '',
-    types: ['number', 'string', 'null'],
+    types: ['number', 'string', 'null', 'boolean'],
     expressions: ['=', '!=', '<', '>', '<=', '>='],
   };
 }
@@ -243,8 +244,6 @@ const mutations: MutationTree<RecordModuleState> = {
   changeFilterValueType,
   setNotEqualExpr,
   setFilterStatus,
-  setSortBy,
-  setSortOrder,
   selectRows,
 };
 

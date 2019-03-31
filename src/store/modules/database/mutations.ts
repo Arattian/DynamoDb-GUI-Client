@@ -1,20 +1,22 @@
 import { MutationTree } from 'vuex';
-import { DatabaseModuleState } from './types';
+import { DatabaseModuleState, SingleDatabaseModuleState } from './types';
 
 function setToDefault(state: DatabaseModuleState) {
   state.submitForm.configs = {
     accessKeyId: '',
     secretAccessKey: '',
     region: '',
-    endpoint: '',
+    endpoint: 'http://localhost:',
     maxRetries: 1,
     dynamoDbCrc32: false,
   };
-  state.submitForm.port = '';
   state.submitForm.name = 'Database ' + (state.list.length + 1);
 }
 
-function setDbList(state: DatabaseModuleState, newDbList: any) {
+function setDbList(
+  state: DatabaseModuleState,
+  newDbList: SingleDatabaseModuleState[],
+) {
   state.list = newDbList;
 }
 
@@ -29,9 +31,6 @@ function correctInputs(state: DatabaseModuleState, serviceType: string) {
       break;
     case 'local':
       state.submitForm.configs.region = 'localhost';
-      state.submitForm.configs.endpoint = `http://localhost:${
-        state.submitForm.port
-      }`;
       state.submitForm.configs.accessKeyId = Math.random()
         .toString(36)
         .substring(7);

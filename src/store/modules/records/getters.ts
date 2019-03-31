@@ -9,25 +9,7 @@ const keys = (state: RecordModuleState) => {
   };
 };
 
-const tableDataPage = (state: RecordModuleState) => {
-  if (state.sortBy) {
-    state.data.sort((a, b) => {
-      if (!a[state.sortBy] || a[state.sortBy] === 'null') {
-        return -1;
-      } else if (a[state.sortBy] < b[state.sortBy]) {
-        return -1;
-      } else if (a[state.sortBy] > b[state.sortBy]) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-    if (state.sortOrder) {
-      state.data.reverse();
-    }
-  }
-  return state.data;
-};
+const tableDataPage = (state: RecordModuleState) => state.data;
 
 const getKeys = (state: RecordModuleState) => (_: any, cb: any) => {
   return cb(

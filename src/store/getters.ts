@@ -2,7 +2,7 @@ import { RootState } from './types';
 import { GetterTree } from 'vuex';
 
 const filteredTables = (state: RootState) => {
-  return state.tables.filter((table: any) => {
+  return state.tables.filter((table: string) => {
     if (table.includes(state.filterText)) {
       return table;
     }

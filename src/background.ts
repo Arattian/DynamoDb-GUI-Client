@@ -1,5 +1,3 @@
-'use strict';
-
 import { app, protocol, BrowserWindow, shell, Menu } from 'electron';
 import defaultMenu from 'electron-default-menu';
 import {

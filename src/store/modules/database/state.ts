@@ -31,7 +31,6 @@ const state: DatabaseModuleState = {
       maxRetries: 1,
       dynamoDbCrc32: false,
     },
-    port: '',
     name: '',
     color: '#00f97c',
     createdAt: +new Date(),
