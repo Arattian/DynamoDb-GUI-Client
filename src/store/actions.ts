@@ -15,7 +15,7 @@ async function getDbTables(
 ) {
   let data;
   try {
-    data = await state.dbInstance.listTables().promise();
+    data = await getTablesPaginated(state);
   } catch (err) {
     commit('showResponse', err);
     return;
@@ -27,6 +27,21 @@ async function getDbTables(
     commit('setTableNames', data.TableNames);
     tableToGet && dispatch('getCurrentTable', tableToGet);
   }
+}
+
+async function getTablesPaginated(state: any) {
+  const params: any = {};
+  const data: { TableNames: string[] } = { TableNames: [] };
+  do {
+    const chunk = await state.dbInstance.listTables(params).promise();
+    if (chunk.LastEvaluatedTableName) {
+      params.ExclusiveStartTableName = chunk.LastEvaluatedTableName;
+    } else {
+      delete params.ExclusiveStartTableName;
+    }
+    data.TableNames = [...data.TableNames, ...chunk.TableNames];
+  } while (params.ExclusiveStartTableName);
+  return data;
 }
 
 function deleteTableFromStore(
