@@ -18,6 +18,19 @@
         "maintenance",
         "code"
       ]
+    },
+    {
+      "login": "gevorggalstyan",
+      "name": "Gevorg A. Galstyan",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2598355?v=4",
+      "profile": "https://github.com/gevorggalstyan",
+      "contributions": [
+        "ideas",
+        "infra",
+        "maintenance",
+        "talk",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
