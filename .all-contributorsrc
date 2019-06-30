@@ -1,0 +1,28 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "Arattian",
+      "name": "Misak Poghosyan",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/36269636?v=4",
+      "profile": "https://github.com/Arattian",
+      "contributions": [
+        "infra",
+        "test",
+        "talk",
+        "tool",
+        "maintenance",
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "DynamoDb-GUI-Client",
+  "projectOwner": "Arattian",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
