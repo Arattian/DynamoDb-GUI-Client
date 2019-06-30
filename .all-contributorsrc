@@ -18,6 +18,15 @@
         "maintenance",
         "code"
       ]
+    },
+    {
+      "login": "valonhaliti",
+      "name": "Valon Haliti",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/11477837?v=4",
+      "profile": "https://valonhaliti.github.io",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
