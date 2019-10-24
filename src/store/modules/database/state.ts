@@ -21,6 +21,7 @@ const state: DatabaseModuleState = {
     'eu-west-2',
     'eu-west-3',
     'sa-east-1',
+    'me-south-1',
   ],
   submitForm: {
     configs: {
