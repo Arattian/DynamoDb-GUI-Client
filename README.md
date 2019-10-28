@@ -39,7 +39,7 @@ npm start
 
 ```bash
 git clone https://github.com/Arattian/DynamoDb-GUI-Client.git
-cd Dynamodb-GUI-Client
+cd DynamoDb-GUI-Client
 npm i
 # Electron application build(This will build app for your OS)
 npm run electron:build
