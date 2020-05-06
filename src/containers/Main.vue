@@ -38,7 +38,7 @@ const namespace: string = 'database';
   },
 })
 export default class Main extends Vue {
-  public $notify: any = this.$notify;
+  public $notify: any;
   private activeTab: string = 'records';
   @Getter private currentDb!: string;
   @Getter private currentTable!: string;
