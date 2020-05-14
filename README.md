@@ -1,5 +1,9 @@
 # DynamoDb-GUI-Client
 
+### (This project is no longer supported)
+First, of all, I really appreciate the work of everyone who contributed to this project so far. This was really challenging and interesting project for me when I get my first job in programming. Unfortunately due to the lack of time and loss of personal interest on this, I will no longer contribute to this project. Thank you very much for supporting me and for every star given to this project. Also, I want to share with you the app that I just saw for database management directly from AWS development team, give it a try they did a good job [NoSQL Workbench](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.settingup.html). 
+Sincerely yours [Arattian::LinkedIn](https://www.linkedin.com/in/misakpoghosyan/)
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 
 ## Cross-platform GUI client for DynamoDb
