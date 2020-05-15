@@ -17,7 +17,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator';
 @Component
 export default class SidebarDatabases extends Vue {
-  public $confirm: any = this.$confirm;
+  public $confirm: any;
   @Prop(Function) private removeHandler: any;
   @Prop(Function) private elementHandler: any;
   @Prop(Array) private databaseList!: any[];
