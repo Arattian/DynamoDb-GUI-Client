@@ -38,7 +38,7 @@ const namespace: string = 'database';
   },
 })
 export default class Main extends Vue {
-  public $notify: any = this.$notify;
+  // public $notify: any = this.$notify;
   private activeTab: string = 'records';
   @Getter private currentDb!: string;
   @Getter private currentTable!: string;
@@ -51,7 +51,7 @@ export default class Main extends Vue {
   @Mutation('setToDefault', { namespace }) private setToDefault: any;
   private updated() {
     if (this.response.message) {
-      this.$notify({
+      Vue.prototype.$notify({
         title: this.response.title,
         message: this.response.message,
         type: this.response.type,
