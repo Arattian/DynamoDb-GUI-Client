@@ -186,7 +186,7 @@ async function getRecords(
           [':' + state.filterParams.filterColumn + '1']: state.filterParams
             .filterValue,
         },
-        ...params,
+        // ...params,
       })
       .promise();
   } catch (err) {
